@@ -1,0 +1,76 @@
+{% extends 'crm_app/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">{{ title }}</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="id_client" class="form-label">Клиент</label>
+                        {{ form.client }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_vehicle" class="form-label">Автомобиль</label>
+                        {{ form.vehicle }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_reminder_type" class="form-label">Тип напоминания</label>
+                        {{ form.reminder_type }}
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="id_last_service_date" class="form-label">Дата последнего обслуживания</label>
+                                {{ form.last_service_date }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="id_last_service_mileage" class="form-label">Пробег при последнем обслуживании</label>
+                                {{ form.last_service_mileage }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="id_interval_days" class="form-label">Интервал (дни)</label>
+                                {{ form.interval_days }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="id_interval_km" class="form-label">Интервал (км)</label>
+                                {{ form.interval_km }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="id_scheduled_date" class="form-label">Дата планируемой отправки</label>
+                        {{ form.scheduled_date }}
+                    </div>
+                    
+                    <div class="mb-3 form-check">
+                        {{ form.consent_given }}
+                        <label for="id_consent_given" class="form-check-label">Клиент дал согласие на получение напоминаний</label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                    <a href="{% url 'crm_app:reminder_list' %}" class="btn btn-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

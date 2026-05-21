@@ -1,0 +1,83 @@
+{% extends 'crm_app/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>{{ client.last_name }} {{ client.first_name }} {{ client.middle_name }}</h1>
+    <div>
+        <a href="{% url 'crm_app:client_edit' client.id %}" class="btn btn-warning">Редактировать</a>
+        <a href="{% url 'crm_app:client_list' %}" class="btn btn-secondary">Назад</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">Контактные данные</div>
+            <div class="card-body">
+                <p><strong>Телефон:</strong> {{ client.phone }}</p>
+                <p><strong>Email:</strong> {{ client.email }}</p>
+                <p><strong>Адрес:</strong> {{ client.address|default:"Не указан" }}</p>
+                <p><strong>Дата регистрации:</strong> {{ client.registration_date|date:"d.m.Y" }}</p>
+                <p><strong>Комментарии:</strong> {{ client.comments|default:"Нет" }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header bg-info text-white">Автомобили</div>
+            <div class="card-body">
+                {% if vehicles %}
+                <ul class="list-group">
+                    {% for vehicle in vehicles %}
+                    <li class="list-group-item">{{ vehicle.brand }} {{ vehicle.model }} ({{ vehicle.year }}) - VIN: {{ vehicle.vin|default:"не указан" }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Автомобили не добавлены</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-success text-white">История заказов</div>
+    <div class="card-body">
+        {% if orders %}
+        <table class="table table-striped">
+            <thead>
+                <tr><th>№</th><th>Дата</th><th>Статус</th><th>Сумма</th></tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.order_date|date:"d.m.Y" }}</td>
+                    <td>{{ order.get_status_display }}</td>
+                    <td>{{ order.total_amount }} руб.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Заказов нет</p>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header bg-warning text-white">Сервисные напоминания</div>
+    <div class="card-body">
+        {% if reminders %}
+        <ul class="list-group">
+            {% for reminder in reminders %}
+            <li class="list-group-item">{{ reminder.get_reminder_type_display }} - {{ reminder.scheduled_date|date:"d.m.Y" }} ({{ reminder.get_status_display }})</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p>Нет напоминаний</p>
+        {% endif %}
+        <a href="{% url 'crm_app:reminder_create' %}" class="btn btn-sm btn-primary mt-3">+ Добавить напоминание</a>
+    </div>
+</div>
+{% endblock %}

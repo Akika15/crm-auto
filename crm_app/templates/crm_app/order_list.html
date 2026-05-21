@@ -1,0 +1,35 @@
+{% extends 'crm_app/base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Заказы</h1>
+    <a href="{% url 'crm_app:order_create' %}" class="btn btn-primary">+ Новый заказ</a>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Клиент</th>
+            <th>Дата</th>
+            <th>Статус</th>
+            <th>Сумма</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.client.last_name }} {{ order.client.first_name }}</td>
+            <td>{{ order.order_date|date:"d.m.Y H:i" }}</td>
+            <td>{{ order.get_status_display }}</td>
+            <td>{{ order.total_amount }} руб.</td>
+            <td>
+                <a href="{% url 'crm_app:order_detail' order.id %}" class="btn btn-sm btn-info">Просмотр</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'crm_app/base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Панель управления</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">Новые клиенты</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for client in recent_clients %}
+                    <li class="list-group-item">{{ client.last_name }} {{ client.first_name }}</li>
+                    {% empty %}
+                    <li class="list-group-item">Нет новых клиентов</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">Последние заказы</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for order in recent_orders %}
+                    <li class="list-group-item">Заказ №{{ order.id }} - {{ order.get_status_display }}</li>
+                    {% empty %}
+                    <li class="list-group-item">Нет заказов</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-white">Ближайшие напоминания</div>
+            <div class="card-body">
+                <ul class="list-group">
+                    {% for reminder in pending_reminders %}
+                    <li class="list-group-item">{{ reminder.get_reminder_type_display }} - {{ reminder.client }}</li>
+                    {% empty %}
+                    <li class="list-group-item">Нет активных напоминаний</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
