@@ -1,0 +1,92 @@
+{% extends 'crm_app/base.html' %}
+
+{% block content %}
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-4 fw-bold text-body-emphasis">Добро пожаловать в CRM АвтоКомплект</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead mb-4">
+            Ваш надежный помощник в мире автомобильных запчастей. 
+            Управляйте заказами, отслеживайте историю покупок 
+            и получайте своевременные напоминания о сервисном обслуживании.
+        </p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a href="{% url 'crm_app:register' %}" class="btn btn-primary btn-lg px-4 gap-3">Зарегистрироваться</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg px-4">Войти</a>
+        </div>
+    </div>
+</div>
+
+<div class="container px-4 py-5">
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="col d-flex align-items-start">
+            <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-car-front" viewBox="0 0 16 16">
+                    <path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6Z"/>
+                    <path d="M4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17 1.247 0 2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276Z"/>
+                    <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.36a2.5 2.5 0 0 1 2.3 1.515l1.04 2.08A2.5 2.5 0 0 1 15 6.72V11a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H4v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6.72a2.5 2.5 0 0 1 .48-1.515l1.04-2.08Zm1.44.53a1.5 1.5 0 0 1 1.38-.91h6.36a1.5 1.5 0 0 1 1.38.91l1.04 2.08a1.5 1.5 0 0 1 .28.87V10h-1v-1a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v1H2V6.72a1.5 1.5 0 0 1 .28-.87l1.04-2.08Z"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="fs-2 text-body-emphasis">Удобный подбор запчастей</h3>
+                <p>Быстрый поиск по артикулу, марке автомобиля или VIN-коду. То, что нужно, всегда под рукой.</p>
+            </div>
+        </div>
+        <div class="col d-flex align-items-start">
+            <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
+                    <path d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022l-.074.997zm2.004.45a7.003 7.003 0 0 0-.985-.299l.219-.976c.383.086.76.2 1.126.342l-.36.933zm1.37.71a7.01 7.01 0 0 0-.439-.27l.493-.87a8.025 8.025 0 0 1 .979.654l-.615.789a6.996 6.996 0 0 0-.418-.302zm1.834 1.79a6.99 6.99 0 0 0-.653-.796l.724-.69c.27.285.52.59.75.911l-.821.575zm.743 1.352a7.08 7.08 0 0 0-.214-.468l.893-.45a7.976 7.976 0 0 1 .45 1.024l-.902.47a6.99 6.99 0 0 0-.227-.576zM1.019 8.515A7 7 0 0 0 1 8H0a8 8 0 0 1 .022-.589l.997.074zm.45 2.004a7.003 7.003 0 0 0 .299.985l-.976.219c-.086-.383-.2-.76-.342-1.126l.933-.36zm.71 1.37a7.01 7.01 0 0 0 .27.439l-.87.493a8.025 8.025 0 0 1-.654-.979l.789-.615c.09.14.182.28.302.418z"/>
+                    <path d="M8 4.5a.5.5 0 0 1 .5.5v3.5h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5V5a.5.5 0 0 1 .5-.5z"/>
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="fs-2 text-body-emphasis">История заказов</h3>
+                <p>Все ваши покупки в одном месте. Легко повторить заказ или отследить статус.</p>
+            </div>
+        </div>
+        <div class="col d-flex align-items-start">
+            <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="fs-2 text-body-emphasis">Сервисные напоминания</h3>
+                <p>Не пропустите срок замены масла, фильтров или колодок. Мы напомним вовремя.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-body-tertiary py-5">
+    <div class="container text-center">
+        <h2 class="mb-4">Почему выбирают нас?</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">✅ Быстрая обработка заказов</h5>
+                        <p class="card-text">Заказы обрабатываются в день оформления. Доставка по городу в течение 2-3 часов.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">🔧 Огромный выбор запчастей</h5>
+                        <p class="card-text">Более 50 000 наименований в наличии. Оригинальные и качественные аналоги.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">👨‍🔧 Помощь с подбором</h5>
+                        <p class="card-text">Наши менеджеры всегда готовы помочь подобрать правильную деталь по VIN-коду.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
