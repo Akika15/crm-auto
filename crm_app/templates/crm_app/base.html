@@ -19,18 +19,21 @@
                         <a class="nav-link" href="{% url 'crm_app:dashboard' %}">Главная</a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'crm_app:client_list' %}">Клиенты</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'crm_app:order_list' %}">Заказы</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'crm_app:reminder_list' %}">Напоминания</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'crm_app:profile' %}">Мой профиль</a>
-                    </li>
+                        {% if user.is_staff %}
+                            <!-- Администратор видит все пункты -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'crm_app:client_list' %}">Клиенты</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'crm_app:order_list' %}">Заказы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'crm_app:reminder_list' %}">Напоминания</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'crm_app:profile' %}">Мой профиль</a>
+                        </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav ms-auto">
