@@ -92,11 +92,14 @@
 
 {% else %}
     <!-- ========== ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ (КЛИЕНТ) ========== -->
-    <div class="row">
-        <!-- Приветственная карточка с изображением -->
-        <div class="col-12 mb-4">
-            <div class="card bg-dark text-white">
-                <img src="https://cdn.pixabay.com/photo/2016/04/01/12/08/car-1300629_1280.png" class="card-img" alt="Автомобиль" style="opacity: 0.7; height: 200px; object-fit: cover;">
+    
+    <!-- Приветственная карточка с изображением автомобиля -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-dark text-white border-0 overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1200&h=300&fit=crop" 
+                     class="card-img" alt="Автомобиль" 
+                     style="height: 200px; object-fit: cover; opacity: 0.7;">
                 <div class="card-img-overlay d-flex flex-column justify-content-center">
                     <h2 class="card-title">Добро пожаловать, {{ user.username }}!</h2>
                     <p class="card-text">Здесь вы можете управлять своими заказами, автомобилями и сервисными напоминаниями.</p>
@@ -197,4 +200,3 @@
         </div>
     </div>
 {% endif %}
-{% endblock %}
