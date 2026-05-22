@@ -5,6 +5,7 @@ from django.contrib.auth import login
 from .models import Client, Vehicle, Order, Product, ServiceReminder
 from .forms import ClientForm, OrderForm, ReminderForm, VehicleForm
 from datetime import datetime
+from .models import Client, Vehicle, Order, Product, ServiceReminder, OrderItem
 
 def dashboard(request):
     if request.user.is_authenticated:
@@ -124,21 +125,48 @@ def order_create(request):
         client = request.user.client
     except:
         return redirect('crm_app:profile')
-
+    
+    # Получаем автомобили клиента
+    vehicles = Vehicle.objects.filter(client=client)
+    
+    # Получаем все товары (запчасти)
+    products = Product.objects.all().order_by('category', 'name')[:100]  # показываем первые 100
+    
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
             order = form.save(commit=False)
             order.manager = request.user
+            order.total_amount = 0  # временно
             order.save()
+            
+            # Добавляем товар в заказ (упрощённо)
+            product_id = request.POST.get('product')
+            quantity = int(request.POST.get('quantity', 1))
+            if product_id:
+                product = Product.objects.get(id=product_id)
+                OrderItem.objects.create(
+                    order=order,
+                    product=product,
+                    quantity=quantity,
+                    price_at_moment=product.retail_price
+                )
+                order.total_amount = product.retail_price * quantity
+                order.save()
+            
             return redirect('crm_app:order_detail', pk=order.pk)
     else:
         form = OrderForm(initial={'client': client})
         form.fields['client'].queryset = Client.objects.filter(id=client.id)
-        form.fields['vehicle'].queryset = Vehicle.objects.filter(client=client)
-
-    return render(request, 'crm_app/order_form.html', {'form': form, 'title': 'Новый заказ'})
-
+        form.fields['vehicle'].queryset = vehicles
+    
+    context = {
+        'form': form,
+        'title': 'Новый заказ',
+        'vehicles': vehicles,
+        'products': products,
+    }
+    return render(request, 'crm_app/order_form.html', context)
 @login_required
 def reminder_list(request):
     try:

@@ -45,6 +45,8 @@ class Product(models.Model):
     manufacturer = models.CharField('Производитель', max_length=100, blank=True, null=True)
     retail_price = models.DecimalField('Розничная цена', max_digits=10, decimal_places=2)
     stock_quantity = models.IntegerField('Остаток на складе', default=0)
+    compatible_brands = models.TextField(blank=True, null=True, verbose_name='Совместимые марки (через запятую)')
+    compatible_models = models.TextField(blank=True, null=True, verbose_name='Совместимые модели (через запятую)')
 
     def __str__(self):
         return f'{self.article} - {self.name}'

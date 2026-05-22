@@ -24,6 +24,29 @@
                     </div>
                     
                     <div class="mb-3">
+                        <label class="form-label">Товар</label>
+                        <select name="product" class="form-control" id="productSelect">
+                            <option value="">-- Выберите товар --</option>
+                            {% for product in products %}
+                            <option value="{{ product.id }}" data-price="{{ product.retail_price }}">
+                                {{ product.name }} - {{ product.manufacturer }} ({{ product.retail_price }} руб.)
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <small class="text-muted">Выберите запчасть для вашего автомобиля</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Количество</label>
+                        <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Общая сумма</label>
+                        <input type="text" id="totalPrice" class="form-control" readonly value="0 руб.">
+                    </div>
+                    
+                    <div class="mb-3">
                         <label class="form-label">Статус</label>
                         {{ form.status }}
                     </div>
@@ -60,4 +83,25 @@
         </div>
     </div>
 </div>
+
+<script>
+    const productSelect = document.getElementById('productSelect');
+    const quantityInput = document.getElementById('quantity');
+    const totalPriceSpan = document.getElementById('totalPrice');
+    
+    function updateTotal() {
+        const selectedOption = productSelect.options[productSelect.selectedIndex];
+        const price = selectedOption.getAttribute('data-price');
+        const quantity = parseInt(quantityInput.value) || 0;
+        if (price && quantity > 0) {
+            const total = parseFloat(price) * quantity;
+            totalPriceSpan.value = total.toFixed(2) + ' руб.';
+        } else {
+            totalPriceSpan.value = '0 руб.';
+        }
+    }
+    
+    productSelect.addEventListener('change', updateTotal);
+    quantityInput.addEventListener('input', updateTotal);
+</script>
 {% endblock %}
