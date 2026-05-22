@@ -6,12 +6,12 @@ class Client(models.Model):
     last_name = models.CharField('Фамилия', max_length=50, blank=True, null=True)
     first_name = models.CharField('Имя', max_length=50, blank=True, null=True)
     middle_name = models.CharField('Отчество', max_length=50, blank=True, null=True)
-    phone = models.CharField('Телефон', max_length=20, blank=True, null=True, unique=True)
-    email = models.EmailField('Email', blank=True, null=True, unique=True)
+    phone = models.CharField('Телефон', max_length=20, blank=True, null=True, unique=False)
+    email = models.EmailField('Email', blank=True, null=True, unique=False)
     address = models.TextField('Адрес', blank=True, null=True)
     registration_date = models.DateField('Дата регистрации', auto_now_add=True)
     comments = models.TextField('Комментарии', blank=True, null=True)
-    
+
     def __str__(self):
         return f'{self.last_name} {self.first_name}'
 
