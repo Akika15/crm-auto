@@ -1,18 +1,26 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 from .models import Client, Vehicle, Order, Product, ServiceReminder
 from .forms import ClientForm, OrderForm, ReminderForm
 from datetime import datetime
 
-# Главная страница (дашборд)
 @login_required
 def dashboard(request):
-    recent_clients = Client.objects.all().order_by('-registration_date')[:5]
-    recent_orders = Order.objects.all().order_by('-order_date')[:5]
-    pending_reminders = ServiceReminder.objects.filter(
-        status='pending', 
-        scheduled_date__lte=datetime.now().date()
-    )[:5]
+    try:
+        client = request.user.client
+        recent_orders = Order.objects.filter(client=client).order_by('-order_date')[:5]
+        pending_reminders = ServiceReminder.objects.filter(
+            client=client, status='pending', scheduled_date__lte=datetime.now().date()
+        )[:5]
+        recent_clients = []
+    except:
+        recent_clients = Client.objects.all().order_by('-registration_date')[:5]
+        recent_orders = Order.objects.all().order_by('-order_date')[:5]
+        pending_reminders = ServiceReminder.objects.filter(
+            status='pending', scheduled_date__lte=datetime.now().date()
+        )[:5]
     
     context = {
         'recent_clients': recent_clients,
@@ -21,16 +29,25 @@ def dashboard(request):
     }
     return render(request, 'crm_app/dashboard.html', context)
 
-# Список всех клиентов
 @login_required
 def client_list(request):
-    clients = Client.objects.all().order_by('last_name')
+    try:
+        client = request.user.client
+        clients = Client.objects.filter(id=client.id)
+    except:
+        clients = Client.objects.all().order_by('last_name')
     return render(request, 'crm_app/client_list.html', {'clients': clients})
 
-# Карточка клиента (с его автомобилями и историей заказов)
 @login_required
 def client_detail(request, pk):
-    client = get_object_or_404(Client, pk=pk)
+    try:
+        current_client = request.user.client
+        if current_client.id != pk:
+            return redirect('crm_app:client_list')
+        client = current_client
+    except:
+        client = get_object_or_404(Client, pk=pk)
+    
     vehicles = client.vehicles.all()
     orders = client.orders.all().order_by('-order_date')
     reminders = client.reminders.all().order_by('-scheduled_date')
@@ -43,9 +60,14 @@ def client_detail(request, pk):
     }
     return render(request, 'crm_app/client_detail.html', context)
 
-# Добавление нового клиента
 @login_required
 def client_create(request):
+    try:
+        request.user.client
+        return redirect('crm_app:client_list')
+    except:
+        pass
+    
     if request.method == 'POST':
         form = ClientForm(request.POST)
         if form.is_valid():
@@ -55,9 +77,14 @@ def client_create(request):
         form = ClientForm()
     return render(request, 'crm_app/client_form.html', {'form': form, 'title': 'Добавление клиента'})
 
-# Редактирование клиента
 @login_required
 def client_edit(request, pk):
+    try:
+        request.user.client
+        return redirect('crm_app:client_list')
+    except:
+        pass
+    
     client = get_object_or_404(Client, pk=pk)
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
@@ -68,19 +95,26 @@ def client_edit(request, pk):
         form = ClientForm(instance=client)
     return render(request, 'crm_app/client_form.html', {'form': form, 'title': 'Редактирование клиента'})
 
-# Список всех заказов
 @login_required
 def order_list(request):
-    orders = Order.objects.all().order_by('-order_date')
+    try:
+        client = request.user.client
+        orders = Order.objects.filter(client=client).order_by('-order_date')
+    except:
+        orders = Order.objects.all().order_by('-order_date')
     return render(request, 'crm_app/order_list.html', {'orders': orders})
 
-# Детали заказа
 @login_required
 def order_detail(request, pk):
     order = get_object_or_404(Order, pk=pk)
+    try:
+        client = request.user.client
+        if client.id != order.client.id:
+            return redirect('crm_app:order_list')
+    except:
+        pass
     return render(request, 'crm_app/order_detail.html', {'order': order})
 
-# Создание нового заказа
 @login_required
 def order_create(request):
     if request.method == 'POST':
@@ -94,13 +128,15 @@ def order_create(request):
         form = OrderForm()
     return render(request, 'crm_app/order_form.html', {'form': form, 'title': 'Новый заказ'})
 
-# Список сервисных напоминаний
 @login_required
 def reminder_list(request):
-    reminders = ServiceReminder.objects.all().order_by('scheduled_date')
+    try:
+        client = request.user.client
+        reminders = ServiceReminder.objects.filter(client=client).order_by('scheduled_date')
+    except:
+        reminders = ServiceReminder.objects.all().order_by('scheduled_date')
     return render(request, 'crm_app/reminder_list.html', {'reminders': reminders})
 
-# Создание напоминания
 @login_required
 def reminder_create(request):
     if request.method == 'POST':
@@ -111,3 +147,21 @@ def reminder_create(request):
     else:
         form = ReminderForm()
     return render(request, 'crm_app/reminder_form.html', {'form': form, 'title': 'Новое напоминание'})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            Client.objects.create(
+                user=user,
+                last_name=user.username,
+                first_name='',
+                phone='',
+                email=user.email
+            )
+            return redirect('crm_app:dashboard')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})

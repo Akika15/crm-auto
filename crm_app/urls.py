@@ -14,4 +14,5 @@ urlpatterns = [
     path('orders/create/', views.order_create, name='order_create'),
     path('reminders/', views.reminder_list, name='reminder_list'),
     path('reminders/create/', views.reminder_create, name='reminder_create'),
+    path('register/', views.register, name='register'),
 ]
