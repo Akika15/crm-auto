@@ -93,14 +93,11 @@
 {% else %}
     <!-- ========== ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ (КЛИЕНТ) ========== -->
     
-    <!-- Приветственная карточка с изображением автомобиля -->
+    <!-- Приветственная карточка (без изображения автомобиля) -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card bg-dark text-white border-0 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1200&h=300&fit=crop" 
-                     class="card-img" alt="Автомобиль" 
-                     style="height: 200px; object-fit: cover; opacity: 0.7;">
-                <div class="card-img-overlay d-flex flex-column justify-content-center">
+            <div class="card bg-primary text-white border-0">
+                <div class="card-body text-center py-4">
                     <h2 class="card-title">Добро пожаловать, {{ user.username }}!</h2>
                     <p class="card-text">Здесь вы можете управлять своими заказами, автомобилями и сервисными напоминаниями.</p>
                 </div>
@@ -178,15 +175,15 @@
                                 <tbody>
                                     {% for vehicle in user.client.vehicles.all %}
                                     <tr>
-                                        <td>{{ vehicle.brand }}</td>
-                                        <td>{{ vehicle.model }}</td>
-                                        <td>{{ vehicle.year }}</td>
-                                        <td>{{ vehicle.license_plate|default:"не указан" }}</td>
+                                        <td>{{ vehicle.brand }}</a></td>
+                                        <td>{{ vehicle.model }}</a></td>
+                                        <td>{{ vehicle.year }}</a></td>
+                                        <td>{{ vehicle.license_plate|default:"не указан" }}</a></td>
                                         <td>
                                             <a href="{% url 'crm_app:vehicle_edit' vehicle.id %}" class="btn btn-sm btn-warning">✏️</a>
                                             <a href="{% url 'crm_app:vehicle_delete' vehicle.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Удалить автомобиль?')">🗑️</a>
-                                        </td>
-                                    </tr>
+                                        </a></td>
+                                    </a></tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
@@ -200,5 +197,3 @@
         </div>
     </div>
 {% endif %}
-
-{% endblock %}
