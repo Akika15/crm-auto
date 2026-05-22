@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from .models import Client, Vehicle, Order, Product, ServiceReminder
-from .forms import ClientForm, OrderForm, ReminderForm
+from .forms import ClientForm, OrderForm, ReminderForm, VehicleForm
 from datetime import datetime
 
 @login_required
@@ -21,7 +21,7 @@ def dashboard(request):
         pending_reminders = ServiceReminder.objects.filter(
             status='pending', scheduled_date__lte=datetime.now().date()
         )[:5]
-    
+
     context = {
         'recent_clients': recent_clients,
         'recent_orders': recent_orders,
@@ -47,11 +47,11 @@ def client_detail(request, pk):
         client = current_client
     except:
         client = get_object_or_404(Client, pk=pk)
-    
+
     vehicles = client.vehicles.all()
     orders = client.orders.all().order_by('-order_date')
     reminders = client.reminders.all().order_by('-scheduled_date')
-    
+
     context = {
         'client': client,
         'vehicles': vehicles,
@@ -67,7 +67,7 @@ def client_create(request):
         return redirect('crm_app:client_list')
     except:
         pass
-    
+
     if request.method == 'POST':
         form = ClientForm(request.POST)
         if form.is_valid():
@@ -84,7 +84,7 @@ def client_edit(request, pk):
         return redirect('crm_app:client_list')
     except:
         pass
-    
+
     client = get_object_or_404(Client, pk=pk)
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
@@ -121,7 +121,7 @@ def order_create(request):
         client = request.user.client
     except:
         return redirect('crm_app:profile')
-    
+
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -130,12 +130,12 @@ def order_create(request):
             order.save()
             return redirect('crm_app:order_detail', pk=order.pk)
     else:
-        # Ограничиваем выбор клиентом только текущего пользователя
         form = OrderForm(initial={'client': client})
         form.fields['client'].queryset = Client.objects.filter(id=client.id)
         form.fields['vehicle'].queryset = Vehicle.objects.filter(client=client)
-    
+
     return render(request, 'crm_app/order_form.html', {'form': form, 'title': 'Новый заказ'})
+
 @login_required
 def reminder_list(request):
     try:
@@ -173,12 +173,12 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
-    @login_required
+
+@login_required
 def profile(request):
     try:
         client = request.user.client
     except:
-        # Если у пользователя нет связанного клиента, создаём
         client = Client.objects.create(
             user=request.user,
             last_name=request.user.username,
@@ -186,7 +186,7 @@ def profile(request):
             phone='',
             email=request.user.email
         )
-    
+
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
         if form.is_valid():
@@ -194,22 +194,23 @@ def profile(request):
             return redirect('crm_app:profile')
     else:
         form = ClientForm(instance=client)
-    
+
     vehicles = client.vehicles.all()
-    
+
     context = {
         'form': form,
         'client': client,
         'vehicles': vehicles,
     }
     return render(request, 'crm_app/profile.html', context)
-    @login_required
+
+@login_required
 def vehicle_add(request):
     try:
         client = request.user.client
     except:
         return redirect('crm_app:profile')
-    
+
     if request.method == 'POST':
         form = VehicleForm(request.POST)
         if form.is_valid():
@@ -228,7 +229,7 @@ def vehicle_edit(request, pk):
         vehicle = get_object_or_404(Vehicle, pk=pk, client=client)
     except:
         return redirect('crm_app:profile')
-    
+
     if request.method == 'POST':
         form = VehicleForm(request.POST, instance=vehicle)
         if form.is_valid():
