@@ -21,18 +21,16 @@ def dashboard(request):
             pending_reminders = ServiceReminder.objects.filter(
                 status='pending', scheduled_date__lte=datetime.now().date()
             )[:5]
-    else:
-        # Для неавторизованных гостей
-        recent_clients = []
-        recent_orders = []
-        pending_reminders = []
 
-    context = {
-        'recent_clients': recent_clients,
-        'recent_orders': recent_orders,
-        'pending_reminders': pending_reminders,
-    }
-    return render(request, 'crm_app/dashboard.html', context)
+        context = {
+            'recent_clients': recent_clients,
+            'recent_orders': recent_orders,
+            'pending_reminders': pending_reminders,
+        }
+        return render(request, 'crm_app/dashboard.html', context)
+    else:
+        # Гостевая страница
+        return render(request, 'crm_app/guest_home.html')
 
 @login_required
 def client_list(request):
