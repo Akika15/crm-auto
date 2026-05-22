@@ -2,35 +2,54 @@
 
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Клиенты</h1>
+    <h1><i class="bi bi-people"></i> Клиенты</h1>
     <a href="{% url 'crm_app:client_create' %}" class="btn btn-primary">+ Добавить клиента</a>
 </div>
 
-<table class="table table-striped table-bordered">
-    <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Фамилия</th>
-            <th>Имя</th>
-            <th>Телефон</th>
-            <th>Email</th>
-            <th>Действия</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for client in clients %}
-        <tr>
-            <td>{{ client.id }}</td>
-            <td>{{ client.last_name }}</td>
-            <td>{{ client.first_name }}</td>
-            <td>{{ client.phone }}</td>
-            <td>{{ client.email }}</td>
-            <td>
-                <a href="{% url 'crm_app:client_detail' client.id %}" class="btn btn-sm btn-info">Просмотр</a>
-                <a href="{% url 'crm_app:client_edit' client.id %}" class="btn btn-sm btn-warning">Редактировать</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+<div class="card mb-4">
+    <div class="card-body">
+        <input type="text" id="searchInput" class="form-control" placeholder="🔍 Поиск по фамилии, телефону или email...">
+    </div>
+</div>
+
+<div class="row" id="clientsContainer">
+    {% for client in clients %}
+    <div class="col-md-6 col-lg-4 mb-4 client-card">
+        <div class="card h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">{{ client.last_name }} {{ client.first_name }}</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>📞 Телефон:</strong> {{ client.phone|default:"Не указан" }}</p>
+                <p><strong>📧 Email:</strong> {{ client.email|default:"Не указан" }}</p>
+                <p><strong>🚗 Автомобилей:</strong> {{ client.vehicles.count }}</p>
+                <p><strong>📅 Регистрация:</strong> {{ client.registration_date|date:"d.m.Y" }}</p>
+            </div>
+            <div class="card-footer bg-white">
+                <a href="{% url 'crm_app:client_detail' client.id %}" class="btn btn-info btn-sm">Просмотр</a>
+                <a href="{% url 'crm_app:client_edit' client.id %}" class="btn btn-warning btn-sm">Редактировать</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="alert alert-info">Нет клиентов</div>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        let filter = this.value.toLowerCase();
+        let cards = document.querySelectorAll('.client-card');
+        cards.forEach(card => {
+            let text = card.textContent.toLowerCase();
+            if (text.includes(filter)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+</script>
 {% endblock %}
