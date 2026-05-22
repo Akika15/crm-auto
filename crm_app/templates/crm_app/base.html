@@ -42,11 +42,11 @@
                             <span class="nav-link">{{ user.username }}</span>
                         </li>
                         <li class="nav-item">
-                            <form action="{% url 'logout' %}" method="post" style="display: inline;">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0; color: rgba(255,255,255,.55);">Выход</button>
-                            </form>
-                        </li>
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0; color: rgba(255,255,255,.55);">Выход</button>
+    </form>
+ </li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Вход</a>
