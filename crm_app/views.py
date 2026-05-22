@@ -222,16 +222,12 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Создаём клиента, связанного с пользователем
             Client.objects.create(
                 user=user,
                 last_name=user.username,
                 first_name='',
-                middle_name='',
                 phone='',
-                email=user.email,
-                address='',
-                comments=''
+                email=user.email
             )
             login(request, user)
             return redirect('crm_app:dashboard')
