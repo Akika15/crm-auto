@@ -93,12 +93,16 @@
 {% else %}
     <!-- ========== ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ (КЛИЕНТ) ========== -->
     
+       <!-- Приветственная карточка с изображением автомобиля -->
     <div class="row mb-4">
         <div class="col-12">
-            <div class="card bg-primary text-white border-0">
-                <div class="card-body text-center py-4">
-                    <h2 class="card-title">Добро пожаловать, {{ user.username }}!</h2>
-                    <p class="card-text">Здесь вы можете управлять своими заказами, автомобилями и сервисными напоминаниями.</p>
+            <div class="card border-0 overflow-hidden rounded-4 shadow">
+                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=1200&h=250&fit=crop" 
+                     class="card-img" alt="Автомобиль" 
+                     style="height: 200px; object-fit: cover; width: 100%;">
+                <div class="card-img-overlay d-flex flex-column justify-content-center bg-dark bg-opacity-50">
+                    <h2 class="card-title text-white">Добро пожаловать, {{ user.username }}!</h2>
+                    <p class="card-text text-white">Здесь вы можете управлять своими заказами, автомобилями и сервисными напоминаниями.</p>
                 </div>
             </div>
         </div>
