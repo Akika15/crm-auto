@@ -92,6 +92,21 @@
 
 {% else %}
     <!-- ========== ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ (КЛИЕНТ) ========== -->
+    
+    <!-- Приветственная карточка -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-primary text-white border-0 shadow">
+                <div class="card-body text-center py-4">
+                    <div class="mb-3">
+                        <i class="bi bi-car-front-fill" style="font-size: 48px;"></i>
+                    </div>
+                    <h2 class="card-title">Добро пожаловать, {{ user.username }}!</h2>
+                    <p class="card-text">Здесь вы можете управлять своими заказами, автомобилями и сервисными напоминаниями.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-md-6 mb-4">
