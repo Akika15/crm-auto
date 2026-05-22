@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Client(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Пользователь')
     last_name = models.CharField('Фамилия', max_length=50)
     first_name = models.CharField('Имя', max_length=50)
     middle_name = models.CharField('Отчество', max_length=50, blank=True, null=True)
