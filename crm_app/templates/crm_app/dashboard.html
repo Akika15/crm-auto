@@ -93,7 +93,6 @@
 {% else %}
     <!-- ========== ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ (КЛИЕНТ) ========== -->
     
-    <!-- Приветственная карточка (без изображения автомобиля) -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card bg-primary text-white border-0">
@@ -182,11 +181,11 @@
                                         <td>
                                             <a href="{% url 'crm_app:vehicle_edit' vehicle.id %}" class="btn btn-sm btn-warning">✏️</a>
                                             <a href="{% url 'crm_app:vehicle_delete' vehicle.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Удалить автомобиль?')">🗑️</a>
-                                        </a></td>
+                                        </a></tr>
                                     </a></tr>
                                     {% endfor %}
                                 </tbody>
-                            </table>
+                            </td>
                         </div>
                     {% else %}
                         <p class="text-muted">У вас пока нет добавленных автомобилей</p>
@@ -197,3 +196,5 @@
         </div>
     </div>
 {% endif %}
+
+{% endblock %}
