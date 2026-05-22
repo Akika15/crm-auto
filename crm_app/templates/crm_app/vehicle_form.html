@@ -1,0 +1,48 @@
+{% extends 'crm_app/base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">{{ title }}</h3>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Марка</label>
+                        {{ form.brand }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Модель</label>
+                        {{ form.model }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Год выпуска</label>
+                        {{ form.year }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">VIN-код</label>
+                        {{ form.vin }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Госномер</label>
+                        {{ form.license_plate }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Объём двигателя (л)</label>
+                        {{ form.engine_volume }}
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Текущий пробег (км)</label>
+                        {{ form.current_mileage }}
+                    </div>
+                    <button type="submit" class="btn btn-success">Сохранить</button>
+                    <a href="{% url 'crm_app:profile' %}" class="btn btn-secondary">Отмена</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

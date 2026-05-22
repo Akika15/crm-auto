@@ -12,36 +12,48 @@
                     {% csrf_token %}
                     
                     <div class="mb-3">
-                        <label for="id_client" class="form-label">Клиент</label>
+                        <label class="form-label">Клиент</label>
                         {{ form.client }}
+                        <small class="text-muted">Заказ оформляется на вас</small>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="id_vehicle" class="form-label">Автомобиль</label>
+                        <label class="form-label">Автомобиль</label>
                         {{ form.vehicle }}
+                        <small class="text-muted">Выберите автомобиль из списка. Если его нет — добавьте в профиле</small>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="id_status" class="form-label">Статус</label>
+                        <label class="form-label">Статус</label>
                         {{ form.status }}
                     </div>
                     
                     <div class="mb-3">
-                        <label for="id_payment_method" class="form-label">Способ оплаты</label>
+                        <label class="form-label">Способ оплаты</label>
                         {{ form.payment_method }}
+                        <small class="text-muted">
+                            <strong>Подсказка:</strong> Наличные — оплата при получении, 
+                            Карта — онлайн или при получении, 
+                            Безналичный — для юридических лиц
+                        </small>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="id_delivery_method" class="form-label">Способ доставки</label>
+                        <label class="form-label">Способ доставки</label>
                         {{ form.delivery_method }}
+                        <small class="text-muted">
+                            <strong>Подсказка:</strong> Самовывоз — вы забираете заказ в магазине, 
+                            Доставка — курьер доставит по указанному адресу
+                        </small>
                     </div>
                     
                     <div class="mb-3">
-                        <label for="id_comments" class="form-label">Комментарии</label>
+                        <label class="form-label">Комментарии</label>
                         {{ form.comments }}
+                        <small class="text-muted">Укажите дополнительные пожелания</small>
                     </div>
                     
-                    <button type="submit" class="btn btn-success">Сохранить</button>
+                    <button type="submit" class="btn btn-success">Оформить заказ</button>
                     <a href="{% url 'crm_app:order_list' %}" class="btn btn-secondary">Отмена</a>
                 </form>
             </div>

@@ -44,3 +44,16 @@ class ReminderForm(forms.ModelForm):
             'scheduled_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'consent_given': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
+        class VehicleForm(forms.ModelForm):
+    class Meta:
+        model = Vehicle
+        fields = ['brand', 'model', 'year', 'vin', 'license_plate', 'engine_volume', 'current_mileage']
+        widgets = {
+            'brand': forms.TextInput(attrs={'class': 'form-control'}),
+            'model': forms.TextInput(attrs={'class': 'form-control'}),
+            'year': forms.NumberInput(attrs={'class': 'form-control'}),
+            'vin': forms.TextInput(attrs={'class': 'form-control'}),
+            'license_plate': forms.TextInput(attrs={'class': 'form-control'}),
+            'engine_volume': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.1'}),
+            'current_mileage': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
