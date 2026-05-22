@@ -227,15 +227,17 @@ def register(request):
                 user=user,
                 last_name=user.username,
                 first_name='',
+                middle_name='',
                 phone='',
-                email=user.email
+                email=user.email,
+                address='',
+                comments=''
             )
             login(request, user)
             return redirect('crm_app:dashboard')
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
-
 @login_required
 def profile(request):
     try:

@@ -3,15 +3,15 @@ from django.contrib.auth.models import User
 
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Пользователь')
-    last_name = models.CharField('Фамилия', max_length=50)
-    first_name = models.CharField('Имя', max_length=50)
+    last_name = models.CharField('Фамилия', max_length=50, blank=True, null=True)
+    first_name = models.CharField('Имя', max_length=50, blank=True, null=True)
     middle_name = models.CharField('Отчество', max_length=50, blank=True, null=True)
-    phone = models.CharField('Телефон', max_length=20, unique=True)
-    email = models.EmailField('Email', unique=True)
+    phone = models.CharField('Телефон', max_length=20, blank=True, null=True, unique=True)
+    email = models.EmailField('Email', blank=True, null=True, unique=True)
     address = models.TextField('Адрес', blank=True, null=True)
     registration_date = models.DateField('Дата регистрации', auto_now_add=True)
     comments = models.TextField('Комментарии', blank=True, null=True)
-
+    
     def __str__(self):
         return f'{self.last_name} {self.first_name}'
 
