@@ -4,7 +4,7 @@
 <h1 class="mb-4">Панель управления</h1>
 
 {% if is_staff %}
-    <!-- ========== АДМИНИСТРАТОР ========== -->
+    <!-- АДМИНИСТРАТОР -->
     <div class="row">
         <div class="col-md-4 mb-4">
             <div class="card h-100">
@@ -91,9 +91,7 @@
     </div>
 
 {% else %}
-    <!-- ========== ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ (КЛИЕНТ) ========== -->
-    
-    <!-- Серый прямоугольник с приветствием -->
+    <!-- ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card bg-secondary text-white border-0 shadow">
@@ -200,3 +198,5 @@
         </div>
     </div>
 {% endif %}
+
+{% endblock %}
