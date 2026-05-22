@@ -15,8 +15,8 @@ urlpatterns = [
     path('reminders/', views.reminder_list, name='reminder_list'),
     path('reminders/create/', views.reminder_create, name='reminder_create'),
     path('register/', views.register, name='register'),
-    path('profile/', views.profile, name='profile'),  # НОВАЯ СТРОКА
+    path('profile/', views.profile, name='profile'),
     path('vehicles/add/', views.vehicle_add, name='vehicle_add'),
-path('vehicles/<int:pk>/edit/', views.vehicle_edit, name='vehicle_edit'),
-path('vehicles/<int:pk>/delete/', views.vehicle_delete, name='vehicle_delete'),
+    path('vehicles/<int:pk>/edit/', views.vehicle_edit, name='vehicle_edit'),
+    path('vehicles/<int:pk>/delete/', views.vehicle_delete, name='vehicle_delete'),
 ]
