@@ -93,13 +93,19 @@
 {% else %}
     <!-- ========== ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ (КЛИЕНТ) ========== -->
     
-       <!-- Приветственная карточка с изображением автомобиля -->
+    <!-- Приветственная карточка с изображением автомобиля -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card border-0 overflow-hidden rounded-4 shadow">
-                <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=1200&h=250&fit=crop" 
-                     class="card-img" alt="Автомобиль" 
-                     style="height: 200px; object-fit: cover; width: 100%;">
+                <picture>
+                    <!-- Для телефонов (ширина меньше 768px) -->
+                    <source media="(max-width: 768px)" srcset="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?w=800&h=200&fit=crop">
+                    <!-- Для компьютеров (ширина больше 768px) -->
+                    <source media="(min-width: 769px)" srcset="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?w=1200&h=250&fit=crop">
+                    <img src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?w=1200&h=250&fit=crop" 
+                         class="card-img" alt="Автомобиль" 
+                         style="height: 200px; object-fit: cover; width: 100%;">
+                </picture>
                 <div class="card-img-overlay d-flex flex-column justify-content-center bg-dark bg-opacity-50">
                     <h2 class="card-title text-white">Добро пожаловать, {{ user.username }}!</h2>
                     <p class="card-text text-white">Здесь вы можете управлять своими заказами, автомобилями и сервисными напоминаниями.</p>
@@ -107,7 +113,6 @@
             </div>
         </div>
     </div>
-
     <div class="row">
         <div class="col-md-6 mb-4">
             <div class="card h-100">
