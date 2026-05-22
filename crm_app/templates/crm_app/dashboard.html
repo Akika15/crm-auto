@@ -3,88 +3,198 @@
 {% block content %}
 <h1 class="mb-4">Панель управления</h1>
 
-<div class="row">
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-header bg-primary text-white">
-                <h5 class="mb-0">📋 Новые клиенты</h5>
-            </div>
-            <div class="card-body">
-                {% if recent_clients %}
-                    <ul class="list-group">
-                        {% for client in recent_clients %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ client.last_name }} {{ client.first_name }}
-                            <a href="{% url 'crm_app:client_detail' client.id %}" class="btn btn-sm btn-outline-primary">Просмотр</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p class="text-muted">Нет новых клиентов</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-header bg-success text-white">
-                <h5 class="mb-0">🛒 Последние заказы</h5>
-            </div>
-            <div class="card-body">
-                {% if recent_orders %}
-                    <ul class="list-group">
-                        {% for order in recent_orders %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            Заказ №{{ order.id }} - {{ order.get_status_display }}
-                            <a href="{% url 'crm_app:order_detail' order.id %}" class="btn btn-sm btn-outline-success">Детали</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p class="text-muted">Нет заказов</p>
-                {% endif %}
+{% if is_staff %}
+    <!-- ========== АДМИНИСТРАТОР ========== -->
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">📋 Новые клиенты</h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_clients %}
+                        <ul class="list-group">
+                            {% for client in recent_clients %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ client.last_name }} {{ client.first_name }}
+                                <a href="{% url 'crm_app:client_detail' client.id %}" class="btn btn-sm btn-outline-primary">Просмотр</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">Нет новых клиентов</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <div class="card-header bg-warning text-dark">
-                <h5 class="mb-0">⏰ Ближайшие напоминания</h5>
-            </div>
-            <div class="card-body">
-                {% if pending_reminders %}
-                    <ul class="list-group">
-                        {% for reminder in pending_reminders %}
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ reminder.get_reminder_type_display }} - {{ reminder.client }}
-                            <span class="badge bg-secondary">{{ reminder.scheduled_date|date:"d.m.Y" }}</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p class="text-muted">Нет активных напоминаний</p>
-                {% endif %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">🛒 Последние заказы</h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_orders %}
+                        <ul class="list-group">
+                            {% for order in recent_orders %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Заказ №{{ order.id }} - {{ order.get_status_display }}
+                                <a href="{% url 'crm_app:order_detail' order.id %}" class="btn btn-sm btn-outline-success">Детали</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">Нет заказов</p>
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div class="row mt-4">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-header bg-secondary text-white">
-                <h5 class="mb-0">🚀 Быстрые действия</h5>
-            </div>
-            <div class="card-body">
-                <div class="d-flex gap-3 flex-wrap">
-                    <a href="{% url 'crm_app:client_create' %}" class="btn btn-primary">+ Добавить клиента</a>
-                    <a href="{% url 'crm_app:order_create' %}" class="btn btn-success">+ Новый заказ</a>
-                    <a href="{% url 'crm_app:reminder_create' %}" class="btn btn-warning">+ Создать напоминание</a>
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">⏰ Ближайшие напоминания</h5>
+                </div>
+                <div class="card-body">
+                    {% if pending_reminders %}
+                        <ul class="list-group">
+                            {% for reminder in pending_reminders %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ reminder.get_reminder_type_display }} - {{ reminder.client }}
+                                <span class="badge bg-secondary">{{ reminder.scheduled_date|date:"d.m.Y" }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">Нет активных напоминаний</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">🚀 Быстрые действия</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="{% url 'crm_app:client_create' %}" class="btn btn-primary">+ Добавить клиента</a>
+                        <a href="{% url 'crm_app:order_create' %}" class="btn btn-success">+ Новый заказ</a>
+                        <a href="{% url 'crm_app:reminder_create' %}" class="btn btn-warning">+ Создать напоминание</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    <!-- ========== ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ (КЛИЕНТ) ========== -->
+    <div class="row">
+        <!-- Приветственная карточка с изображением -->
+        <div class="col-12 mb-4">
+            <div class="card bg-dark text-white">
+                <img src="https://cdn.pixabay.com/photo/2016/04/01/12/08/car-1300629_1280.png" class="card-img" alt="Автомобиль" style="opacity: 0.7; height: 200px; object-fit: cover;">
+                <div class="card-img-overlay d-flex flex-column justify-content-center">
+                    <h2 class="card-title">Добро пожаловать, {{ user.username }}!</h2>
+                    <p class="card-text">Здесь вы можете управлять своими заказами, автомобилями и сервисными напоминаниями.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">🛒 Мои последние заказы</h5>
+                </div>
+                <div class="card-body">
+                    {% if recent_orders %}
+                        <ul class="list-group">
+                            {% for order in recent_orders %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Заказ №{{ order.id }} - {{ order.get_status_display }}
+                                <a href="{% url 'crm_app:order_detail' order.id %}" class="btn btn-sm btn-outline-success">Детали</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">У вас пока нет заказов</p>
+                        <a href="{% url 'crm_app:order_create' %}" class="btn btn-primary btn-sm">Сделать первый заказ</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">⏰ Мои сервисные напоминания</h5>
+                </div>
+                <div class="card-body">
+                    {% if pending_reminders %}
+                        <ul class="list-group">
+                            {% for reminder in pending_reminders %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ reminder.get_reminder_type_display }}
+                                <span class="badge bg-secondary">{{ reminder.scheduled_date|date:"d.m.Y" }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-muted">У вас нет активных напоминаний</p>
+                        <a href="{% url 'crm_app:reminder_create' %}" class="btn btn-warning btn-sm">Создать напоминание</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">🚗 Мои автомобили</h5>
+                </div>
+                <div class="card-body">
+                    {% if user.client.vehicles.all %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Марка</th>
+                                        <th>Модель</th>
+                                        <th>Год</th>
+                                        <th>Госномер</th>
+                                        <th>Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for vehicle in user.client.vehicles.all %}
+                                    <tr>
+                                        <td>{{ vehicle.brand }}</td>
+                                        <td>{{ vehicle.model }}</td>
+                                        <td>{{ vehicle.year }}</td>
+                                        <td>{{ vehicle.license_plate|default:"не указан" }}</td>
+                                        <td>
+                                            <a href="{% url 'crm_app:vehicle_edit' vehicle.id %}" class="btn btn-sm btn-warning">✏️</a>
+                                            <a href="{% url 'crm_app:vehicle_delete' vehicle.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Удалить автомобиль?')">🗑️</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-muted">У вас пока нет добавленных автомобилей</p>
+                    {% endif %}
+                    <a href="{% url 'crm_app:vehicle_add' %}" class="btn btn-info btn-sm mt-3">+ Добавить автомобиль</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
 {% endblock %}
