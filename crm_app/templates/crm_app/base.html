@@ -41,12 +41,12 @@
                         <li class="nav-item">
                             <span class="nav-link">{{ user.username }}</span>
                         </li>
-                        <li class="nav-item">
-    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                       <li class="nav-item">
+    <form action="{% url 'logout' %}" method="post" style="display: inline; margin: 0;">
         {% csrf_token %}
-        <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0; color: rgba(255,255,255,.55);">Выход</button>
+        <button type="submit" class="btn btn-link nav-link" style="display: inline; padding: 0.5rem 0.5rem; margin: 0; border: none; background: none; color: rgba(255,255,255,.55);">Выход</button>
     </form>
- </li>
+</li>
                     {% else %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}">Вход</a>

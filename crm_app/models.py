@@ -1,13 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# Выбор для способов оплаты
+PAYMENT_CHOICES = [
+    ('cash', 'Наличные при получении'),
+    ('card', 'Банковская карта (онлайн)'),
+    ('card_courier', 'Банковская карта курьеру'),
+    ('bank_transfer', 'Безналичный расчет (для юрлиц)'),
+]
+
+# Выбор для способов доставки
+DELIVERY_CHOICES = [
+    ('pickup', 'Самовывоз (магазин)'),
+    ('courier', 'Доставка курьером'),
+    ('delivery', 'Доставка транспортной компанией'),
+]
+
+
 class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, verbose_name='Пользователь')
     last_name = models.CharField('Фамилия', max_length=50, blank=True, null=True)
     first_name = models.CharField('Имя', max_length=50, blank=True, null=True)
     middle_name = models.CharField('Отчество', max_length=50, blank=True, null=True)
-    phone = models.CharField('Телефон', max_length=20, blank=True, null=True, unique=False)
-    email = models.EmailField('Email', blank=True, null=True, unique=False)
+    phone = models.CharField('Телефон', max_length=20, blank=True, null=True)
+    email = models.EmailField('Email', blank=True, null=True)
     address = models.TextField('Адрес', blank=True, null=True)
     registration_date = models.DateField('Дата регистрации', auto_now_add=True)
     comments = models.TextField('Комментарии', blank=True, null=True)
@@ -71,9 +87,9 @@ class Order(models.Model):
     manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders', verbose_name='Менеджер')
     order_date = models.DateTimeField('Дата заказа', auto_now_add=True)
     status = models.CharField('Статус', max_length=20, choices=STATUS_CHOICES, default='new')
-    total_amount = models.DecimalField('Общая сумма', max_digits=10, decimal_places=2)
-    payment_method = models.CharField('Способ оплаты', max_length=20, blank=True, null=True)
-    delivery_method = models.CharField('Способ доставки', max_length=20, blank=True, null=True)
+    total_amount = models.DecimalField('Общая сумма', max_digits=10, decimal_places=2, default=0)
+    payment_method = models.CharField('Способ оплаты', max_length=20, choices=PAYMENT_CHOICES, blank=True, null=True)
+    delivery_method = models.CharField('Способ доставки', max_length=20, choices=DELIVERY_CHOICES, blank=True, null=True)
     comments = models.TextField('Комментарии', blank=True, null=True)
 
     def __str__(self):

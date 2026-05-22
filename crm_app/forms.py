@@ -23,8 +23,19 @@ class OrderForm(forms.ModelForm):
             'client': forms.Select(attrs={'class': 'form-control'}),
             'vehicle': forms.Select(attrs={'class': 'form-control'}),
             'status': forms.Select(attrs={'class': 'form-control'}),
-            'payment_method': forms.TextInput(attrs={'class': 'form-control'}),
-            'delivery_method': forms.TextInput(attrs={'class': 'form-control'}),
+            'payment_method': forms.Select(attrs={'class': 'form-control', 'choices': [
+                ('', '-- Выберите способ оплаты --'),
+                ('cash', 'Наличные при получении'),
+                ('card', 'Банковская карта (онлайн)'),
+                ('card_courier', 'Банковская карта курьеру'),
+                ('bank_transfer', 'Безналичный расчет (для юрлиц)'),
+            ]}),
+            'delivery_method': forms.Select(attrs={'class': 'form-control', 'choices': [
+                ('', '-- Выберите способ доставки --'),
+                ('pickup', 'Самовывоз (магазин)'),
+                ('courier', 'Доставка курьером'),
+                ('delivery', 'Доставка транспортной компанией'),
+            ]}),
             'comments': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
