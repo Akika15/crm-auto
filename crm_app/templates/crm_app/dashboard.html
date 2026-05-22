@@ -9,7 +9,7 @@
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">📋 Новые клиенты</h5>
+                    <h5 class="mb-0"><i class="bi bi-people"></i> Новые клиенты</h5>
                 </div>
                 <div class="card-body">
                     {% if recent_clients %}
@@ -31,7 +31,7 @@
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">🛒 Последние заказы</h5>
+                    <h5 class="mb-0"><i class="bi bi-cart"></i> Последние заказы</h5>
                 </div>
                 <div class="card-body">
                     {% if recent_orders %}
@@ -53,7 +53,7 @@
         <div class="col-md-4 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-warning text-dark">
-                    <h5 class="mb-0">⏰ Ближайшие напоминания</h5>
+                    <h5 class="mb-0"><i class="bi bi-bell"></i> Ближайшие напоминания</h5>
                 </div>
                 <div class="card-body">
                     {% if pending_reminders %}
@@ -77,13 +77,13 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0">🚀 Быстрые действия</h5>
+                    <h5 class="mb-0"><i class="bi bi-lightning-charge"></i> Быстрые действия</h5>
                 </div>
                 <div class="card-body">
                     <div class="d-flex gap-3 flex-wrap">
-                        <a href="{% url 'crm_app:client_create' %}" class="btn btn-primary">+ Добавить клиента</a>
-                        <a href="{% url 'crm_app:order_create' %}" class="btn btn-success">+ Новый заказ</a>
-                        <a href="{% url 'crm_app:reminder_create' %}" class="btn btn-warning">+ Создать напоминание</a>
+                        <a href="{% url 'crm_app:client_create' %}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Добавить клиента</a>
+                        <a href="{% url 'crm_app:order_create' %}" class="btn btn-success"><i class="bi bi-cart-plus"></i> Новый заказ</a>
+                        <a href="{% url 'crm_app:reminder_create' %}" class="btn btn-warning"><i class="bi bi-bell-plus"></i> Создать напоминание</a>
                     </div>
                 </div>
             </div>
@@ -92,32 +92,12 @@
 
 {% else %}
     <!-- ========== ОБЫЧНЫЙ ПОЛЬЗОВАТЕЛЬ (КЛИЕНТ) ========== -->
-    
-    <!-- Приветственная карточка с изображением автомобиля -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card border-0 overflow-hidden rounded-4 shadow">
-                <picture>
-                    <!-- Для телефонов (ширина меньше 768px) -->
-                    <source media="(max-width: 768px)" srcset="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?w=800&h=200&fit=crop">
-                    <!-- Для компьютеров (ширина больше 768px) -->
-                    <source media="(min-width: 769px)" srcset="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?w=1200&h=250&fit=crop">
-                    <img src="https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?w=1200&h=250&fit=crop" 
-                         class="card-img" alt="Автомобиль" 
-                         style="height: 200px; object-fit: cover; width: 100%;">
-                </picture>
-                <div class="card-img-overlay d-flex flex-column justify-content-center bg-dark bg-opacity-50">
-                    <h2 class="card-title text-white">Добро пожаловать, {{ user.username }}!</h2>
-                    <p class="card-text text-white">Здесь вы можете управлять своими заказами, автомобилями и сервисными напоминаниями.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col-md-6 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-success text-white">
-                    <h5 class="mb-0">🛒 Мои последние заказы</h5>
+                    <h5 class="mb-0"><i class="bi bi-cart"></i> Мои последние заказы</h5>
                 </div>
                 <div class="card-body">
                     {% if recent_orders %}
@@ -131,7 +111,7 @@
                         </ul>
                     {% else %}
                         <p class="text-muted">У вас пока нет заказов</p>
-                        <a href="{% url 'crm_app:order_create' %}" class="btn btn-primary btn-sm">Сделать первый заказ</a>
+                        <a href="{% url 'crm_app:order_create' %}" class="btn btn-primary btn-sm"><i class="bi bi-cart-plus"></i> Сделать первый заказ</a>
                     {% endif %}
                 </div>
             </div>
@@ -140,7 +120,7 @@
         <div class="col-md-6 mb-4">
             <div class="card h-100">
                 <div class="card-header bg-warning text-dark">
-                    <h5 class="mb-0">⏰ Мои сервисные напоминания</h5>
+                    <h5 class="mb-0"><i class="bi bi-bell"></i> Мои сервисные напоминания</h5>
                 </div>
                 <div class="card-body">
                     {% if pending_reminders %}
@@ -154,7 +134,7 @@
                         </ul>
                     {% else %}
                         <p class="text-muted">У вас нет активных напоминаний</p>
-                        <a href="{% url 'crm_app:reminder_create' %}" class="btn btn-warning btn-sm">Создать напоминание</a>
+                        <a href="{% url 'crm_app:reminder_create' %}" class="btn btn-warning btn-sm"><i class="bi bi-bell-plus"></i> Создать напоминание</a>
                     {% endif %}
                 </div>
             </div>
@@ -165,7 +145,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">🚗 Мои автомобили</h5>
+                    <h5 class="mb-0"><i class="bi bi-car-front"></i> Мои автомобили</h5>
                 </div>
                 <div class="card-body">
                     {% if user.client.vehicles.all %}
@@ -188,18 +168,18 @@
                                         <td>{{ vehicle.year }}</a></td>
                                         <td>{{ vehicle.license_plate|default:"не указан" }}</a></td>
                                         <td>
-                                            <a href="{% url 'crm_app:vehicle_edit' vehicle.id %}" class="btn btn-sm btn-warning">✏️</a>
-                                            <a href="{% url 'crm_app:vehicle_delete' vehicle.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Удалить автомобиль?')">🗑️</a>
-                                        </a></tr>
+                                            <a href="{% url 'crm_app:vehicle_edit' vehicle.id %}" class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></a>
+                                            <a href="{% url 'crm_app:vehicle_delete' vehicle.id %}" class="btn btn-sm btn-danger" onclick="return confirm('Удалить автомобиль?')"><i class="bi bi-trash"></i></a>
+                                        </a></td>
                                     </a></tr>
                                     {% endfor %}
                                 </tbody>
-                            </td>
+                            </table>
                         </div>
                     {% else %}
                         <p class="text-muted">У вас пока нет добавленных автомобилей</p>
                     {% endif %}
-                    <a href="{% url 'crm_app:vehicle_add' %}" class="btn btn-info btn-sm mt-3">+ Добавить автомобиль</a>
+                    <a href="{% url 'crm_app:vehicle_add' %}" class="btn btn-info btn-sm mt-3"><i class="bi bi-plus-circle"></i> Добавить автомобиль</a>
                 </div>
             </div>
         </div>
