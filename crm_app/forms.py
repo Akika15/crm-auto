@@ -1,5 +1,5 @@
 from django import forms
-from .models import Client, Order, ServiceReminder
+from .models import Client, Order, ServiceReminder, Vehicle
 
 class ClientForm(forms.ModelForm):
     class Meta:
@@ -44,7 +44,8 @@ class ReminderForm(forms.ModelForm):
             'scheduled_date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'consent_given': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
         }
-        class VehicleForm(forms.ModelForm):
+
+class VehicleForm(forms.ModelForm):
     class Meta:
         model = Vehicle
         fields = ['brand', 'model', 'year', 'vin', 'license_plate', 'engine_volume', 'current_mileage']
