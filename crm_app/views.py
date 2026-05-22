@@ -6,21 +6,26 @@ from .models import Client, Vehicle, Order, Product, ServiceReminder
 from .forms import ClientForm, OrderForm, ReminderForm, VehicleForm
 from datetime import datetime
 
-@login_required
 def dashboard(request):
-    try:
-        client = request.user.client
-        recent_orders = Order.objects.filter(client=client).order_by('-order_date')[:5]
-        pending_reminders = ServiceReminder.objects.filter(
-            client=client, status='pending', scheduled_date__lte=datetime.now().date()
-        )[:5]
+    if request.user.is_authenticated:
+        try:
+            client = request.user.client
+            recent_orders = Order.objects.filter(client=client).order_by('-order_date')[:5]
+            pending_reminders = ServiceReminder.objects.filter(
+                client=client, status='pending', scheduled_date__lte=datetime.now().date()
+            )[:5]
+            recent_clients = []
+        except:
+            recent_clients = Client.objects.all().order_by('-registration_date')[:5]
+            recent_orders = Order.objects.all().order_by('-order_date')[:5]
+            pending_reminders = ServiceReminder.objects.filter(
+                status='pending', scheduled_date__lte=datetime.now().date()
+            )[:5]
+    else:
+        # Для неавторизованных гостей
         recent_clients = []
-    except:
-        recent_clients = Client.objects.all().order_by('-registration_date')[:5]
-        recent_orders = Order.objects.all().order_by('-order_date')[:5]
-        pending_reminders = ServiceReminder.objects.filter(
-            status='pending', scheduled_date__lte=datetime.now().date()
-        )[:5]
+        recent_orders = []
+        pending_reminders = []
 
     context = {
         'recent_clients': recent_clients,
