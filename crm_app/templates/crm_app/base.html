@@ -39,21 +39,6 @@
                                 <i class="bi bi-heart me-1"></i>Избранное
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'crm_app:about' %}">
-                                <i class="bi bi-info-circle me-1"></i>О магазине
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'crm_app:delivery' %}">
-                                <i class="bi bi-truck me-1"></i>Доставка
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'crm_app:contacts' %}">
-                                <i class="bi bi-envelope me-1"></i>Контакты
-                            </a>
-                        </li>
                         {% if user.is_authenticated %}
                             {% if user.is_staff %}
                                 <li class="nav-item dropdown">
