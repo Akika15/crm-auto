@@ -28,43 +28,23 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    # Уменьшаем ширину колонок, добавляем slug
-    list_display = ('id', 'article', 'short_name', 'slug_short', 'category', 'price', 'stock_status', 'new_status', 'hit_status', 'rec_status')
+    list_display = ('id', 'article', 'short_name', 'slug_short', 'category', 'price', 'is_available', 'is_new', 'is_hit', 'is_recommended', 'stock_quantity')
     list_filter = ('category', 'is_available', 'is_new', 'is_hit', 'is_recommended')
     search_fields = ('article', 'name', 'manufacturer', 'slug')
-    list_editable = ('price', 'is_available', 'is_new', 'is_hit', 'is_recommended')
+    list_editable = ('price', 'is_available', 'is_new', 'is_hit', 'is_recommended', 'stock_quantity')
     prepopulated_fields = {'slug': ('name',)}
     list_per_page = 50
     
     def short_name(self, obj):
-        return obj.name[:30] + '...' if len(obj.name) > 30 else obj.name
+        return obj.name[:35] + '...' if len(obj.name) > 35 else obj.name
     short_name.short_description = 'Название'
     
     def slug_short(self, obj):
         return obj.slug[:25] + '...' if obj.slug and len(obj.slug) > 25 else obj.slug
     slug_short.short_description = 'Slug'
     
-    def stock_status(self, obj):
-        if obj.is_available:
-            return '✅ Да' if obj.stock_quantity > 0 else '⚠️ Нет'
-        return '❌ Нет'
-    stock_status.short_description = 'В налиии'
-    stock_status.admin_order_field = 'is_available'
-    
-    def new_status(self, obj):
-        return '✅' if obj.is_new else ''
-    new_status.short_description = 'Новинка'
-    
-    def hit_status(self, obj):
-        return '✅' if obj.is_hit else ''
-    hit_status.short_description = 'Хит'
-    
-    def rec_status(self, obj):
-        return '✅' if obj.is_recommended else ''
-    rec_status.short_description = 'Рекомендуемый'
-    
     fieldsets = (
-        ('Основное', {'fields': ('category', 'article', 'name', 'slug', 'description', 'image', 'manufacturer')}),
+        ('Основное', {'fields': ('category', 'article', 'name', 'slug', 'description', 'image', 'manufacturer', 'country_of_origin', 'factory')}),
         ('Цены и наличие', {'fields': ('price', 'is_available', 'stock_quantity')}),
         ('Акции и метки', {'fields': ('is_new', 'is_hit', 'is_recommended')}),
     )
