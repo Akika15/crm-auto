@@ -39,118 +39,118 @@
 </div>
 
 <script>
-    // ДАННЫЕ О МАРКАХ С РЕАЛЬНЫМИ ЛОГОТИПАМИ (ЧЕРЕЗ CDN)
+    // ДАННЫЕ О МАРКАХ С РАБОТАЮЩИМИ CDN ЛОГОТИПАМИ
     const brandsData = {
         'Toyota': { 
-            info: 'Toyota — японский автогигант, один из крупнейших в мире. Известен надёжностью и долговечностью. Модели: Camry, Corolla, RAV4, Land Cruiser.',
+            info: 'Toyota — японский автогигант, один из крупнейших в мире. Модели: Camry, Corolla, RAV4, Land Cruiser.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/toyota-logo.svg'
         },
         'BMW': { 
-            info: 'BMW — немецкий производитель премиальных автомобилей. Легендарная баварская марка. Модели: 3 Series, 5 Series, X5, M系列.',
+            info: 'BMW — немецкий производитель премиальных автомобилей. Модели: 3 Series, 5 Series, X5.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/bmw-logo.svg'
         },
         'Mercedes-Benz': { 
-            info: 'Mercedes-Benz — немецкий премиальный автопроизводитель. Символ статуса и качества. Модели: C-Class, E-Class, S-Class, GLE.',
+            info: 'Mercedes-Benz — немецкий премиальный автопроизводитель. Модели: C-Class, E-Class, S-Class.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mercedes-benz-logo.svg'
         },
         'Audi': { 
-            info: 'Audi — немецкий премиальный автопроизводитель. Технологии и полный привод Quattro. Модели: A4, A6, Q5, Q7.',
+            info: 'Audi — немецкий премиальный автопроизводитель. Модели: A4, A6, Q5, Q7.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/audi-logo.svg'
         },
         'Volkswagen': { 
-            info: 'Volkswagen — немецкий автопроизводитель, народный автомобиль. Модели: Golf, Passat, Tiguan, Polo.',
+            info: 'Volkswagen — немецкий автопроизводитель. Модели: Golf, Passat, Tiguan.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/volkswagen-logo.svg'
         },
         'Ford': { 
-            info: 'Ford — американский автопроизводитель, основанный Генри Фордом. Модели: Focus, Mondeo, Kuga, Mustang.',
+            info: 'Ford — американский автопроизводитель. Модели: Focus, Mondeo, Kuga.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/ford-logo.svg'
         },
         'Chevrolet': { 
-            info: 'Chevrolet — американский бренд, часть концерна General Motors. Модели: Cruze, Lacetti, Aveo, Camaro.',
+            info: 'Chevrolet — американский бренд. Модели: Cruze, Lacetti, Aveo.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/chevrolet-logo.svg'
         },
         'Hyundai': { 
-            info: 'Hyundai — южнокорейский автопроизводитель, известен соотношением цены и качества. Модели: Solaris, Elantra, Tucson, Santa Fe.',
+            info: 'Hyundai — южнокорейский автопроизводитель. Модели: Solaris, Elantra, Tucson.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/hyundai-logo.svg'
         },
         'Kia': { 
-            info: 'Kia — южнокорейский автопроизводитель, часть группы Hyundai. Модели: Rio, Cerato, Sportage, Sorento.',
+            info: 'Kia — южнокорейский автопроизводитель. Модели: Rio, Cerato, Sportage.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/kia-logo.svg'
         },
         'Honda': { 
-            info: 'Honda — японский автопроизводитель, известен надёжностью. Модели: Civic, Accord, CR-V, HR-V.',
+            info: 'Honda — японский автопроизводитель. Модели: Civic, Accord, CR-V.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/honda-logo.svg'
         },
         'Nissan': { 
-            info: 'Nissan — японский автопроизводитель, создатель легендарного GT-R. Модели: Almera, Qashqai, X-Trail, Patrol.',
+            info: 'Nissan — японский автопроизводитель. Модели: Almera, Qashqai, X-Trail.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/nissan-logo.svg'
         },
         'Mazda': { 
-            info: 'Mazda — японский автопроизводитель, известен технологиями роторных двигателей. Модели: 3, 6, CX-5, MX-5.',
+            info: 'Mazda — японский автопроизводитель. Модели: 3, 6, CX-5.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mazda-logo.svg'
         },
         'Subaru': { 
-            info: 'Subaru — японский автопроизводитель, известен полным приводом. Модели: Impreza, Outback, Forester, Legacy.',
+            info: 'Subaru — японский автопроизводитель. Модели: Impreza, Outback, Forester.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/subaru-logo.svg'
         },
         'Mitsubishi': { 
-            info: 'Mitsubishi — японский автопроизводитель, легендарный Lancer Evolution. Модели: Lancer, Outlander, Pajero.',
+            info: 'Mitsubishi — японский автопроизводитель. Модели: Lancer, Outlander, Pajero.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mitsubishi-logo.svg'
         },
         'Lexus': { 
-            info: 'Lexus — премиальный бренд Toyota. Модели: ES, RX, LX, NX.',
+            info: 'Lexus — премиальный бренд Toyota. Модели: ES, RX, LX.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lexus-logo.svg'
         },
         'Lada (ВАЗ)': { 
-            info: 'LADA — российский автопроизводитель, крупнейший в стране. Модели: Vesta, Granta, Niva, Largus, Priora.',
+            info: 'LADA — российский автопроизводитель. Модели: Vesta, Granta, Niva.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lada-logo.svg'
         },
         'Citroen': { 
-            info: 'Citroen — французский автопроизводитель, основанный в 1919 году. Модели: C3, C4, C5.',
+            info: 'Citroen — французский автопроизводитель. Модели: C3, C4, C5.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/citroen-logo.svg'
         },
         'Peugeot': { 
-            info: 'Peugeot — французский автопроизводитель, один из старейших в мире. Модели: 208, 308, 3008, 5008.',
+            info: 'Peugeot — французский автопроизводитель. Модели: 208, 308, 3008.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/peugeot-logo.svg'
         },
         'Renault': { 
-            info: 'Renault — французская автомобильная компания, основанная в 1899 году. Модели: Logan, Sandero, Duster, Megane.',
+            info: 'Renault — французская автомобильная компания. Модели: Logan, Sandero, Duster.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/renault-logo.svg'
         },
         'Volvo': { 
-            info: 'Volvo — шведский автопроизводитель, известен безопасностью. Модели: XC60, XC90, S60, S90.',
+            info: 'Volvo — шведский автопроизводитель. Модели: XC60, XC90, S60.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/volvo-logo.svg'
         },
         'Porsche': { 
-            info: 'Porsche — немецкий производитель спортивных автомобилей. Модели: 911, Cayenne, Macan, Panamera.',
+            info: 'Porsche — немецкий производитель спортивных автомобилей. Модели: 911, Cayenne, Macan.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/porsche-logo.svg'
         },
         'Ferrari': { 
-            info: 'Ferrari — итальянский производитель суперкаров. Модели: F8 Tributo, SF90 Stradale.',
+            info: 'Ferrari — итальянский производитель суперкаров.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/ferrari-logo.svg'
         },
         'Lamborghini': { 
-            info: 'Lamborghini — итальянский производитель суперкаров. Модели: Aventador, Huracan, Urus.',
+            info: 'Lamborghini — итальянский производитель суперкаров.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lamborghini-logo.svg'
         },
         'Jeep': { 
-            info: 'Jeep — американский бренд внедорожников. Модели: Wrangler, Cherokee, Grand Cherokee, Compass.',
+            info: 'Jeep — американский бренд внедорожников. Модели: Wrangler, Cherokee, Grand Cherokee.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/jeep-logo.svg'
         },
         'Tesla': { 
-            info: 'Tesla — американский производитель электромобилей. Модели: Model 3, Model Y, Model S, Model X, Cybertruck.',
+            info: 'Tesla — американский производитель электромобилей. Модели: Model 3, Model Y, Model S, Model X.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/tesla-logo.svg'
         },
         'BYD': { 
-            info: 'BYD — китайская компания, производитель электромобилей и аккумуляторов. Модели: Han, Tang, Song.',
+            info: 'BYD — китайская компания, производитель электромобилей.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/byd-logo.svg'
         },
         'Geely': { 
-            info: 'Geely — китайский автопроизводитель, владелец Volvo. Модели: Atlas, Coolray, Tugella.',
+            info: 'Geely — китайский автопроизводитель, владелец Volvo.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/geely-logo.svg'
         },
         'Chery': { 
-            info: 'Chery — китайский автопроизводитель, известен доступными кроссоверами. Модели: Tiggo, Arrizo, Exeed.',
+            info: 'Chery — китайский автопроизводитель. Модели: Tiggo, Arrizo, Exeed.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/chery-logo.svg'
         },
         'Acura': { 
@@ -166,16 +166,28 @@
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/jaguar-logo.svg'
         },
         'Land Rover': { 
-            info: 'Land Rover — британский производитель престижных внедорожников. Модели: Range Rover, Discovery, Defender.',
+            info: 'Land Rover — британский производитель внедорожников. Модели: Range Rover, Discovery, Defender.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/land-rover-logo.svg'
         },
         'Mini': { 
-            info: 'Mini — британский производитель компактных автомобилей, часть BMW. Модели: Cooper, Countryman, Clubman.',
+            info: 'Mini — британский производитель компактных автомобилей. Модели: Cooper, Countryman, Clubman.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mini-logo.svg'
         },
         'Suzuki': { 
-            info: 'Suzuki — японский производитель компактных автомобилей и мотоциклов. Модели: Swift, Vitara, Jimny.',
+            info: 'Suzuki — японский производитель компактных автомобилей. Модели: Swift, Vitara, Jimny.',
             image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/suzuki-logo.svg'
+        },
+        'Alfa Romeo': { 
+            info: 'Alfa Romeo — итальянский автопроизводитель. Модели: Giulia, Stelvio.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/alfa-romeo-logo.svg'
+        },
+        'Fiat': { 
+            info: 'Fiat — итальянский автопроизводитель. Модели: 500, Panda, Tipo.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/fiat-logo.svg'
+        },
+        'Maserati': { 
+            info: 'Maserati — итальянский производитель люксовых автомобилей.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/maserati-logo.svg'
         },
         'Иномарки': { 
             info: 'Иномарки — автомобили зарубежного производства. В нашем каталоге представлены запчасти для популярных иномарок.',
