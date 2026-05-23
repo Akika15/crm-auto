@@ -137,6 +137,7 @@
             if (theme === 'dark') {
                 document.body.style.backgroundColor = '#1a1a2e';
                 document.body.style.color = '#e0e0e0';
+                
                 document.querySelectorAll('.card').forEach(card => {
                     card.style.backgroundColor = '#2d2d3a';
                     card.style.color = '#e0e0e0';
@@ -155,18 +156,29 @@
                     item.style.color = '#e0e0e0';
                     item.style.borderColor = '#444';
                 });
-                // Делаем текст видимым в тёмной теме
-                document.querySelectorAll('.text-muted').forEach(el => {
-                    el.style.color = '#cccccc';
+                
+                // Ссылки в боковом меню категорий (синие, как на скриншоте)
+                document.querySelectorAll('.list-group-item a, .list-group-item').forEach(el => {
+                    el.style.color = '#88c0ff';
+                    el.style.backgroundColor = '#2d2d3a';
                 });
-                document.querySelectorAll('.text-dark').forEach(el => {
-                    el.style.color = '#e0e0e0';
+                
+                // Текст "Артикул", "Производитель", "Найдено"
+                document.querySelectorAll('.text-muted, .small, .card-text small').forEach(el => {
+                    el.style.color = '#88c0ff';
                 });
+                
+                // Названия категорий в боковом меню
+                document.querySelectorAll('.list-group-item strong').forEach(el => {
+                    el.style.color = '#88c0ff';
+                });
+                
                 document.getElementById('theme-icon').className = 'bi bi-sun-fill';
                 localStorage.setItem('theme', 'dark');
             } else {
                 document.body.style.backgroundColor = '#f0f2f5';
                 document.body.style.color = '#212529';
+                
                 document.querySelectorAll('.card').forEach(card => {
                     card.style.backgroundColor = '#ffffff';
                     card.style.color = '#212529';
@@ -185,12 +197,20 @@
                     item.style.color = '';
                     item.style.borderColor = '';
                 });
-                document.querySelectorAll('.text-muted').forEach(el => {
+                
+                document.querySelectorAll('.list-group-item a, .list-group-item').forEach(el => {
+                    el.style.color = '';
+                    el.style.backgroundColor = '';
+                });
+                
+                document.querySelectorAll('.text-muted, .small, .card-text small').forEach(el => {
                     el.style.color = '#6c757d';
                 });
-                document.querySelectorAll('.text-dark').forEach(el => {
-                    el.style.color = '#212529';
+                
+                document.querySelectorAll('.list-group-item strong').forEach(el => {
+                    el.style.color = '';
                 });
+                
                 document.getElementById('theme-icon').className = 'bi bi-moon-stars-fill';
                 localStorage.setItem('theme', 'light');
             }
