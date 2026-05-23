@@ -448,7 +448,7 @@ def get_compatible_products(vehicle):
         return Product.objects.filter(id__in=compatible, is_available=True)
     return products
 
-    def category_detail(request, slug):
+def category_detail(request, slug):
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(category=category, is_available=True)
     
