@@ -19,36 +19,29 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'crm_app:dashboard' %}">
-                                <i class="bi bi-house-door me-1"></i>Главная
-                            </a>
-                        </li>
-                        {% if user.is_authenticated %}
-                            {% if user.is_staff %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{% url 'crm_app:client_list' %}">
-                                        <i class="bi bi-people me-1"></i>Клиенты
-                                    </a>
-                                </li>
-                            {% endif %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'crm_app:order_list' %}">
-                                    <i class="bi bi-cart me-1"></i>Заказы
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'crm_app:reminder_list' %}">
-                                    <i class="bi bi-bell me-1"></i>Напоминания
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'crm_app:profile' %}">
-                                    <i class="bi bi-person me-1"></i>Мой профиль
-                                </a>
-                            </li>
-                        {% endif %}
-                    </ul>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'crm_app:dashboard' %}">Главная</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'crm_app:catalog' %}">Каталог</a>
+    </li>
+    {% if user.is_authenticated %}
+        {% if user.is_staff %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'crm_app:client_list' %}">Клиенты</a>
+            </li>
+        {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'crm_app:order_list' %}">Заказы</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'crm_app:reminder_list' %}">Напоминания</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'crm_app:profile' %}">Мой профиль</a>
+        </li>
+    {% endif %}
+</ul>
                     <ul class="navbar-nav ms-auto">
                         {% if user.is_authenticated %}
                             <li class="nav-item">
