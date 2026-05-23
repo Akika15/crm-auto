@@ -157,20 +157,31 @@
                     item.style.borderColor = '#444';
                 });
                 
-                // Ссылки в боковом меню категорий (синие, как на скриншоте)
                 document.querySelectorAll('.list-group-item a, .list-group-item').forEach(el => {
                     el.style.color = '#88c0ff';
                     el.style.backgroundColor = '#2d2d3a';
                 });
-                
-                // Текст "Артикул", "Производитель", "Найдено"
-                document.querySelectorAll('.text-muted, .small, .card-text small').forEach(el => {
+                document.querySelectorAll('.list-group-item strong').forEach(el => {
                     el.style.color = '#88c0ff';
                 });
                 
-                // Названия категорий в боковом меню
-                document.querySelectorAll('.list-group-item strong').forEach(el => {
+                document.querySelectorAll('.text-muted, .small, .card-text small, .breadcrumb-item, .breadcrumb-item a, .text-muted small').forEach(el => {
                     el.style.color = '#88c0ff';
+                });
+                
+                document.querySelectorAll('.text-muted, .alert-info, .card-text').forEach(el => {
+                    el.style.color = '#88c0ff';
+                });
+                
+                document.querySelectorAll('.btn-outline-primary, .btn-outline-danger, .btn-outline-secondary').forEach(el => {
+                    el.style.color = '#88c0ff';
+                    el.style.borderColor = '#88c0ff';
+                });
+                
+                document.querySelectorAll('.bg-light, .rounded-3').forEach(el => {
+                    if (el.style.backgroundColor === 'rgb(248, 249, 250)' || el.className.includes('bg-light')) {
+                        el.style.backgroundColor = '#2d2d3a';
+                    }
                 });
                 
                 document.getElementById('theme-icon').className = 'bi bi-sun-fill';
@@ -202,13 +213,27 @@
                     el.style.color = '';
                     el.style.backgroundColor = '';
                 });
+                document.querySelectorAll('.list-group-item strong').forEach(el => {
+                    el.style.color = '';
+                });
                 
-                document.querySelectorAll('.text-muted, .small, .card-text small').forEach(el => {
+                document.querySelectorAll('.text-muted, .small, .card-text small, .breadcrumb-item, .breadcrumb-item a, .text-muted small').forEach(el => {
                     el.style.color = '#6c757d';
                 });
                 
-                document.querySelectorAll('.list-group-item strong').forEach(el => {
+                document.querySelectorAll('.text-muted, .alert-info, .card-text').forEach(el => {
+                    el.style.color = '#6c757d';
+                });
+                
+                document.querySelectorAll('.btn-outline-primary, .btn-outline-danger, .btn-outline-secondary').forEach(el => {
                     el.style.color = '';
+                    el.style.borderColor = '';
+                });
+                
+                document.querySelectorAll('.bg-light, .rounded-3').forEach(el => {
+                    if (el.style.backgroundColor === 'rgb(45, 45, 58)') {
+                        el.style.backgroundColor = '';
+                    }
                 });
                 
                 document.getElementById('theme-icon').className = 'bi bi-moon-stars-fill';
