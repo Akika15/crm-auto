@@ -80,7 +80,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория', null=True, blank=True)
     article = models.CharField('Артикул', max_length=50, unique=True)
     name = models.CharField('Наименование', max_length=200)
-    slug = models.SlugField(unique=True, db_index=True, blank=True)
+    slug = models.SlugField(max_length=200, blank=True, null=True, unique=False)
     description = models.TextField('Описание', blank=True, null=True)
     image = models.ImageField('Главное изображение', upload_to='products/', blank=True, null=True)
     price = models.DecimalField('Цена', max_digits=10, decimal_places=2, default=0)
