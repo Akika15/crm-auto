@@ -118,8 +118,18 @@ def order_create(request):
         client = request.user.client
     except:
         return redirect('crm_app:profile')
+    
     vehicles = Vehicle.objects.filter(client=client)
-    products = Product.objects.all().order_by('category', 'name')[:100]
+    selected_vehicle_id = request.GET.get('vehicle') or (vehicles.first().id if vehicles else None)
+    selected_vehicle = None
+    products = []
+    
+    if selected_vehicle_id:
+        selected_vehicle = get_object_or_404(Vehicle, id=selected_vehicle_id, client=client)
+        products = get_compatible_products(selected_vehicle)
+    else:
+        products = Product.objects.filter(is_available=True)
+    
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -127,28 +137,37 @@ def order_create(request):
             order.manager = request.user
             order.total_amount = 0
             order.save()
-            product_id = request.POST.get('product')
-            quantity = int(request.POST.get('quantity', 1))
-            if product_id:
-                product = Product.objects.get(id=product_id)
-                OrderItem.objects.create(
-                    order=order,
-                    product=product,
-                    quantity=quantity,
-                    price_at_moment=product.price
-                )
-                order.total_amount = product.price * quantity
-                order.save()
+            
+            # Обрабатываем несколько товаров
+            total = 0
+            product_ids = request.POST.getlist('product_ids')
+            quantities = request.POST.getlist('quantities')
+            
+            for product_id, quantity in zip(product_ids, quantities):
+                if product_id and int(quantity) > 0:
+                    product = Product.objects.get(id=product_id)
+                    OrderItem.objects.create(
+                        order=order,
+                        product=product,
+                        quantity=int(quantity),
+                        price_at_moment=product.price
+                    )
+                    total += product.price * int(quantity)
+            
+            order.total_amount = total
+            order.save()
             return redirect('crm_app:order_detail', pk=order.pk)
     else:
-        form = OrderForm(initial={'client': client})
+        form = OrderForm(initial={'client': client, 'vehicle': selected_vehicle})
         form.fields['client'].queryset = Client.objects.filter(id=client.id)
         form.fields['vehicle'].queryset = vehicles
+    
     context = {
         'form': form,
         'title': 'Новый заказ',
         'vehicles': vehicles,
         'products': products,
+        'selected_vehicle': selected_vehicle,
     }
     return render(request, 'crm_app/order_form.html', context)
 
@@ -405,3 +424,26 @@ def page(request, title):
 
 def help_page(request):
     return render(request, 'crm_app/help.html')
+
+def get_compatible_products(vehicle):
+    """Возвращает товары, совместимые с указанным автомобилем"""
+    if not vehicle:
+        return Product.objects.filter(is_available=True)
+    
+    products = Product.objects.filter(is_available=True)
+    
+    # Фильтруем по марке и модели
+    compatible = []
+    for product in products:
+        brands = [b.strip().lower() for b in (product.compatible_brands or '').split(',') if b.strip()]
+        models = [m.strip().lower() for m in (product.compatible_models or '').split(',') if m.strip()]
+        
+        if brands and vehicle.brand.lower() not in brands:
+            continue
+        if models and vehicle.model.lower() not in models:
+            continue
+        compatible.append(product.id)
+    
+    if compatible:
+        return Product.objects.filter(id__in=compatible, is_available=True)
+    return products
