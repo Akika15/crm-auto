@@ -34,4 +34,5 @@ urlpatterns = [
     path('about/', views.page, {'title': 'О магазине'}, name='about'),
     path('delivery/', views.page, {'title': 'Доставка и оплата'}, name='delivery'),
     path('contacts/', views.page, {'title': 'Контакты'}, name='contacts'),
+    path('help/', views.help_page, name='help'),
 ]

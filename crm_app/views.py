@@ -402,3 +402,6 @@ def wishlist_remove(request, product_id):
 
 def page(request, title):
     return render(request, 'crm_app/pages.html', {'title': title})
+
+def help_page(request):
+    return render(request, 'crm_app/help.html')

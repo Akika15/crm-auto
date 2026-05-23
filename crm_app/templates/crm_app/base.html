@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-<body style="background-color: #f0f2f5; min-height: 100vh;">
+<body style="background-color: #f0f2f5; min-height: 100vh; transition: all 0.3s ease;">
     <div style="min-height: 100vh;">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
@@ -37,6 +37,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'crm_app:wishlist' %}">
                                 <i class="bi bi-heart me-1"></i>Избранное
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'crm_app:help' %}">
+                                <i class="bi bi-question-circle me-1"></i>Помощь
                             </a>
                         </li>
                         {% if user.is_authenticated %}
@@ -99,6 +104,12 @@
                                 </a>
                             </li>
                         {% endif %}
+                        <!-- Кнопка переключения темы -->
+                        <li class="nav-item">
+                            <button onclick="toggleTheme()" class="btn btn-link nav-link" style="border: none; background: none; color: rgba(255,255,255,.55);">
+                                <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
+                            </button>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -111,5 +122,83 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        function setTheme(theme) {
+            if (theme === 'dark') {
+                document.body.style.backgroundColor = '#1a1a2e';
+                document.body.style.color = '#e0e0e0';
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = '#2d2d3a';
+                    card.style.color = '#e0e0e0';
+                    card.style.borderColor = '#444';
+                });
+                document.querySelectorAll('.card-header').forEach(header => {
+                    header.style.backgroundColor = '#0d6efd';
+                    header.style.color = 'white';
+                });
+                document.querySelectorAll('.table').forEach(table => {
+                    table.style.backgroundColor = '#2d2d3a';
+                    table.style.color = '#e0e0e0';
+                });
+                document.querySelectorAll('.list-group-item').forEach(item => {
+                    item.style.backgroundColor = '#2d2d3a';
+                    item.style.color = '#e0e0e0';
+                    item.style.borderColor = '#444';
+                });
+                document.querySelectorAll('.alert-info').forEach(alert => {
+                    alert.style.backgroundColor = '#1a3a4a';
+                    alert.style.color = '#e0e0e0';
+                    alert.style.borderColor = '#0d6efd';
+                });
+                document.getElementById('theme-icon').className = 'bi bi-sun-fill';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.style.backgroundColor = '#f0f2f5';
+                document.body.style.color = '#212529';
+                document.querySelectorAll('.card').forEach(card => {
+                    card.style.backgroundColor = '#ffffff';
+                    card.style.color = '#212529';
+                    card.style.borderColor = '';
+                });
+                document.querySelectorAll('.card-header').forEach(header => {
+                    header.style.backgroundColor = '';
+                    header.style.color = '';
+                });
+                document.querySelectorAll('.table').forEach(table => {
+                    table.style.backgroundColor = '';
+                    table.style.color = '';
+                });
+                document.querySelectorAll('.list-group-item').forEach(item => {
+                    item.style.backgroundColor = '';
+                    item.style.color = '';
+                    item.style.borderColor = '';
+                });
+                document.querySelectorAll('.alert-info').forEach(alert => {
+                    alert.style.backgroundColor = '';
+                    alert.style.color = '';
+                    alert.style.borderColor = '';
+                });
+                document.getElementById('theme-icon').className = 'bi bi-moon-stars-fill';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            setTheme('dark');
+        } else {
+            setTheme('light');
+        }
+
+        window.toggleTheme = function() {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        }
+    </script>
 </body>
 </html>
