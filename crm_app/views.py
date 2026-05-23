@@ -2,27 +2,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .models import Client, Vehicle, Order, Product, ServiceReminder, OrderItem
+from .models import Client, Vehicle, Order, Product, ServiceReminder, OrderItem, Category, Cart, CartItem
 from .forms import ClientForm, OrderForm, ReminderForm, VehicleForm
 from datetime import datetime
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from .models import Product, Category, Cart, CartItem, Wishlist
 
 def dashboard(request):
     if request.user.is_authenticated:
-        # Проверяем, является ли пользователь администратором (сотрудником)
         is_staff = request.user.is_staff
-        
         if is_staff:
-            # Администратор видит всех клиентов, заказы, напоминания
             recent_clients = Client.objects.all().order_by('-registration_date')[:5]
             recent_orders = Order.objects.all().order_by('-order_date')[:5]
             pending_reminders = ServiceReminder.objects.filter(
                 status='pending', scheduled_date__lte=datetime.now().date()
             )[:5]
         else:
-            # Обычный пользователь (клиент) видит только свои данные
             try:
                 client = request.user.client
                 recent_clients = []
@@ -47,24 +40,19 @@ def dashboard(request):
 
 @login_required
 def client_list(request):
-    # Проверяем, является ли пользователь администратором
     if not request.user.is_staff:
         return redirect('crm_app:dashboard')
-    
     clients = Client.objects.all().order_by('last_name')
     return render(request, 'crm_app/client_list.html', {'clients': clients})
 
 @login_required
 def client_detail(request, pk):
-    # Проверяем, является ли пользователь администратором
     if not request.user.is_staff:
         return redirect('crm_app:dashboard')
-    
     client = get_object_or_404(Client, pk=pk)
     vehicles = client.vehicles.all()
     orders = client.orders.all().order_by('-order_date')
     reminders = client.reminders.all().order_by('-scheduled_date')
-    
     context = {
         'client': client,
         'vehicles': vehicles,
@@ -75,10 +63,8 @@ def client_detail(request, pk):
 
 @login_required
 def client_create(request):
-    # Только администраторы могут создавать клиентов
     if not request.user.is_staff:
         return redirect('crm_app:dashboard')
-    
     if request.method == 'POST':
         form = ClientForm(request.POST)
         if form.is_valid():
@@ -90,10 +76,8 @@ def client_create(request):
 
 @login_required
 def client_edit(request, pk):
-    # Только администраторы могут редактировать клиентов
     if not request.user.is_staff:
         return redirect('crm_app:dashboard')
-    
     client = get_object_or_404(Client, pk=pk)
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
@@ -107,10 +91,8 @@ def client_edit(request, pk):
 @login_required
 def order_list(request):
     if request.user.is_staff:
-        # Администратор видит все заказы
         orders = Order.objects.all().order_by('-order_date')
     else:
-        # Клиент видит только свои заказы
         try:
             client = request.user.client
             orders = Order.objects.filter(client=client).order_by('-order_date')
@@ -121,16 +103,13 @@ def order_list(request):
 @login_required
 def order_detail(request, pk):
     order = get_object_or_404(Order, pk=pk)
-    
     if not request.user.is_staff:
-        # Клиент может смотреть только свои заказы
         try:
             client = request.user.client
             if order.client.id != client.id:
                 return redirect('crm_app:order_list')
         except:
             return redirect('crm_app:order_list')
-    
     return render(request, 'crm_app/order_detail.html', {'order': order})
 
 @login_required
@@ -139,10 +118,8 @@ def order_create(request):
         client = request.user.client
     except:
         return redirect('crm_app:profile')
-    
     vehicles = Vehicle.objects.filter(client=client)
     products = Product.objects.all().order_by('category', 'name')[:100]
-    
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
@@ -150,7 +127,6 @@ def order_create(request):
             order.manager = request.user
             order.total_amount = 0
             order.save()
-            
             product_id = request.POST.get('product')
             quantity = int(request.POST.get('quantity', 1))
             if product_id:
@@ -159,17 +135,15 @@ def order_create(request):
                     order=order,
                     product=product,
                     quantity=quantity,
-                    price_at_moment=product.retail_price
+                    price_at_moment=product.price
                 )
-                order.total_amount = product.retail_price * quantity
+                order.total_amount = product.price * quantity
                 order.save()
-            
             return redirect('crm_app:order_detail', pk=order.pk)
     else:
         form = OrderForm(initial={'client': client})
         form.fields['client'].queryset = Client.objects.filter(id=client.id)
         form.fields['vehicle'].queryset = vehicles
-    
     context = {
         'form': form,
         'title': 'Новый заказ',
@@ -201,7 +175,6 @@ def reminder_create(request):
         else:
             form = ReminderForm()
     else:
-        # Обычный клиент создаёт напоминание только для себя
         try:
             client = request.user.client
             if request.method == 'POST':
@@ -217,7 +190,6 @@ def reminder_create(request):
                 form.fields['vehicle'].queryset = Vehicle.objects.filter(client=client)
         except:
             return redirect('crm_app:profile')
-    
     return render(request, 'crm_app/reminder_form.html', {'form': form, 'title': 'Новое напоминание'})
 
 def register(request):
@@ -237,6 +209,7 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
 @login_required
 def profile(request):
     try:
@@ -249,7 +222,6 @@ def profile(request):
             phone='',
             email=request.user.email
         )
-    
     if request.method == 'POST':
         form = ClientForm(request.POST, instance=client)
         if form.is_valid():
@@ -257,9 +229,7 @@ def profile(request):
             return redirect('crm_app:profile')
     else:
         form = ClientForm(instance=client)
-    
     vehicles = client.vehicles.all()
-    
     context = {
         'form': form,
         'client': client,
@@ -273,7 +243,6 @@ def vehicle_add(request):
         client = request.user.client
     except:
         return redirect('crm_app:profile')
-    
     if request.method == 'POST':
         form = VehicleForm(request.POST)
         if form.is_valid():
@@ -292,7 +261,6 @@ def vehicle_edit(request, pk):
         vehicle = get_object_or_404(Vehicle, pk=pk, client=client)
     except:
         return redirect('crm_app:profile')
-    
     if request.method == 'POST':
         form = VehicleForm(request.POST, instance=vehicle)
         if form.is_valid():
@@ -311,7 +279,11 @@ def vehicle_delete(request, pk):
     except:
         pass
     return redirect('crm_app:profile')
-    def catalog(request, slug=None):
+
+
+# ========== НОВЫЕ ФУНКЦИИ ДЛЯ ИНТЕРНЕТ-МАГАЗИНА ==========
+
+def catalog(request, slug=None):
     """Страница каталога"""
     products = Product.objects.filter(is_available=True)
     categories = Category.objects.filter(parent__isnull=True)
