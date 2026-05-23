@@ -28,6 +28,77 @@
         .theme-btn:hover {
             color: #0d6efd;
         }
+        /* Глобальные стили для тёмной темы */
+        body.dark-theme {
+            background-color: #0a0a0a !important;
+        }
+        body.dark-theme .card {
+            background-color: #1a1a1a !important;
+            color: #ffffff !important;
+            border-color: #333 !important;
+        }
+        body.dark-theme .card-header {
+            background-color: #2c2c2c !important;
+            color: #ffffff !important;
+        }
+        body.dark-theme .list-group-item {
+            background-color: #1a1a1a !important;
+            color: #ffffff !important;
+            border-color: #333 !important;
+        }
+        body.dark-theme .list-group-item a {
+            color: #3b82f6 !important;
+        }
+        body.dark-theme .text-muted {
+            color: #a0a0a0 !important;
+        }
+        body.dark-theme .bg-light {
+            background-color: #1a1a1a !important;
+        }
+        body.dark-theme .text-dark {
+            color: #ffffff !important;
+        }
+        body.dark-theme .btn-outline-primary {
+            color: #3b82f6 !important;
+            border-color: #3b82f6 !important;
+        }
+        body.dark-theme .btn-outline-secondary {
+            color: #a0a0a0 !important;
+            border-color: #a0a0a0 !important;
+        }
+        body.dark-theme .btn-outline-danger {
+            color: #ef4444 !important;
+            border-color: #ef4444 !important;
+        }
+        body.dark-theme .breadcrumb-item a {
+            color: #3b82f6 !important;
+        }
+        body.dark-theme .breadcrumb-item.active {
+            color: #a0a0a0 !important;
+        }
+        body.dark-theme .alert-info {
+            background-color: #1a1a1a !important;
+            color: #3b82f6 !important;
+            border-color: #3b82f6 !important;
+        }
+        body.dark-theme .bg-secondary {
+            background-color: #1a1a1a !important;
+        }
+        body.dark-theme .text-primary {
+            color: #3b82f6 !important;
+        }
+        body.dark-theme .bg-primary {
+            background-color: #3b82f6 !important;
+        }
+        body.dark-theme .bg-success {
+            background-color: #10b981 !important;
+        }
+        body.dark-theme .bg-warning {
+            background-color: #f59e0b !important;
+        }
+        body.dark-theme .bg-info {
+            background-color: #06b6d4 !important;
+        }
     </style>
 </head>
 <body style="background-color: #f0f2f5; min-height: 100vh; transition: all 0.3s ease;">
@@ -95,7 +166,7 @@
         </div>
 
         <!-- Нижнее меню (СЛЕВА) -->
-        <div class="bg-white border-bottom py-2 shadow-sm">
+        <div class="bg-white border-bottom py-2 shadow-sm" id="mainMenu">
             <div class="container">
                 <ul class="nav justify-content-start">
                     <li class="nav-item">
@@ -135,107 +206,23 @@
     <script>
         function setTheme(theme) {
             if (theme === 'dark') {
-                document.body.style.backgroundColor = '#1a1a2e';
-                document.body.style.color = '#e0e0e0';
-                
-                document.querySelectorAll('.card').forEach(card => {
-                    card.style.backgroundColor = '#2d2d3a';
-                    card.style.color = '#e0e0e0';
-                    card.style.borderColor = '#444';
+                document.body.classList.add('dark-theme');
+                document.body.style.backgroundColor = '#0a0a0a';
+                document.getElementById('mainMenu').style.backgroundColor = '#1a1a1a';
+                document.getElementById('mainMenu').style.borderColor = '#333';
+                document.querySelectorAll('#mainMenu .nav-link').forEach(el => {
+                    el.style.color = '#ffffff';
                 });
-                document.querySelectorAll('.card-header').forEach(header => {
-                    header.style.backgroundColor = '#0d6efd';
-                    header.style.color = 'white';
-                });
-                document.querySelectorAll('.table').forEach(table => {
-                    table.style.backgroundColor = '#2d2d3a';
-                    table.style.color = '#e0e0e0';
-                });
-                document.querySelectorAll('.list-group-item').forEach(item => {
-                    item.style.backgroundColor = '#2d2d3a';
-                    item.style.color = '#e0e0e0';
-                    item.style.borderColor = '#444';
-                });
-                
-                document.querySelectorAll('.list-group-item a, .list-group-item').forEach(el => {
-                    el.style.color = '#88c0ff';
-                    el.style.backgroundColor = '#2d2d3a';
-                });
-                document.querySelectorAll('.list-group-item strong').forEach(el => {
-                    el.style.color = '#88c0ff';
-                });
-                
-                document.querySelectorAll('.text-muted, .small, .card-text small, .breadcrumb-item, .breadcrumb-item a, .text-muted small').forEach(el => {
-                    el.style.color = '#88c0ff';
-                });
-                
-                document.querySelectorAll('.text-muted, .alert-info, .card-text').forEach(el => {
-                    el.style.color = '#88c0ff';
-                });
-                
-                document.querySelectorAll('.btn-outline-primary, .btn-outline-danger, .btn-outline-secondary').forEach(el => {
-                    el.style.color = '#88c0ff';
-                    el.style.borderColor = '#88c0ff';
-                });
-                
-                document.querySelectorAll('.bg-light, .rounded-3').forEach(el => {
-                    if (el.style.backgroundColor === 'rgb(248, 249, 250)' || el.className.includes('bg-light')) {
-                        el.style.backgroundColor = '#2d2d3a';
-                    }
-                });
-                
                 document.getElementById('theme-icon').className = 'bi bi-sun-fill';
                 localStorage.setItem('theme', 'dark');
             } else {
+                document.body.classList.remove('dark-theme');
                 document.body.style.backgroundColor = '#f0f2f5';
-                document.body.style.color = '#212529';
-                
-                document.querySelectorAll('.card').forEach(card => {
-                    card.style.backgroundColor = '#ffffff';
-                    card.style.color = '#212529';
-                    card.style.borderColor = '';
-                });
-                document.querySelectorAll('.card-header').forEach(header => {
-                    header.style.backgroundColor = '';
-                    header.style.color = '';
-                });
-                document.querySelectorAll('.table').forEach(table => {
-                    table.style.backgroundColor = '';
-                    table.style.color = '';
-                });
-                document.querySelectorAll('.list-group-item').forEach(item => {
-                    item.style.backgroundColor = '';
-                    item.style.color = '';
-                    item.style.borderColor = '';
-                });
-                
-                document.querySelectorAll('.list-group-item a, .list-group-item').forEach(el => {
-                    el.style.color = '';
-                    el.style.backgroundColor = '';
-                });
-                document.querySelectorAll('.list-group-item strong').forEach(el => {
+                document.getElementById('mainMenu').style.backgroundColor = '#ffffff';
+                document.getElementById('mainMenu').style.borderColor = '';
+                document.querySelectorAll('#mainMenu .nav-link').forEach(el => {
                     el.style.color = '';
                 });
-                
-                document.querySelectorAll('.text-muted, .small, .card-text small, .breadcrumb-item, .breadcrumb-item a, .text-muted small').forEach(el => {
-                    el.style.color = '#6c757d';
-                });
-                
-                document.querySelectorAll('.text-muted, .alert-info, .card-text').forEach(el => {
-                    el.style.color = '#6c757d';
-                });
-                
-                document.querySelectorAll('.btn-outline-primary, .btn-outline-danger, .btn-outline-secondary').forEach(el => {
-                    el.style.color = '';
-                    el.style.borderColor = '';
-                });
-                
-                document.querySelectorAll('.bg-light, .rounded-3').forEach(el => {
-                    if (el.style.backgroundColor === 'rgb(45, 45, 58)') {
-                        el.style.backgroundColor = '';
-                    }
-                });
-                
                 document.getElementById('theme-icon').className = 'bi bi-moon-stars-fill';
                 localStorage.setItem('theme', 'light');
             }
