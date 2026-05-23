@@ -303,7 +303,7 @@ def vehicle_delete(request, pk):
 
 # ========== НОВЫЕ ФУНКЦИИ ДЛЯ ИНТЕРНЕТ-МАГАЗИНА ==========
 
-from django.db import models  # добавьте в начало файла, если нет
+from django.core.paginator import Paginator
 
 def catalog(request):
     products = Product.objects.filter(is_available=True)
@@ -335,8 +335,13 @@ def catalog(request):
     
     categories = Category.objects.all()
     
+    # Пагинация
+    paginator = Paginator(products, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     context = {
-        'products': products,
+        'products': page_obj,
         'categories': categories,
     }
     return render(request, 'crm_app/catalog.html', context)

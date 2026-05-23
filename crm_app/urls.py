@@ -38,4 +38,5 @@ urlpatterns = [
     path('category/<slug:slug>/', views.category_detail, name='category_detail'),\
     path('about/', views.about_page, name='about'),
     path('brands/', views.brands_page, name='brands'),
+    path('product/<slug:slug>/', views.product_detail, name='product_detail'),
 ]
