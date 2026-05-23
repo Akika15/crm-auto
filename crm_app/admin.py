@@ -1,9 +1,6 @@
 from django.contrib import admin
 from django.core.mail import send_mail
 from django.conf import settings
-from django.shortcuts import redirect
-from django.urls import path
-from django.http import HttpResponseRedirect
 from datetime import date
 from .models import *
 
@@ -31,11 +28,41 @@ class OrderItemAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'article', 'name', 'category', 'price', 'is_available', 'is_new', 'is_hit', 'is_recommended', 'stock_quantity', 'manufacturer')
+    # Уменьшаем ширину колонок, добавляем slug
+    list_display = ('id', 'article', 'short_name', 'slug_short', 'category', 'price', 'stock_status', 'new_status', 'hit_status', 'rec_status')
     list_filter = ('category', 'is_available', 'is_new', 'is_hit', 'is_recommended')
-    search_fields = ('article', 'name', 'manufacturer')
-    list_editable = ('price', 'is_available', 'is_new', 'is_hit', 'is_recommended', 'stock_quantity')
+    search_fields = ('article', 'name', 'manufacturer', 'slug')
+    list_editable = ('price', 'is_available', 'is_new', 'is_hit', 'is_recommended')
     prepopulated_fields = {'slug': ('name',)}
+    list_per_page = 50
+    
+    def short_name(self, obj):
+        return obj.name[:30] + '...' if len(obj.name) > 30 else obj.name
+    short_name.short_description = 'Название'
+    
+    def slug_short(self, obj):
+        return obj.slug[:25] + '...' if obj.slug and len(obj.slug) > 25 else obj.slug
+    slug_short.short_description = 'Slug'
+    
+    def stock_status(self, obj):
+        if obj.is_available:
+            return '✅ Да' if obj.stock_quantity > 0 else '⚠️ Нет'
+        return '❌ Нет'
+    stock_status.short_description = 'В налиии'
+    stock_status.admin_order_field = 'is_available'
+    
+    def new_status(self, obj):
+        return '✅' if obj.is_new else ''
+    new_status.short_description = 'Новинка'
+    
+    def hit_status(self, obj):
+        return '✅' if obj.is_hit else ''
+    hit_status.short_description = 'Хит'
+    
+    def rec_status(self, obj):
+        return '✅' if obj.is_recommended else ''
+    rec_status.short_description = 'Рекомендуемый'
+    
     fieldsets = (
         ('Основное', {'fields': ('category', 'article', 'name', 'slug', 'description', 'image', 'manufacturer')}),
         ('Цены и наличие', {'fields': ('price', 'is_available', 'stock_quantity')}),
@@ -44,7 +71,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'parent', 'order')
+    list_display = ('id', 'name', 'slug', 'parent', 'order')
     list_filter = ('parent',)
     search_fields = ('name',)
     prepopulated_fields = {'slug': ('name',)}
