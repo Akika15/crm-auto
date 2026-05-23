@@ -19,4 +19,11 @@ urlpatterns = [
     path('vehicles/add/', views.vehicle_add, name='vehicle_add'),
     path('vehicles/<int:pk>/edit/', views.vehicle_edit, name='vehicle_edit'),
     path('vehicles/<int:pk>/delete/', views.vehicle_delete, name='vehicle_delete'),
+    path('catalog/', views.catalog, name='catalog'),
+    path('catalog/<slug:slug>/', views.catalog, name='catalog'),
+    path('product/<slug:slug>/', views.product_detail, name='product_detail'),
+    path('cart/', views.cart_view, name='cart_view'),
+    path('cart/add/<int:product_id>/', views.cart_add, name='cart_add'),
+    path('cart/remove/<int:item_id>/', views.cart_remove, name='cart_remove'),
+    path('cart/update/<int:item_id>/', views.cart_update, name='cart_update'),
 ]

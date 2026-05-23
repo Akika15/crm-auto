@@ -1,0 +1,55 @@
+{% extends 'crm_app/base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Корзина</h1>
+
+{% if cart.items.all %}
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Цена</th>
+                <th>Количество</th>
+                <th>Сумма</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart.items.all %}
+            <tr>
+                <td>{{ item.product.name }}</a></td>
+                <td>{{ item.product.price }} ₽</a></td>
+                <td>
+                    <form method="post" action="{% url 'crm_app:cart_update' item.id %}" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 60px;">
+                        <button type="submit" class="btn btn-sm btn-secondary">Обновить</button>
+                    </form>
+                </a></td>
+                <td>{{ item.get_total_price }} ₽</a></td>
+                <td>
+                    <a href="{% url 'crm_app:cart_remove' item.id %}" class="btn btn-sm btn-danger">Удалить</a>
+                </a></td>
+            </a></tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr class="table-dark">
+                <td colspan="3"><strong>Итого</strong></a></td>
+                <td><strong>{{ cart.get_total_price }} ₽</strong></a></td>
+                <td></a></td>
+            </a></tr>
+        </tfoot>
+    </a></table>
+</div>
+<div class="mt-4">
+    <a href="{% url 'crm_app:catalog' %}" class="btn btn-outline-secondary">Продолжить покупки</a>
+</div>
+{% else %}
+<div class="alert alert-info">
+    Ваша корзина пуста
+</div>
+<a href="{% url 'crm_app:catalog' %}" class="btn btn-primary">Перейти в каталог</a>
+{% endif %}
+{% endblock %}

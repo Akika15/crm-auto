@@ -1,7 +1,11 @@
 from django.contrib import admin
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import Client, Vehicle, Product, Order, OrderItem, ServiceReminder
+from django.shortcuts import redirect
+from django.urls import path
+from django.http import HttpResponseRedirect
+from datetime import date
+from .models import *
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
@@ -15,12 +19,6 @@ class VehicleAdmin(admin.ModelAdmin):
     list_filter = ('brand', 'year')
     search_fields = ('brand', 'model', 'vin', 'license_plate')
 
-@admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'article', 'name', 'category', 'manufacturer', 'retail_price', 'stock_quantity')
-    list_filter = ('category', 'manufacturer')
-    search_fields = ('article', 'name')
-
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'client', 'order_date', 'status', 'total_amount', 'manager')
@@ -31,6 +29,27 @@ class OrderAdmin(admin.ModelAdmin):
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ('id', 'order', 'product', 'quantity', 'price_at_moment')
 
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('id', 'article', 'name', 'category', 'price', 'is_available', 'is_new', 'is_hit', 'is_recommended', 'stock_quantity', 'manufacturer')
+    list_filter = ('category', 'is_available', 'is_new', 'is_hit', 'is_recommended')
+    search_fields = ('article', 'name', 'manufacturer')
+    list_editable = ('price', 'is_available', 'is_new', 'is_hit', 'is_recommended', 'stock_quantity')
+    prepopulated_fields = {'slug': ('name',)}
+    fieldsets = (
+        ('Основное', {'fields': ('category', 'article', 'name', 'slug', 'description', 'image', 'manufacturer')}),
+        ('Цены и наличие', {'fields': ('price', 'is_available', 'stock_quantity')}),
+        ('Акции и метки', {'fields': ('is_new', 'is_hit', 'is_recommended')}),
+    )
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'parent', 'order')
+    list_filter = ('parent',)
+    search_fields = ('name',)
+    prepopulated_fields = {'slug': ('name',)}
+
+@admin.register(ServiceReminder)
 class ServiceReminderAdmin(admin.ModelAdmin):
     list_display = ('id', 'client', 'vehicle', 'reminder_type', 'scheduled_date', 'status', 'consent_given')
     list_filter = ('reminder_type', 'status', 'scheduled_date')
@@ -65,7 +84,6 @@ class ServiceReminderAdmin(admin.ModelAdmin):
                 )
                 
                 reminder.status = 'sent'
-                from datetime import date
                 reminder.sent_date = date.today()
                 reminder.save()
                 count += 1
@@ -74,4 +92,16 @@ class ServiceReminderAdmin(admin.ModelAdmin):
     
     send_reminder_email.short_description = 'Отправить выбранные напоминания по email'
 
-admin.site.register(ServiceReminder, ServiceReminderAdmin)
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'session_key', 'created_at')
+    search_fields = ('user__username', 'session_key')
+
+@admin.register(CartItem)
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ('id', 'cart', 'product', 'quantity')
+
+@admin.register(Wishlist)
+class WishlistAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'product', 'added_at')
+    search_fields = ('user__username', 'product__name')

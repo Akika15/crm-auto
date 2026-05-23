@@ -5,6 +5,9 @@ from django.contrib.auth import login
 from .models import Client, Vehicle, Order, Product, ServiceReminder, OrderItem
 from .forms import ClientForm, OrderForm, ReminderForm, VehicleForm
 from datetime import datetime
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Product, Category, Cart, CartItem, Wishlist
 
 def dashboard(request):
     if request.user.is_authenticated:
@@ -308,3 +311,89 @@ def vehicle_delete(request, pk):
     except:
         pass
     return redirect('crm_app:profile')
+    def catalog(request, slug=None):
+    """Страница каталога"""
+    products = Product.objects.filter(is_available=True)
+    categories = Category.objects.filter(parent__isnull=True)
+    
+    current_category = None
+    breadcrumbs = []
+    
+    if slug:
+        current_category = get_object_or_404(Category, slug=slug)
+        # Получаем все товары из этой категории и подкатегорий
+        products = products.filter(category__in=current_category.get_descendants(include_self=True))
+        # Строим хлебные крошки
+        parent = current_category.parent
+        while parent:
+            breadcrumbs.insert(0, parent)
+            parent = parent.parent
+    
+    context = {
+        'products': products,
+        'categories': categories,
+        'current_category': current_category,
+        'breadcrumbs': breadcrumbs,
+    }
+    return render(request, 'crm_app/catalog.html', context)
+
+
+def product_detail(request, slug):
+    """Страница товара"""
+    product = get_object_or_404(Product, slug=slug)
+    related_products = Product.objects.filter(
+        category=product.category, 
+        is_available=True
+    ).exclude(id=product.id)[:6]
+    
+    context = {
+        'product': product,
+        'related_products': related_products,
+    }
+    return render(request, 'crm_app/product_detail.html', context)
+
+
+def get_cart(request):
+    """Вспомогательная функция для получения корзины"""
+    if request.user.is_authenticated:
+        cart, created = Cart.objects.get_or_create(user=request.user)
+    else:
+        if not request.session.session_key:
+            request.session.create()
+        cart, created = Cart.objects.get_or_create(session_key=request.session.session_key)
+    return cart
+
+
+def cart_view(request):
+    """Страница корзины"""
+    cart = get_cart(request)
+    context = {'cart': cart}
+    return render(request, 'crm_app/cart.html', context)
+
+
+def cart_add(request, product_id):
+    """Добавление товара в корзину"""
+    product = get_object_or_404(Product, id=product_id)
+    cart = get_cart(request)
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+    return redirect('crm_app:cart_view')
+
+
+def cart_remove(request, item_id):
+    """Удаление товара из корзины"""
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    cart_item.delete()
+    return redirect('crm_app:cart_view')
+
+
+def cart_update(request, item_id):
+    """Обновление количества товара в корзине"""
+    cart_item = get_object_or_404(CartItem, id=item_id)
+    quantity = int(request.POST.get('quantity', 1))
+    if quantity > 0:
+        cart_item.quantity = quantity
+        cart_item.save()
+    return redirect('crm_app:cart_view')

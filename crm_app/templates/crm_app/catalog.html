@@ -1,0 +1,70 @@
+{% extends 'crm_app/base.html' %}
+
+{% block content %}
+<div class="row">
+    <!-- Боковое меню категорий -->
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Категории</h5>
+            </div>
+            <div class="card-body p-0">
+                <ul class="list-group list-group-flush">
+                    {% for cat in categories %}
+                    <li class="list-group-item">
+                        <a href="{{ cat.get_absolute_url }}" class="text-decoration-none">
+                            {{ cat.name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Список товаров -->
+    <div class="col-md-9">
+        <h1 class="mb-4">
+            {% if current_category %}
+                {{ current_category.name }}
+            {% else %}
+                Все товары
+            {% endif %}
+        </h1>
+
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text text-muted small">Артикул: {{ product.article }}</p>
+                        <p class="card-text">{{ product.description|truncatechars:80 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="h5 text-primary">{{ product.price }} ₽</span>
+                            {% if product.is_available %}
+                                <span class="badge bg-success">В наличии</span>
+                            {% else %}
+                                <span class="badge bg-danger">Нет в наличии</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="btn-group w-100">
+                            <a href="{{ product.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Подробнее</a>
+                            {% if product.is_available %}
+                            <a href="{% url 'crm_app:cart_add' product.id %}" class="btn btn-primary btn-sm">В корзину</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">Товары не найдены</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

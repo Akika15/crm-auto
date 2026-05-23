@@ -1,20 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-# Выбор для способов оплаты
-PAYMENT_CHOICES = [
-    ('cash', 'Наличные при получении'),
-    ('card', 'Банковская карта (онлайн)'),
-    ('card_courier', 'Банковская карта курьеру'),
-    ('bank_transfer', 'Безналичный расчет (для юрлиц)'),
-]
-
-# Выбор для способов доставки
-DELIVERY_CHOICES = [
-    ('pickup', 'Самовывоз (магазин)'),
-    ('courier', 'Доставка курьером'),
-    ('delivery', 'Доставка транспортной компанией'),
-]
+from django.urls import reverse
 
 
 class Client(models.Model):
@@ -54,22 +40,68 @@ class Vehicle(models.Model):
         verbose_name_plural = 'Автомобили'
 
 
-class Product(models.Model):
-    article = models.CharField('Артикул', max_length=50, unique=True)
-    name = models.CharField('Наименование', max_length=200)
-    category = models.CharField('Категория', max_length=50, blank=True, null=True)
-    manufacturer = models.CharField('Производитель', max_length=100, blank=True, null=True)
-    retail_price = models.DecimalField('Розничная цена', max_digits=10, decimal_places=2)
-    stock_quantity = models.IntegerField('Остаток на складе', default=0)
-    compatible_brands = models.TextField(blank=True, null=True, verbose_name='Совместимые марки (через запятую)')
-    compatible_models = models.TextField(blank=True, null=True, verbose_name='Совместимые модели (через запятую)')
+class Category(models.Model):
+    """Модель категории товаров (древовидная структура)"""
+    name = models.CharField('Название', max_length=100)
+    slug = models.SlugField(unique=True, db_index=True)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    image = models.ImageField('Изображение категории', upload_to='categories/', blank=True, null=True)
+    order = models.PositiveIntegerField('Порядок', default=0)
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+        ordering = ['order', 'name']
 
     def __str__(self):
-        return f'{self.article} - {self.name}'
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('crm_app:catalog', kwargs={'slug': self.slug})
+
+    def get_products(self):
+        """Возвращает все товары из этой категории и подкатегорий"""
+        products = Product.objects.filter(category__in=self.get_descendants(include_self=True))
+        return products
+
+    def get_descendants(self, include_self=False):
+        """Возвращает список всех подкатегорий"""
+        descendants = []
+        if include_self:
+            descendants.append(self)
+        for child in self.children.all():
+            descendants.extend(child.get_descendants(include_self=True))
+        return descendants
+
+
+class Product(models.Model):
+    """Модель товара"""
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория', null=True, blank=True)
+    article = models.CharField('Артикул', max_length=50, unique=True)
+    name = models.CharField('Наименование', max_length=200)
+    slug = models.SlugField(unique=True, db_index=True, blank=True)
+    description = models.TextField('Описание', blank=True, null=True)
+    image = models.ImageField('Главное изображение', upload_to='products/', blank=True, null=True)
+    price = models.DecimalField('Цена', max_digits=10, decimal_places=2, default=0)
+    is_available = models.BooleanField('В наличии', default=True)
+    is_new = models.BooleanField('Новинка', default=False)
+    is_hit = models.BooleanField('Хит продаж', default=False)
+    is_recommended = models.BooleanField('Рекомендуемый', default=False)
+    stock_quantity = models.IntegerField('Остаток на складе', default=0)
+    manufacturer = models.CharField('Производитель', max_length=100, blank=True, null=True)
+    compatible_brands = models.TextField('Совместимые марки (через запятую)', blank=True, null=True)
+    compatible_models = models.TextField('Совместимые модели (через запятую)', blank=True, null=True)
 
     class Meta:
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
+        ordering = ['-id']
+
+    def __str__(self):
+        return f'{self.name} ({self.article})'
+
+    def get_absolute_url(self):
+        return reverse('crm_app:product_detail', kwargs={'slug': self.slug})
 
 
 class Order(models.Model):
@@ -82,8 +114,21 @@ class Order(models.Model):
         ('cancelled', 'Отменён'),
     ]
 
+    PAYMENT_CHOICES = [
+        ('cash', 'Наличные при получении'),
+        ('card', 'Банковская карта (онлайн)'),
+        ('card_courier', 'Банковская карта курьеру'),
+        ('bank_transfer', 'Безналичный расчет (для юрлиц)'),
+    ]
+
+    DELIVERY_CHOICES = [
+        ('pickup', 'Самовывоз (магазин)'),
+        ('courier', 'Доставка курьером'),
+        ('delivery', 'Доставка транспортной компанией'),
+    ]
+
     client = models.ForeignKey(Client, on_delete=models.CASCADE, related_name='orders', verbose_name='Клиент')
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='orders', verbose_name='Автомобиль')
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name='orders', verbose_name='Автомобиль', null=True, blank=True)
     manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders', verbose_name='Менеджер')
     order_date = models.DateTimeField('Дата заказа', auto_now_add=True)
     status = models.CharField('Статус', max_length=20, choices=STATUS_CHOICES, default='new')
@@ -151,3 +196,58 @@ class ServiceReminder(models.Model):
     class Meta:
         verbose_name = 'Сервисное напоминание'
         verbose_name_plural = 'Сервисные напоминания'
+
+
+class Cart(models.Model):
+    """Модель корзины"""
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True, related_name='cart')
+    session_key = models.CharField(max_length=40, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
+
+    def __str__(self):
+        if self.user:
+            return f'Корзина {self.user.username}'
+        return f'Корзина (сессия: {self.session_key})'
+
+    def get_total_price(self):
+        return sum(item.get_total_price() for item in self.items.all())
+
+    def get_total_quantity(self):
+        return sum(item.quantity for item in self.items.all())
+
+
+class CartItem(models.Model):
+    """Модель позиции в корзине"""
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        verbose_name = 'Товар в корзине'
+        verbose_name_plural = 'Товары в корзине'
+
+    def __str__(self):
+        return f'{self.product.name} x {self.quantity}'
+
+    def get_total_price(self):
+        return self.product.price * self.quantity
+
+
+class Wishlist(models.Model):
+    """Модель избранного"""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='wishlist')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранное'
+        unique_together = ('user', 'product')
+
+    def __str__(self):
+        return f'{self.user.username} - {self.product.name}'
