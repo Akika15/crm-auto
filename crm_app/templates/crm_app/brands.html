@@ -26,7 +26,7 @@
                             <div class="card-header bg-primary text-white">
                                 <h5 class="mb-0" id="brandTitle">Выберите марку автомобиля</h5>
                             </div>
-                            <div class="card-body text-center" id="brandInfo">
+                            <div class="card-body" id="brandInfo" style="max-height: 500px; overflow-y: auto;">
                                 <i class="bi bi-car-front" style="font-size: 64px; color: #6c757d;"></i>
                                 <p class="mt-3 text-muted">Нажмите на любую марку слева, чтобы увидеть информацию</p>
                             </div>
@@ -39,84 +39,161 @@
 </div>
 
 <script>
-    // ДАННЫЕ О МАРКАХ С РАБОТАЮЩИМИ CDN ЛОГОТИПАМИ
-const brandsData = {
-    // ... (оставляем все марки, которые работали, как у вас) ...
-    'Toyota': { info: 'Toyota — японский автогигант...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/toyota-logo.svg' },
-    'BMW': { info: 'BMW — немецкий производитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/bmw-logo.svg' },
-    'Mercedes-Benz': { info: 'Mercedes-Benz — немецкий премиум...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mercedes-benz-logo.svg' },
-    'Audi': { info: 'Audi — немецкий автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/audi-logo.svg' },
-    'Volkswagen': { info: 'Volkswagen — немецкий автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/volkswagen-logo.svg' },
-    'Ford': { info: 'Ford — американский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/ford-logo.svg' },
-    'Chevrolet': { info: 'Chevrolet — американский бренд...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/chevrolet-logo.svg' },
-    'Hyundai': { info: 'Hyundai — южнокорейский бренд...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/hyundai-logo.svg' },
-    'Kia': { info: 'Kia — южнокорейский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/kia-logo.svg' },
-    'Honda': { info: 'Honda — японский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/honda-logo.svg' },
-    'Nissan': { info: 'Nissan — японский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/nissan-logo.svg' },
-    'Mazda': { info: 'Mazda — японский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mazda-logo.svg' },
-    'Subaru': { info: 'Subaru — японский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/subaru-logo.svg' },
-    'Mitsubishi': { info: 'Mitsubishi — японский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mitsubishi-logo.svg' },
-    'Lexus': { info: 'Lexus — премиальный бренд Toyota...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lexus-logo.svg' },
-    'Lada (ВАЗ)': { info: 'LADA — российский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lada-logo.svg' },
-    'Citroen': { info: 'Citroen — французский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/citroen-logo.svg' },
-    'Peugeot': { info: 'Peugeot — французский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/peugeot-logo.svg' },
-    'Renault': { info: 'Renault — французская автомобильная компания...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/renault-logo.svg' },
-    'Volvo': { info: 'Volvo — шведский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/volvo-logo.svg' },
-    'Porsche': { info: 'Porsche — немецкий производитель спорткаров...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/porsche-logo.svg' },
-    'Ferrari': { info: 'Ferrari — итальянский производитель суперкаров...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/ferrari-logo.svg' },
-    'Lamborghini': { info: 'Lamborghini — итальянский производитель суперкаров...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lamborghini-logo.svg' },
-    'Jeep': { info: 'Jeep — американский бренд внедорожников...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/jeep-logo.svg' },
-    'Tesla': { info: 'Tesla — американский производитель электромобилей...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/tesla-logo.svg' },
-    'BYD': { info: 'BYD — китайская компания, производитель электромобилей...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/byd-logo.svg' },
-    'Geely': { info: 'Geely — китайский автопроизводитель...', image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/geely-logo.svg' },
-    
-    // 🔥 ИСПРАВЛЕНИЕ ДЛЯ МАРОК, ГДЕ НЕТ КАРТИНОК 🔥
-    // Используем рабочие PNG-ссылки вместо отсутствующих SVG
-    'Chery': { 
-        info: 'Chery — китайский автопроизводитель. Модели: Tiggo, Arrizo, Exeed.',
-        image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' 
-    },
-    'Acura': { 
-        info: 'Acura — премиальный бренд Honda. Модели: MDX, RDX, TLX.',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Acura_logo.svg/200px-Acura_logo.svg.png' 
-    },
-    'Infiniti': { 
-        info: 'Infiniti — премиальный бренд Nissan. Модели: Q50, QX50, QX60.',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Infiniti_logo.svg/200px-Infiniti_logo.svg.png' 
-    },
-    'Jaguar': { 
-        info: 'Jaguar — британский производитель премиальных автомобилей. Модели: F-Pace, XE, XF.',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Jaguar_logo.svg/200px-Jaguar_logo.svg.png' 
-    },
-    'Land Rover': { 
-        info: 'Land Rover — британский производитель внедорожников. Модели: Range Rover, Discovery, Defender.',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Land_Rover_logo.svg/200px-Land_Rover_logo.svg.png' 
-    },
-    'Mini': { 
-        info: 'Mini — британский производитель компактных автомобилей. Модели: Cooper, Countryman, Clubman.',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Mini_logo.svg/200px-Mini_logo.svg.png' 
-    },
-    'Suzuki': { 
-        info: 'Suzuki — японский производитель компактных автомобилей. Модели: Swift, Vitara, Jimny.',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Suzuki_logo_%282015%29.svg/200px-Suzuki_logo_%282015%29.svg.png' 
-    },
-    'Alfa Romeo': { 
-        info: 'Alfa Romeo — итальянский автопроизводитель. Модели: Giulia, Stelvio.',
-        image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' 
-    },
-    'Fiat': { 
-        info: 'Fiat — итальянский автопроизводитель. Модели: 500, Panda, Tipo.',
-        image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' 
-    },
-    'Maserati': { 
-        info: 'Maserati — итальянский производитель люксовых автомобилей.',
-        image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' 
-    },
-    'Иномарки': { 
-        info: 'Иномарки — автомобили зарубежного производства...',
-        image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' 
-    }
-  };
+    // ДАННЫЕ О МАРКАХ С РАЗВЁРНУТОЙ ИНФОРМАЦИЕЙ
+    const brandsData = {
+        'Toyota': { 
+            info: '<strong>Toyota Motor Corporation</strong> — японская автомобилестроительная корпорация, один из крупнейших автопроизводителей в мире. Основана в 1937 году Киитиро Тоёдой. Штаб-квартира находится в городе Тоёта (префектура Айти).<br><br><strong>Популярные модели:</strong> Camry, Corolla (самый продаваемый автомобиль в истории), RAV4, Land Cruiser, Hilux, Prius (первый массовый гибрид).<br><br><strong>Особенности:</strong> Известна своей надёжностью, долговечностью и инновациями в области гибридных технологий. Производит автомобили под брендами Toyota, Lexus, Daihatsu, Hino.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/toyota-logo.svg'
+        },
+        'BMW': { 
+            info: '<strong>Bayerische Motoren Werke AG (BMW)</strong> — немецкий производитель автомобилей, мотоциклов и двигателей. Основана в 1916 году. Штаб-квартира в Мюнхене.<br><br><strong>Популярные модели:</strong> 3 серия, 5 серия, 7 серия, X3, X5, M3, M5.<br><br><strong>Особенности:</strong> Баварская марка славится спортивным характером, задним приводом и технологией xDrive. Девиз: «Freude am Fahren» (С удовольствием за рулём).',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/bmw-logo.svg'
+        },
+        'Mercedes-Benz': { 
+            info: '<strong>Mercedes-Benz</strong> — немецкая марка автомобилей, принадлежащая компании Mercedes-Benz Group AG. Основана в 1926 году. Штаб-квартира в Штутгарте.<br><br><strong>Популярные модели:</strong> C-Класс, E-Класс, S-Класс, GLE, G-Класс (Geländewagen).<br><br><strong>Особенности:</strong> Считается одним из самых престижных автопроизводителей в мире. Известна высоким уровнем комфорта, безопасности и инноваций. Девиз: «Das Beste oder nichts» (Лучшее или ничего).',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mercedes-benz-logo.svg'
+        },
+        'Audi': { 
+            info: '<strong>Audi AG</strong> — немецкая автомобилестроительная компания, входящая в концерн Volkswagen Group. Основана в 1909 году Августом Хорьхом. Штаб-квартира в Ингольштадте.<br><br><strong>Популярные модели:</strong> A4, A6, A8, Q5, Q7, TT, R8.<br><br><strong>Особенности:</strong> Известна системой полного привода quattro, высокими технологиями и спортивным характером. Девиз: «Vorsprung durch Technik» (Преимущество через технологии).',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/audi-logo.svg'
+        },
+        'Volkswagen': { 
+            info: '<strong>Volkswagen AG</strong> — немецкий автопроизводитель, основанный в 1937 году. Штаб-квартира в Вольфсбурге. Название переводится как «народный автомобиль».<br><br><strong>Популярные модели:</strong> Golf, Passat, Tiguan, Touareg, Polo, Beetle (Жук).<br><br><strong>Особенности:</strong> Один из крупнейших автопроизводителей в мире. Известен надёжными и практичными автомобилями. Входит в концерн Volkswagen Group.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/volkswagen-logo.svg'
+        },
+        'Ford': { 
+            info: '<strong>Ford Motor Company</strong> — американский автопроизводитель, основанный Генри Фордом в 1903 году. Штаб-квартира в Дирборне (Мичиган).<br><br><strong>Популярные модели:</strong> Focus, Mondeo, Mustang, Kuga, Explorer, F-150 (самый продаваемый пикап в США).<br><br><strong>Особенности:</strong> Изобретатель конвейерной сборки. Девиз: «Built Ford Tough» (Создан, чтобы быть сильным).',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/ford-logo.svg'
+        },
+        'Chevrolet': { 
+            info: '<strong>Chevrolet</strong> — американская марка автомобилей, принадлежащая концерну General Motors. Основана в 1911 году Луи Шевроле и Уильямом Дюрантом.<br><br><strong>Популярные модели:</strong> Cruze, Lacetti, Aveo, Camaro, Corvette, Tahoe.<br><br><strong>Особенности:</strong> Одна из самых узнаваемых марок в мире. Известна как производитель доступных и надёжных автомобилей.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/chevrolet-logo.svg'
+        },
+        'Hyundai': { 
+            info: '<strong>Hyundai Motor Company</strong> — южнокорейский автопроизводитель, основанный в 1967 году. Штаб-квартира в Сеуле.<br><br><strong>Популярные модели:</strong> Solaris, Elantra, Sonata, Tucson, Santa Fe, Genesis.<br><br><strong>Особенности:</strong> Известен отличным соотношением цены и качества. Входит в пятёрку крупнейших автопроизводителей мира.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/hyundai-logo.svg'
+        },
+        'Kia': { 
+            info: '<strong>Kia Corporation</strong> — южнокорейский автопроизводитель, основанный в 1944 году. Штаб-квартира в Сеуле. Входит в Hyundai Motor Group.<br><br><strong>Популярные модели:</strong> Rio, Cerato, Optima, Sportage, Sorento.<br><br><strong>Особенности:</strong> Отличается стильным дизайном и богатым оснащением. Девиз: «Movement that inspires».',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/kia-logo.svg'
+        },
+        'Honda': { 
+            info: '<strong>Honda Motor Co., Ltd.</strong> — японский автопроизводитель, основанный Соитиро Хондой в 1948 году. Штаб-квартира в Токио.<br><br><strong>Популярные модели:</strong> Civic, Accord, CR-V, HR-V, Pilot, NSX.<br><br><strong>Особенности:</strong> Крупнейший в мире производитель двигателей. Известен надёжностью и инновациями (VTEC).',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/honda-logo.svg'
+        },
+        'Nissan': { 
+            info: '<strong>Nissan Motor Co., Ltd.</strong> — японский автопроизводитель, основанный в 1933 году. Штаб-квартира в Иокогаме.<br><br><strong>Популярные модели:</strong> Almera, Qashqai, X-Trail, Patrol, GT-R, Leaf (электромобиль).<br><br><strong>Особенности:</strong> Создатель легендарного Skyline GT-R. Входит в альянс Renault-Nissan-Mitsubishi.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/nissan-logo.svg'
+        },
+        'Mazda': { 
+            info: '<strong>Mazda Motor Corporation</strong> — японский автопроизводитель, основанный в 1920 году. Штаб-квартира в Хиросиме.<br><br><strong>Популярные модели:</strong> Mazda3, Mazda6, CX-5, CX-9, MX-5 (Miata).<br><br><strong>Особенности:</strong> Известна технологиями роторных двигателей (Wankel) и философией «Jinba Ittai» (единство всадника и лошади).',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mazda-logo.svg'
+        },
+        'Subaru': { 
+            info: '<strong>Subaru Corporation</strong> — японский автопроизводитель, автомобильное подразделение конгломерата Fuji Heavy Industries. Основан в 1953 году. Штаб-квартира в Токио.<br><br><strong>Популярные модели:</strong> Impreza, Legacy, Outback, Forester, WRX STI.<br><br><strong>Особенности:</strong> Почти все модели имеют полный привод (Symmetrical AWD) и оппозитные двигатели (Boxer).',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/subaru-logo.svg'
+        },
+        'Mitsubishi': { 
+            info: '<strong>Mitsubishi Motors Corporation</strong> — японский автопроизводитель, основанный в 1970 году. Штаб-квартира в Токио.<br><br><strong>Популярные модели:</strong> Lancer, Outlander, Pajero, ASX, Eclipse Cross.<br><br><strong>Особенности:</strong> Легендарный Lancer Evolution. Известна внедорожниками и технологией полного привода Super All-Wheel Control.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mitsubishi-logo.svg'
+        },
+        'Lexus': { 
+            info: '<strong>Lexus</strong> — премиальный бренд Toyota Motor Corporation. Создан в 1989 году для выхода на рынок США.<br><br><strong>Популярные модели:</strong> ES, RX, LX, NX, LS, LC.<br><br><strong>Особенности:</strong> Лидер по надёжности среди люксовых брендов. Славится комфортом, тишиной в салоне и высоким качеством.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lexus-logo.svg'
+        },
+        'Lada (ВАЗ)': { 
+            info: '<strong>LADA (АО «АвтоВАЗ»)</strong> — российский автопроизводитель, крупнейший в стране. Основан в 1966 году. Штаб-квартира в Тольятти.<br><br><strong>Популярные модели:</strong> Vesta, Granta, Niva Travel, Niva Legend, Largus, Priora, Kalina.<br><br><strong>Особенности:</strong> Легендарные «Жигули», «Нива» (первый в мире гражданский внедорожник). Девиз: «LADA — вдохновлять своим движением».',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lada-logo.svg'
+        },
+        'Citroen': { 
+            info: '<strong>Citroën</strong> — французский автопроизводитель, основанный Андре Ситроеном в 1919 году. Штаб-квартира в Сен-Уане. Входит в группу Stellantis.<br><br><strong>Популярные модели:</strong> C3, C4, C5 Aircross, Berlingo.<br><br><strong>Особенности:</strong> Известен инновационными технологиями: передний привод (Traction Avant), гидропневматическая подвеска, уникальный дизайн.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/citroen-logo.svg'
+        },
+        'Peugeot': { 
+            info: '<strong>Peugeot</strong> — французский автопроизводитель, один из старейших в мире. Основан в 1810 году (изначально производил кофемолки и велосипеды). Штаб-квартира в Париже. Входит в группу Stellantis.<br><br><strong>Популярные модели:</strong> 208, 308, 3008, 5008, Partner.<br><br><strong>Особенности:</strong> Узнаваемый дизайн (пасть тигра), технологичные двигатели, стильные интерьеры (i-Cockpit).',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/peugeot-logo.svg'
+        },
+        'Renault': { 
+            info: '<strong>Renault S.A.</strong> — французская автомобилестроительная компания, основанная братьями Рено в 1899 году. Штаб-квартира в Булонь-Бийанкуре.<br><br><strong>Популярные модели:</strong> Logan, Sandero, Duster, Megane, Captur, Kaptur.<br><br><strong>Особенности:</strong> Один из лидеров европейского рынка. Разрабатывает доступные и практичные автомобили. Входит в альянс Renault-Nissan-Mitsubishi.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/renault-logo.svg'
+        },
+        'Volvo': { 
+            info: '<strong>Volvo Cars</strong> — шведский автопроизводитель, основанный в 1927 году. Штаб-квартира в Гётеборге. С 2010 года принадлежит китайской компании Geely.<br><br><strong>Популярные модели:</strong> XC60, XC90, S60, S90, V60, V90.<br><br><strong>Особенности:</strong> Символ безопасности. Именно Volvo изобрела трёхточечные ремни безопасности. Скандинавский дизайн: минимализм и функциональность.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/volvo-logo.svg'
+        },
+        'Porsche': { 
+            info: '<strong>Porsche AG</strong> — немецкий производитель спортивных автомобилей, основанный Фердинандом Порше в 1931 году. Штаб-квартира в Штутгарте.<br><br><strong>Популярные модели:</strong> 911, Cayenne, Macan, Panamera, Taycan.<br><br><strong>Особенности:</strong> Легендарная модель 911 — один из самых узнаваемых спорткаров в истории. Сочетает спорткар и практичность (Cayenne). Девиз: «Porsche — их нет, они просто другие».',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/porsche-logo.svg'
+        },
+        'Ferrari': { 
+            info: '<strong>Ferrari S.p.A.</strong> — итальянская компания, производящая спортивные и гоночные автомобили. Основана Энцо Феррари в 1947 году. Штаб-квартира в Маранелло.<br><br><strong>Популярные модели:</strong> F8 Tributo, SF90 Stradale, 812 Superfast, Roma, Purosangue.<br><br><strong>Особенности:</strong> Легендарный символ скорости и роскоши. Самая титулованная команда в истории Формулы-1. Знаменитый жеребец на эмблеме.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/ferrari-logo.svg'
+        },
+        'Lamborghini': { 
+            info: '<strong>Automobili Lamborghini S.p.A.</strong> — итальянский производитель суперкаров. Основан Ферруччо Ламборгини в 1963 году. Штаб-квартира в Сант-Агата-Болоньезе. Принадлежит концерну Volkswagen через Audi.<br><br><strong>Популярные модели:</strong> Aventador, Huracan, Urus, Revuelto.<br><br><strong>Особенности:</strong> Создана как ответ Ferrari. Агрессивный дизайн, мощные двигатели V10 и V12. Названия моделей связаны с бойцовыми быками.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lamborghini-logo.svg'
+        },
+        'Jeep': { 
+            info: '<strong>Jeep</strong> — американская марка внедорожников, принадлежащая концерну Stellantis. Основана в 1941 году с выпуском легендарного Willys MB для армии США.<br><br><strong>Популярные модели:</strong> Wrangler, Cherokee, Grand Cherokee, Compass, Renegade.<br><br><strong>Особенности:</strong> Родоначальник класса SUV и внедорожников. Символ свободы и приключений. Узнаваемая решётка радиатора с семью прорезями.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/jeep-logo.svg'
+        },
+        'Tesla': { 
+            info: '<strong>Tesla, Inc.</strong> — американская компания, производитель электромобилей и решений для хранения энергии. Основана в 2003 году Мартином Эберхардом и Марком Тарпеннингом, генеральный директор — Илон Маск.<br><br><strong>Популярные модели:</strong> Model 3, Model Y, Model S, Model X, Cybertruck.<br><br><strong>Особенности:</strong> Лидер в области электромобилей. Автопилот, огромные сенсорные экраны, стеклянная крыша, отличная динамика.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/tesla-logo.svg'
+        },
+        'BYD': { 
+            info: '<strong>BYD Auto</strong> — китайская автомобилестроительная компания, основанная в 2003 году. Штаб-квартира в Шэньчжэне. Входит в холдинг BYD Company (крупнейший производитель аккумуляторов).<br><br><strong>Популярные модели:</strong> Han, Tang, Song, Qin, Dolphin, Seal.<br><br><strong>Особенности:</strong> Крупнейший в мире производитель электромобилей (обогнал Tesla в 2023 году). Инновационные аккумуляторы Blade Battery.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/byd-logo.svg'
+        },
+        'Geely': { 
+            info: '<strong>Geely Auto</strong> — китайский автопроизводитель, основанный в 1997 году. Штаб-квартира в Ханчжоу. Владелец Volvo Cars и Lotus, крупный акционер Daimler AG.<br><br><strong>Популярные модели:</strong> Atlas, Coolray, Tugella, Emgrand.<br><br><strong>Особенности:</strong> Агрессивная экспансия на мировом рынке. Сочетает доступные цены с современными технологиями и дизайном.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/geely-logo.svg'
+        },
+        'Chery': { 
+            info: '<strong>Chery Automobile Co., Ltd.</strong> — китайская автомобилестроительная компания, основанная в 1997 году. Штаб-квартира в Уху. Первый китайский автопроизводитель, начавший экспорт двигателей.<br><br><strong>Популярные модели:</strong> Tiggo 4, Tiggo 7, Tiggo 8, Arrizo 8.<br><br><strong>Особенности:</strong> Популярные кроссоверы. Постоянно развивает технологии, активно выходит на российский рынок.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/chery-logo.svg'
+        },
+        'Acura': { 
+            info: '<strong>Acura</strong> — премиальный бренд Honda Motor Co. Создан в 1986 году для рынка США, затем вышел на другие рынки.<br><br><strong>Популярные модели:</strong> MDX, RDX, TLX, NSX (суперкар-гибрид).<br><br><strong>Особенности:</strong> Первый японский премиальный бренд. Спортивный характер, надёжность Honda и высокий уровень комфорта.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/acura-logo.svg'
+        },
+        'Infiniti': { 
+            info: '<strong>Infiniti</strong> — премиальный бренд Nissan Motor Co. Создан в 1989 году для рынка США.<br><br><strong>Популярные модели:</strong> Q50, QX50, QX60, QX80.<br><br><strong>Особенности:</strong> Спортивный дизайн и мощные двигатели. Сочетает японскую надёжность и американский комфорт.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/infiniti-logo.svg'
+        },
+        'Jaguar': { 
+            info: '<strong>Jaguar</strong> — британская автомобилестроительная компания, основанная в 1922 году как Swallow Sidecar Company. Штаб-квартира в Уитли. С 2008 года входит в индийский концерн Tata Motors.<br><br><strong>Популярные модели:</strong> F-Pace, XE, XF, E-Pace, I-Pace (электрический).<br><br><strong>Особенности:</strong> Британская элегантность и спортивный характер. «Душа» Jaguar — это стиль, скорость и комфорт.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/jaguar-logo.svg'
+        },
+        'Land Rover': { 
+            info: '<strong>Land Rover</strong> — британский производитель внедорожников, основанный в 1948 году. Штаб-квартира в Уитли. С 2008 года входит в концерн Tata Motors.<br><br><strong>Популярные модели:</strong> Range Rover, Discovery, Defender, Velar, Evoque.<br><br><strong>Особенности:</strong> Эталонный премиальный внедорожник. Беспрецедентная проходимость и роскошь одновременно. Девиз: «Above and Beyond».',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/land-rover-logo.svg'
+        },
+        'Mini': { 
+            info: '<strong>Mini</strong> — британская марка малолитражных автомобилей, принадлежащая BMW Group. Оригинальный Mini (1959) — британская икона.<br><br><strong>Популярные модели:</strong> Cooper, Countryman, Clubman, Paceman.<br><br><strong>Особенности:</strong> Легендарный дизайн «спортивный малолитражный». Короткие свесы, колёса по углам. Спортивный характер и управляемость «карт».',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mini-logo.svg'
+        },
+        'Suzuki': { 
+            info: '<strong>Suzuki Motor Corporation</strong> — японский автопроизводитель, основанный в 1909 году (изначально производил ткацкие станки). Штаб-квартира в Хамамацу.<br><br><strong>Популярные модели:</strong> Swift, Vitara, Jimny, SX4, Celerio.<br><br><strong>Особенности:</strong> Специалист по компактным автомобилям и внедорожникам. Легендарный Jimny — рамный внедорожник малого класса.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/suzuki-logo.svg'
+        },
+        'Alfa Romeo': { 
+            info: '<strong>Alfa Romeo Automobiles S.p.A.</strong> — итальянская автомобилестроительная компания, основанная в 1910 году. Штаб-квартира в Турине. Входит в группу Stellantis.<br><br><strong>Популярные модели:</strong> Giulia, Stelvio, Tonale.<br><br><strong>Особенности:</strong> Итальянский стиль и спортивный характер. Знаменитая формула «Кузов, сделанный с душой, управляется сердцем».',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/alfa-romeo-logo.svg'
+        },
+        'Fiat': { 
+            info: '<strong>Fiat Automobiles S.p.A.</strong> — итальянский автопроизводитель, основанный в 1899 году. Штаб-квартира в Турине. Является частью группы Stellantis.<br><br><strong>Популярные модели:</strong> 500 (Cinquecento), Panda, Tipo, 600.<br><br><strong>Особенности:</strong> Один из старейших автопроизводителей в мире. Символ итальянского дизайна и автомобильной культуры.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/fiat-logo.svg'
+        },
+        'Maserati': { 
+            info: '<strong>Maserati S.p.A.</strong> — итальянский производитель люксовых автомобилей, основанный в 1914 году. Штаб-квартира в Модене. Входит в группу Stellantis.<br><br><strong>Популярные модели:</strong> Ghibli, Levante, Quattroporte, MC20, Grecale.<br><br><strong>Особенности:</strong> Итальянская роскошь, спортивный характер и уникальный звук двигателя. «Трон» и «Трезубец» на эмблеме.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/maserati-logo.svg'
+        },
+        'Иномарки': { 
+            info: '<strong>Иномарки</strong> — автомобили зарубежного производства, официально импортируемые или ввозимые по схеме параллельного импорта. В нашем каталоге представлены запчасти для большинства популярных иномарок, включая: Acura, Audi, BMW, Chevrolet, Citroen, Ford, Honda, Hyundai, Infiniti, Jaguar, Kia, Land Rover, Lexus, Mazda, Mercedes-Benz, Mitsubishi, Nissan, Peugeot, Porsche, Renault, Subaru, Suzuki, Tesla, Toyota, Volkswagen, Volvo и другие.<br><br><strong>Особенности:</strong> Широкий ассортимент, доступность запчастей, европейские и японские стандарты качества.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/import-logo.svg'
+        }
+    };
 
     const allBrands = Object.keys(brandsData);
     let currentPage = 1;
@@ -156,9 +233,15 @@ const brandsData = {
         if (data) {
             brandTitle.innerText = brand;
             brandInfo.innerHTML = `
-                <img src="${data.image}" class="img-fluid mb-3" alt="${brand}" style="max-height: 100px; object-fit: contain; background: white; padding: 10px; border-radius: 12px;">
-                <p class="mt-2">${data.info}</p>
-                <a href="{% url 'crm_app:catalog' %}?search=${encodeURIComponent(brand)}" class="btn btn-primary btn-sm mt-2">Смотреть запчасти для ${brand}</a>
+                <div class="text-center mb-3">
+                    <img src="${data.image}" class="img-fluid" alt="${brand}" style="max-height: 100px; object-fit: contain; background: white; padding: 10px; border-radius: 12px;">
+                </div>
+                <div class="brand-description" style="font-size: 0.95rem; line-height: 1.6; text-align: justify;">
+                    ${data.info}
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{% url 'crm_app:catalog' %}?search=${encodeURIComponent(brand)}" class="btn btn-primary btn-sm">Смотреть запчасти для ${brand}</a>
+                </div>
             `;
         } else {
             brandTitle.innerText = brand;
@@ -201,12 +284,32 @@ const brandsData = {
         position: sticky;
         top: 20px;
     }
+    .brand-description {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
     #paginationControls {
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 10px;
         margin-top: 15px;
+    }
+    /* Стили для скролла */
+    .brand-description::-webkit-scrollbar {
+        width: 6px;
+    }
+    .brand-description::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .brand-description::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+    .brand-description::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 </style>
 {% endblock %}
