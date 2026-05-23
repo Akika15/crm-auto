@@ -22,7 +22,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crm_app',
-    'django_extensions',  # ДОБАВЬТЕ ЭТУ СТРОКУ
 ]
 
 MIDDLEWARE = [
