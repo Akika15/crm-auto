@@ -1,12 +1,23 @@
 {% extends 'crm_app/base.html' %}
 
 {% block content %}
-<!-- Герой-баннер -->
-<div class="bg-primary text-white rounded-3 p-5 mb-5 text-center">
-    <h1 class="display-4 fw-bold">CRM АвтоКомплект</h1>
-    <p class="lead mt-3">Качественные автозапчасти для вашего автомобиля</p>
-    <p>Оригинальные запчасти и качественные аналоги. Быстрая доставка по всей России.</p>
-    <a href="{% url 'crm_app:catalog' %}" class="btn btn-light btn-lg mt-3">Перейти в каталог</a>
+<!-- Серый прямоугольник с приветствием -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card bg-secondary text-white border-0 shadow">
+            <div class="card-body py-4">
+                <div class="d-flex align-items-center">
+                    <div class="me-4">
+                        <i class="bi bi-car-front-fill" style="font-size: 48px;"></i>
+                    </div>
+                    <div>
+                        <h2 class="card-title mb-1">Добро пожаловать в CRM АвтоКомплект!</h2>
+                        <p class="card-text mb-0">Качественные автозапчасти для вашего автомобиля. Оригинальные запчасти и качественные аналоги.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- Блок "Новинки" -->
@@ -29,8 +40,27 @@
     {% endfor %}
 </div>
 
+<!-- Преимущества (реальные) -->
+<div class="row bg-light rounded-3 p-4 mt-4 text-center">
+    <div class="col-md-4 mb-3">
+        <i class="bi bi-person-check fs-1 text-primary"></i>
+        <h5 class="mt-2">Индивидуальный подход</h5>
+        <p class="small">Поможем подобрать нужную запчасть</p>
+    </div>
+    <div class="col-md-4 mb-3">
+        <i class="bi bi-credit-card fs-1 text-primary"></i>
+        <h5 class="mt-2">Удобная оплата</h5>
+        <p class="small">Наличные, карта, безналичный расчет</p>
+    </div>
+    <div class="col-md-4 mb-3">
+        <i class="bi bi-shield-check fs-1 text-primary"></i>
+        <h5 class="mt-2">Гарантия качества</h5>
+        <p class="small">Оригинальные запчасти от проверенных поставщиков</p>
+    </div>
+</div>
+
 <!-- Подписка на каталог -->
-<div class="bg-light rounded-3 p-5 text-center mb-5">
+<div class="bg-light rounded-3 p-5 text-center mt-5">
     <h3>Подпишитесь на каталог</h3>
     <p>Будьте в курсе новых поступлений и акций</p>
     <div class="row justify-content-center">
@@ -38,42 +68,6 @@
             <div class="input-group">
                 <input type="email" class="form-control" placeholder="Ваш email">
                 <button class="btn btn-primary" type="button">Подписаться</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Популярные категории -->
-<div class="row">
-    <div class="col-md-3 mb-3">
-        <div class="card bg-primary text-white">
-            <div class="card-body text-center py-4">
-                <i class="bi bi-car-front fs-1"></i>
-                <h4 class="mt-2">Жигули</h4>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="card bg-success text-white">
-            <div class="card-body text-center py-4">
-                <i class="bi bi-truck fs-1"></i>
-                <h4 class="mt-2">ПП ВАЗ</h4>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="card bg-warning text-dark">
-            <div class="card-body text-center py-4">
-                <i class="bi bi-bicycle fs-1"></i>
-                <h4 class="mt-2">Нива</h4>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="card bg-info text-white">
-            <div class="card-body text-center py-4">
-                <i class="bi bi-globe fs-1"></i>
-                <h4 class="mt-2">Универсальные</h4>
             </div>
         </div>
     </div>

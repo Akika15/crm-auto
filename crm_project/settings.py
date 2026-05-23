@@ -65,8 +65,8 @@ DATABASES = {
         'HOST': 'dpg-d8830du7r5hc73f7hc00-a.frankfurt-postgres.render.com',
         'PORT': '5432',
         'OPTIONS': {
-    'connect_timeout': 60,
-},
+            'sslmode': 'require',
+        },
     }
 }
 
