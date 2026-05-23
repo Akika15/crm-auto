@@ -23,8 +23,8 @@
                 <td>
                     <form method="post" action="{% url 'crm_app:cart_update' item.id %}" style="display: inline;">
                         {% csrf_token %}
-                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" style="width: 60px;">
-                        <button type="submit" class="btn btn-sm btn-secondary">Обновить</button>
+                        <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control form-control-sm" style="width: 70px;">
+                        <button type="submit" class="btn btn-sm btn-secondary mt-1">Обновить</button>
                     </form>
                 </a></td>
                 <td>{{ item.get_total_price }} ₽</a></td>
@@ -43,13 +43,15 @@
         </tfoot>
     </a></table>
 </div>
-<div class="mt-4">
+<div class="mt-4 d-flex justify-content-between">
     <a href="{% url 'crm_app:catalog' %}" class="btn btn-outline-secondary">Продолжить покупки</a>
+    <a href="#" class="btn btn-success">Оформить заказ</a>
 </div>
 {% else %}
-<div class="alert alert-info">
-    Ваша корзина пуста
+<div class="alert alert-info text-center py-5">
+    <i class="bi bi-cart-x" style="font-size: 48px;"></i>
+    <h3 class="mt-3">Ваша корзина пуста</h3>
+    <a href="{% url 'crm_app:catalog' %}" class="btn btn-primary mt-3">Перейти в каталог</a>
 </div>
-<a href="{% url 'crm_app:catalog' %}" class="btn btn-primary">Перейти в каталог</a>
 {% endif %}
 {% endblock %}

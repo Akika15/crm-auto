@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="row">
-    <!-- Боковое меню категорий -->
+    <!-- Древовидное меню категорий -->
     <div class="col-md-3 mb-4">
         <div class="card">
             <div class="card-header bg-dark text-white">
@@ -12,9 +12,16 @@
                 <ul class="list-group list-group-flush">
                     {% for cat in categories %}
                     <li class="list-group-item">
-                        <a href="{{ cat.get_absolute_url }}" class="text-decoration-none">
+                        <a href="{{ cat.get_absolute_url }}" class="text-decoration-none fw-bold">
                             {{ cat.name }}
                         </a>
+                        {% if cat.children.all %}
+                            <ul class="list-unstyled ms-3 mt-2">
+                                {% for child in cat.children.all %}
+                                <li><a href="{{ child.get_absolute_url }}" class="text-decoration-none small">{{ child.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
                     </li>
                     {% endfor %}
                 </ul>
@@ -24,6 +31,21 @@
 
     <!-- Список товаров -->
     <div class="col-md-9">
+        <!-- Хлебные крошки -->
+        {% if breadcrumbs or current_category %}
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'crm_app:catalog' %}">Каталог</a></li>
+                {% for crumb in breadcrumbs %}
+                <li class="breadcrumb-item"><a href="{{ crumb.get_absolute_url }}">{{ crumb.name }}</a></li>
+                {% endfor %}
+                {% if current_category %}
+                <li class="breadcrumb-item active">{{ current_category.name }}</li>
+                {% endif %}
+            </ol>
+        </nav>
+        {% endif %}
+
         <h1 class="mb-4">
             {% if current_category %}
                 {{ current_category.name }}
@@ -35,7 +57,7 @@
         <div class="row">
             {% for product in products %}
             <div class="col-md-4 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 product-card">
                     <div class="card-body">
                         <h5 class="card-title">{{ product.name }}</h5>
                         <p class="card-text text-muted small">Артикул: {{ product.article }}</p>
@@ -52,9 +74,10 @@
                     <div class="card-footer bg-white">
                         <div class="btn-group w-100">
                             <a href="{{ product.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Подробнее</a>
-                            {% if product.is_available %}
                             <a href="{% url 'crm_app:cart_add' product.id %}" class="btn btn-primary btn-sm">В корзину</a>
-                            {% endif %}
+                            <a href="{% url 'crm_app:wishlist_add' product.id %}" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-heart"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

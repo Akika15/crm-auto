@@ -369,3 +369,36 @@ def cart_update(request, item_id):
         cart_item.quantity = quantity
         cart_item.save()
     return redirect('crm_app:cart_view')
+
+def page(request, title):
+    return render(request, 'crm_app/pages.html', {'title': title})    
+
+@login_required
+def wishlist_view(request):
+    wishlist_items = Wishlist.objects.filter(user=request.user)
+    return render(request, 'crm_app/wishlist.html', {'wishlist_items': wishlist_items})
+
+def guest_home(request):
+    new_products = Product.objects.filter(is_new=True, is_available=True)[:8]
+    hit_products = Product.objects.filter(is_hit=True, is_available=True)[:8]
+    recommended_products = Product.objects.filter(is_recommended=True, is_available=True)[:8]
+    context = {
+        'new_products': new_products,
+        'hit_products': hit_products,
+        'recommended_products': recommended_products,
+    }
+    return render(request, 'crm_app/guest_home.html', context)
+
+@login_required
+def wishlist_add(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    Wishlist.objects.get_or_create(user=request.user, product=product)
+    return redirect(request.META.get('HTTP_REFERER', 'crm_app:catalog'))
+
+@login_required
+def wishlist_remove(request, product_id):
+    Wishlist.objects.filter(user=request.user, product_id=product_id).delete()
+    return redirect('crm_app:wishlist')
+
+def page(request, title):
+    return render(request, 'crm_app/pages.html', {'title': title})

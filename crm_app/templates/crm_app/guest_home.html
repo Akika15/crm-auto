@@ -1,91 +1,142 @@
 {% extends 'crm_app/base.html' %}
 
 {% block content %}
-<div class="px-4 py-5 my-5 text-center">
-    <h1 class="display-4 fw-bold text-body-emphasis">Добро пожаловать в CRM АвтоКомплект</h1>
-    <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4">
-            Ваш надежный помощник в мире автомобильных запчастей. 
-            Управляйте заказами, отслеживайте историю покупок 
-            и получайте своевременные напоминания о сервисном обслуживании.
-        </p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <a href="{% url 'crm_app:register' %}" class="btn btn-primary btn-lg px-4 gap-3">Зарегистрироваться</a>
-            <a href="{% url 'login' %}" class="btn btn-outline-secondary btn-lg px-4">Войти</a>
-        </div>
-    </div>
+<!-- Приветственный баннер -->
+<div class="bg-primary text-white rounded-3 p-5 mb-4 text-center">
+    <i class="bi bi-car-front-fill" style="font-size: 64px;"></i>
+    <h1 class="mt-3">Добро пожаловать в CRM АвтоКомплект</h1>
+    <p class="lead">Качественные автозапчасти для вашего автомобиля</p>
+    <a href="{% url 'crm_app:catalog' %}" class="btn btn-light btn-lg mt-2">
+        <i class="bi bi-grid-3x3-gap-fill"></i> Перейти в каталог
+    </a>
 </div>
 
-<div class="container px-4 py-5">
-    <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-        <div class="col d-flex align-items-start">
-            <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-car-front" viewBox="0 0 16 16">
-                    <path d="M4 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Zm10 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2H6Z"/>
-                    <path d="M4.862 4.276 3.906 6.19a.51.51 0 0 0 .497.731c.91-.073 2.35-.17 3.597-.17 1.247 0 2.688.097 3.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 10.691 4H5.309a.5.5 0 0 0-.447.276Z"/>
-                    <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.36a2.5 2.5 0 0 1 2.3 1.515l1.04 2.08A2.5 2.5 0 0 1 15 6.72V11a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H4v1a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V6.72a2.5 2.5 0 0 1 .48-1.515l1.04-2.08Zm1.44.53a1.5 1.5 0 0 1 1.38-.91h6.36a1.5 1.5 0 0 1 1.38.91l1.04 2.08a1.5 1.5 0 0 1 .28.87V10h-1v-1a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v1H2V6.72a1.5 1.5 0 0 1 .28-.87l1.04-2.08Z"/>
-                </svg>
+<!-- Блок "Новинки" -->
+{% if new_products %}
+<h2 class="mb-4">
+    <i class="bi bi-stars text-warning"></i> Новинки
+</h2>
+<div class="row mb-5">
+    {% for product in new_products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name|truncatechars:40 }}</h5>
+                <p class="card-text text-muted small">Артикул: {{ product.article }}</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="h5 text-primary">{{ product.price }} ₽</span>
+                    {% if product.is_available %}
+                        <span class="badge bg-success">В наличии</span>
+                    {% else %}
+                        <span class="badge bg-danger">Нет в наличии</span>
+                    {% endif %}
+                </div>
             </div>
-            <div>
-                <h3 class="fs-2 text-body-emphasis">Удобный подбор запчастей</h3>
-                <p>Быстрый поиск по артикулу, марке автомобиля или VIN-коду. То, что нужно, всегда под рукой.</p>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
-            <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-clock-history" viewBox="0 0 16 16">
-                    <path d="M8 4.5a.5.5 0 0 1 .5.5v3.5h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5V5a.5.5 0 0 1 .5-.5z"/>
-                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                </svg>
-            </div>
-            <div>
-                <h3 class="fs-2 text-body-emphasis">История заказов</h3>
-                <p>Все ваши покупки в одном месте. Легко повторить заказ или отследить статус.</p>
-            </div>
-        </div>
-        <div class="col d-flex align-items-start">
-            <div class="icon-square text-body-emphasis bg-body-secondary d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
-                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
-                </svg>
-            </div>
-            <div>
-                <h3 class="fs-2 text-body-emphasis">Сервисные напоминания</h3>
-                <p>Не пропустите срок замены масла, фильтров или колодок. Мы напомним вовремя.</p>
+            <div class="card-footer bg-white border-0">
+                <div class="d-grid gap-2">
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Подробнее</a>
+                    <a href="{% url 'crm_app:cart_add' product.id %}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-cart-plus"></i> В корзину
+                    </a>
+                </div>
             </div>
         </div>
     </div>
+    {% endfor %}
 </div>
+{% endif %}
 
-<div class="bg-body-tertiary py-5">
-    <div class="container text-center">
-        <h2 class="mb-4">Что вы получите, зарегистрировавшись?</h2>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">📋 История заказов</h5>
-                        <p class="card-text">Все ваши заказы в одном месте. Легко отслеживать статус и повторять покупки.</p>
-                    </div>
+<!-- Блок "Хиты продаж" -->
+{% if hit_products %}
+<h2 class="mb-4">
+    <i class="bi bi-fire text-danger"></i> Хиты продаж
+</h2>
+<div class="row mb-5">
+    {% for product in hit_products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name|truncatechars:40 }}</h5>
+                <p class="card-text text-muted small">Артикул: {{ product.article }}</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="h5 text-primary">{{ product.price }} ₽</span>
+                    {% if product.is_available %}
+                        <span class="badge bg-success">В наличии</span>
+                    {% else %}
+                        <span class="badge bg-danger">Нет в наличии</span>
+                    {% endif %}
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">⏰ Сервисные напоминания</h5>
-                        <p class="card-text">Мы напомним о замене масла, фильтров и колодок вовремя.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">🚗 Ваши автомобили</h5>
-                        <p class="card-text">Добавляйте несколько автомобилей и управляйте заказами для каждого.</p>
-                    </div>
+            <div class="card-footer bg-white border-0">
+                <div class="d-grid gap-2">
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Подробнее</a>
+                    <a href="{% url 'crm_app:cart_add' product.id %}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-cart-plus"></i> В корзину
+                    </a>
                 </div>
             </div>
         </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Блок "Рекомендуемые товары" -->
+{% if recommended_products %}
+<h2 class="mb-4">
+    <i class="bi bi-hand-thumbs-up text-success"></i> Рекомендуемые товары
+</h2>
+<div class="row mb-5">
+    {% for product in recommended_products %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name|truncatechars:40 }}</h5>
+                <p class="card-text text-muted small">Артикул: {{ product.article }}</p>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="h5 text-primary">{{ product.price }} ₽</span>
+                    {% if product.is_available %}
+                        <span class="badge bg-success">В наличии</span>
+                    {% else %}
+                        <span class="badge bg-danger">Нет в наличии</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="card-footer bg-white border-0">
+                <div class="d-grid gap-2">
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Подробнее</a>
+                    <a href="{% url 'crm_app:cart_add' product.id %}" class="btn btn-primary btn-sm">
+                        <i class="bi bi-cart-plus"></i> В корзину
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Преимущества магазина -->
+<div class="row bg-light rounded-3 p-4 mt-4 text-center">
+    <div class="col-md-3 mb-3">
+        <i class="bi bi-truck fs-1 text-primary"></i>
+        <h5 class="mt-2">Быстрая доставка</h5>
+        <p class="small">По всей России</p>
+    </div>
+    <div class="col-md-3 mb-3">
+        <i class="bi bi-credit-card fs-1 text-primary"></i>
+        <h5 class="mt-2">Удобная оплата</h5>
+        <p class="small">Наличные, карта, безнал</p>
+    </div>
+    <div class="col-md-3 mb-3">
+        <i class="bi bi-shield-check fs-1 text-primary"></i>
+        <h5 class="mt-2">Гарантия качества</h5>
+        <p class="small">Оригинальные запчасти</p>
+    </div>
+    <div class="col-md-3 mb-3">
+        <i class="bi bi-headset fs-1 text-primary"></i>
+        <h5 class="mt-2">Поддержка 24/7</h5>
+        <p class="small">Всегда на связи</p>
     </div>
 </div>
 {% endblock %}
