@@ -466,3 +466,9 @@ def category_detail(request, slug):
         'products': products,
     }
     return render(request, 'crm_app/category_detail.html', context)
+
+def about_page(request):
+    return render(request, 'crm_app/about.html')
+
+def brands_page(request):
+    return render(request, 'crm_app/brands.html')
