@@ -447,3 +447,22 @@ def get_compatible_products(vehicle):
     if compatible:
         return Product.objects.filter(id__in=compatible, is_available=True)
     return products
+
+    def category_detail(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    products = Product.objects.filter(category=category, is_available=True)
+    
+    # Сортировка
+    sort_by = request.GET.get('sort')
+    if sort_by == 'price':
+        products = products.order_by('price')
+    elif sort_by == 'name':
+        products = products.order_by('name')
+    elif sort_by == 'new':
+        products = products.order_by('-id')
+    
+    context = {
+        'category': category,
+        'products': products,
+    }
+    return render(request, 'crm_app/category_detail.html', context)

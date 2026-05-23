@@ -35,4 +35,5 @@ urlpatterns = [
     path('delivery/', views.page, {'title': 'Доставка и оплата'}, name='delivery'),
     path('contacts/', views.page, {'title': 'Контакты'}, name='contacts'),
     path('help/', views.help_page, name='help'),
+    path('category/<slug:slug>/', views.category_detail, name='category_detail'),
 ]
