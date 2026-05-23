@@ -28,7 +28,7 @@
                             </div>
                             <div class="card-body text-center" id="brandInfo">
                                 <i class="bi bi-car-front" style="font-size: 64px; color: #6c757d;"></i>
-                                <p class="mt-3 text-muted">Нажмите на любую марку или модель слева, чтобы увидеть информацию</p>
+                                <p class="mt-3 text-muted">Нажмите на любую марку слева, чтобы увидеть информацию</p>
                             </div>
                         </div>
                     </div>
@@ -39,72 +39,63 @@
 </div>
 
 <script>
-    // ВСЕ ДАННЫЕ О МАРКАХ (50+)
+    // ДАННЫЕ О МАРКАХ С РЕАЛЬНЫМИ ЛОГОТИПАМИ
     const brandsData = {
         // Французские
-        'Citroen': { info: 'Citroen — французский автопроизводитель, основанный в 1919 году. Известен инновационными технологиями и комфортными автомобилями.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Peugeot': { info: 'Peugeot — французский автопроизводитель, один из старейших в мире. Основан в 1810 году.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Renault': { info: 'Renault — французская автомобильная компания, основанная в 1899 году. Известна надёжными и доступными автомобилями.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Citroen': { info: 'Citroen — французский автопроизводитель, основанный в 1919 году.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Citroen_logo.svg/200px-Citroen_logo.svg.png' },
+        'Peugeot': { info: 'Peugeot — французский автопроизводитель, один из старейших в мире.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Peugeot-logo.svg/200px-Peugeot-logo.svg.png' },
+        'Renault': { info: 'Renault — французская автомобильная компания, основанная в 1899 году.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Renault_Logo.svg/200px-Renault_Logo.svg.png' },
         // Китайские
-        'BYD': { info: 'BYD — китайская компания, производитель электромобилей и аккумуляторов. Один из лидеров рынка электромобилей в мире.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Geely': { info: 'Geely — китайский автопроизводитель, владелец Volvo и Lotus.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Chery': { info: 'Chery — китайский автопроизводитель, известен доступными кроссоверами.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'BYD': { info: 'BYD — китайская компания, производитель электромобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/BYD_Auto_Logo.svg/200px-BYD_Auto_Logo.svg.png' },
+        'Geely': { info: 'Geely — китайский автопроизводитель, владелец Volvo.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Geely_Logo.svg/200px-Geely_Logo.svg.png' },
+        'Chery': { info: 'Chery — китайский автопроизводитель, известен доступными кроссоверами.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Chery_logo.svg/200px-Chery_logo.svg.png' },
         // Японские
-        'Acura': { info: 'Acura — премиальный бренд Honda, основанный в 1986 году. Производит автомобили бизнес-класса.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Lexus': { info: 'Lexus — премиальный бренд Toyota, основанный в 1989 году. Лидер по надёжности среди люксовых автомобилей.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Infiniti': { info: 'Infiniti — премиальный бренд Nissan, основанный в 1989 году.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Toyota': { info: 'Toyota — японский автогигант, один из крупнейших в мире. Известны надёжностью и долговечностью.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Honda': { info: 'Honda — японский автопроизводитель, известен надёжностью.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Nissan': { info: 'Nissan — японский автопроизводитель.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Mazda': { info: 'Mazda — японский автопроизводитель, известен дизайном и технологиями.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Subaru': { info: 'Subaru — японский автопроизводитель, известен полным приводом и оппозитными двигателями.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Mitsubishi': { info: 'Mitsubishi — японский автопроизводитель, известен внедорожниками и технологиями.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Suzuki': { info: 'Suzuki — японский автопроизводитель, специализируется на компактных автомобилях и внедорожниках.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Isuzu': { info: 'Isuzu — японский производитель грузовиков и внедорожников.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Acura': { info: 'Acura — премиальный бренд Honda, основанный в 1986 году.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Acura_logo.svg/200px-Acura_logo.svg.png' },
+        'Lexus': { info: 'Lexus — премиальный бренд Toyota, основанный в 1989 году.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Lexus_division_logo.svg/200px-Lexus_division_logo.svg.png' },
+        'Infiniti': { info: 'Infiniti — премиальный бренд Nissan, основанный в 1989 году.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Infiniti_logo.svg/200px-Infiniti_logo.svg.png' },
+        'Toyota': { info: 'Toyota — японский автогигант, один из крупнейших в мире.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Toyota_EU_logo.svg/200px-Toyota_EU_logo.svg.png' },
+        'Honda': { info: 'Honda — японский автопроизводитель, известен надёжностью.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Honda.svg/200px-Honda.svg.png' },
+        'Nissan': { info: 'Nissan — японский автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Nissan_logo_2020.svg/200px-Nissan_logo_2020.svg.png' },
+        'Mazda': { info: 'Mazda — японский автопроизводитель, известен дизайном.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Mazda_logo_%282015%29.svg/200px-Mazda_logo_%282015%29.svg.png' },
+        'Subaru': { info: 'Subaru — японский автопроизводитель, известен полным приводом.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Subaru_logo.svg/200px-Subaru_logo.svg.png' },
+        'Mitsubishi': { info: 'Mitsubishi — японский автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Mitsubishi_logo.svg/200px-Mitsubishi_logo.svg.png' },
+        'Suzuki': { info: 'Suzuki — японский производитель компактных автомобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Suzuki_logo_%282015%29.svg/200px-Suzuki_logo_%282015%29.svg.png' },
         // Корейские
-        'Hyundai': { info: 'Hyundai — южнокорейский автопроизводитель, известен соотношением цены и качества.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Kia': { info: 'Kia — южнокорейский автопроизводитель, часть группы Hyundai.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Genesis': { info: 'Genesis — премиальный бренд Hyundai, основанный в 2015 году.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Hyundai': { info: 'Hyundai — южнокорейский автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png' },
+        'Kia': { info: 'Kia — южнокорейский автопроизводитель, часть группы Hyundai.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Kia_Motors_logo.svg/200px-Kia_Motors_logo.svg.png' },
+        'Genesis': { info: 'Genesis — премиальный бренд Hyundai, основанный в 2015 году.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Genesis_logo.svg/200px-Genesis_logo.svg.png' },
         // Немецкие
-        'BMW': { info: 'BMW — немецкий автопроизводитель, специализирующийся на премиальных автомобилях.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Mercedes-Benz': { info: 'Mercedes-Benz — немецкий премиальный автопроизводитель.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Audi': { info: 'Audi — немецкий премиальный автопроизводитель, часть концерна VAG.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Volkswagen': { info: 'Volkswagen — немецкий автопроизводитель, один из крупнейших в мире.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Porsche': { info: 'Porsche — немецкий производитель спортивных автомобилей и кроссоверов.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Opel': { info: 'Opel — немецкий автопроизводитель, сейчас часть концерна Stellantis.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'BMW': { info: 'BMW — немецкий производитель премиальных автомобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/200px-BMW.svg.png' },
+        'Mercedes-Benz': { info: 'Mercedes-Benz — немецкий премиальный автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Mercedes-Benz_logo_2010.svg/200px-Mercedes-Benz_logo_2010.svg.png' },
+        'Audi': { info: 'Audi — немецкий премиальный автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Audi-Logo_2016.svg/200px-Audi-Logo_2016.svg.png' },
+        'Volkswagen': { info: 'Volkswagen — немецкий автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Volkswagen_logo.svg/200px-Volkswagen_logo.svg.png' },
+        'Porsche': { info: 'Porsche — немецкий производитель спортивных автомобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Porsche_logo.svg/200px-Porsche_logo.svg.png' },
+        'Opel': { info: 'Opel — немецкий автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Opel_Logo.svg/200px-Opel_Logo.svg.png' },
         // Американские
-        'Ford': { info: 'Ford — американский автопроизводитель, один из старейших в мире.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Chevrolet': { info: 'Chevrolet — американский бренд, часть концерна General Motors.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Dodge': { info: 'Dodge — американский автопроизводитель, известен мощными автомобилями.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Jeep': { info: 'Jeep — американский бренд, специализирующийся на внедорожниках.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Chrysler': { info: 'Chrysler — американский автопроизводитель, часть концерна Stellantis.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Tesla': { info: 'Tesla — американский производитель электромобилей, лидер в области электротранспорта.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Ford': { info: 'Ford — американский автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png' },
+        'Chevrolet': { info: 'Chevrolet — американский бренд, часть General Motors.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png' },
+        'Dodge': { info: 'Dodge — американский производитель мощных автомобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Dodge_logo.svg/200px-Dodge_logo.svg.png' },
+        'Jeep': { info: 'Jeep — американский бренд внедорожников.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Jeep_logo.svg/200px-Jeep_logo.svg.png' },
+        'Tesla': { info: 'Tesla — американский производитель электромобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/200px-Tesla_Motors.svg.png' },
         // Британские
-        'Jaguar': { info: 'Jaguar — британский производитель премиальных автомобилей.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Land Rover': { info: 'Land Rover — британский производитель престижных внедорожников.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Mini': { info: 'Mini — британский автопроизводитель компактных автомобилей, часть BMW.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Bentley': { info: 'Bentley — британский производитель люксовых автомобилей.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Rolls-Royce': { info: 'Rolls-Royce — британский производитель超люксовых автомобилей.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        // Шведские
-        'Volvo': { info: 'Volvo — шведский автопроизводитель, известен безопасностью.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Jaguar': { info: 'Jaguar — британский производитель премиальных автомобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Jaguar_logo.svg/200px-Jaguar_logo.svg.png' },
+        'Land Rover': { info: 'Land Rover — британский производитель внедорожников.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Land_Rover_logo.svg/200px-Land_Rover_logo.svg.png' },
+        'Mini': { info: 'Mini — британский производитель компактных автомобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Mini_logo.svg/200px-Mini_logo.svg.png' },
+        'Volvo': { info: 'Volvo — шведский автопроизводитель, известен безопасностью.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Volvo_Logo.svg/200px-Volvo_Logo.svg.png' },
         // Итальянские
-        'Fiat': { info: 'Fiat — итальянский автопроизводитель, часть концерна Stellantis.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Ferrari': { info: 'Ferrari — итальянский производитель спортивных автомобилей.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Lamborghini': { info: 'Lamborghini — итальянский производитель суперкаров.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Maserati': { info: 'Maserati — итальянский производитель люксовых автомобилей.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Alfa Romeo': { info: 'Alfa Romeo — итальянский автопроизводитель с богатой историей.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Fiat': { info: 'Fiat — итальянский автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Fiat_Logo.svg/200px-Fiat_Logo.svg.png' },
+        'Ferrari': { info: 'Ferrari — итальянский производитель суперкаров.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Ferrari_logo.svg/200px-Ferrari_logo.svg.png' },
+        'Lamborghini': { info: 'Lamborghini — итальянский производитель суперкаров.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Lamborghini_logo.svg/200px-Lamborghini_logo.svg.png' },
+        'Maserati': { info: 'Maserati — итальянский производитель люксовых автомобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Maserati_logo.svg/200px-Maserati_logo.svg.png' },
+        'Alfa Romeo': { info: 'Alfa Romeo — итальянский автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Alfa_Romeo_logo.svg/200px-Alfa_Romeo_logo.svg.png' },
         // Российские
-        'Lada (ВАЗ)': { info: 'LADA — российский автопроизводитель, крупнейший в стране. Выпускает доступные и надёжные автомобили.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'ВАЗ (классика)': { info: 'ВАЗ (Волжский автомобильный завод) — классические модели: Жигули, Нива, Самара.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'УАЗ': { info: 'УАЗ — российский производитель внедорожников и коммерческих автомобилей.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'ГАЗ': { info: 'ГАЗ — российский производитель грузовых и легковых автомобилей.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
-        'Иномарки': { info: 'Иномарки — автомобили зарубежного производства. В нашем каталоге представлены запчасти для популярных иномарок.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Lada (ВАЗ)': { info: 'LADA — российский автопроизводитель, крупнейший в стране.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lada_logo_2002.svg/200px-Lada_logo_2002.svg.png' },
+        'УАЗ': { info: 'УАЗ — российский производитель внедорожников.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/UAZ_Logo.svg/200px-UAZ_Logo.svg.png' },
+        'ГАЗ': { info: 'ГАЗ — российский производитель грузовых и легковых автомобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/GAS_logo.svg/200px-GAS_logo.svg.png' },
+        'Иномарки': { info: 'Иномарки — автомобили зарубежного производства.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
     };
 
-    // Получаем список всех марок
     const allBrands = Object.keys(brandsData);
-    
-    // Пагинация
     let currentPage = 1;
     const itemsPerPage = 12;
     const totalPages = Math.ceil(allBrands.length / itemsPerPage);
@@ -156,7 +147,6 @@
         }
     }
     
-    // Навигация
     document.getElementById('prevPage').addEventListener('click', () => {
         if (currentPage > 1) {
             currentPage--;
@@ -171,7 +161,6 @@
         }
     });
     
-    // Инициализация
     renderBrandsList();
 </script>
 
