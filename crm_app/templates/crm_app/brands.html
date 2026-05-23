@@ -39,60 +39,148 @@
 </div>
 
 <script>
-    // ДАННЫЕ О МАРКАХ С РАБОТАЮЩИМИ КАРТИНКАМИ (через placehold.co и иконки)
+    // ДАННЫЕ О МАРКАХ С РЕАЛЬНЫМИ ЛОГОТИПАМИ (ЧЕРЕЗ CDN)
     const brandsData = {
-        // Французские
-        'Citroen': { info: 'Citroen — французский автопроизводитель, основанный в 1919 году.', image: 'https://placehold.co/200x100/0d6efd/white?text=Citroen' },
-        'Peugeot': { info: 'Peugeot — французский автопроизводитель, один из старейших в мире.', image: 'https://placehold.co/200x100/0d6efd/white?text=Peugeot' },
-        'Renault': { info: 'Renault — французская автомобильная компания, основанная в 1899 году.', image: 'https://placehold.co/200x100/0d6efd/white?text=Renault' },
-        // Китайские
-        'BYD': { info: 'BYD — китайская компания, производитель электромобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=BYD' },
-        'Geely': { info: 'Geely — китайский автопроизводитель, владелец Volvo.', image: 'https://placehold.co/200x100/0d6efd/white?text=Geely' },
-        'Chery': { info: 'Chery — китайский автопроизводитель, известен доступными кроссоверами.', image: 'https://placehold.co/200x100/0d6efd/white?text=Chery' },
-        // Японские
-        'Acura': { info: 'Acura — премиальный бренд Honda, основанный в 1986 году.', image: 'https://placehold.co/200x100/0d6efd/white?text=Acura' },
-        'Lexus': { info: 'Lexus — премиальный бренд Toyota, основанный в 1989 году.', image: 'https://placehold.co/200x100/0d6efd/white?text=Lexus' },
-        'Infiniti': { info: 'Infiniti — премиальный бренд Nissan, основанный в 1989 году.', image: 'https://placehold.co/200x100/0d6efd/white?text=Infiniti' },
-        'Toyota': { info: 'Toyota — японский автогигант, один из крупнейших в мире.', image: 'https://placehold.co/200x100/0d6efd/white?text=Toyota' },
-        'Honda': { info: 'Honda — японский автопроизводитель, известен надёжностью.', image: 'https://placehold.co/200x100/0d6efd/white?text=Honda' },
-        'Nissan': { info: 'Nissan — японский автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Nissan' },
-        'Mazda': { info: 'Mazda — японский автопроизводитель, известен дизайном.', image: 'https://placehold.co/200x100/0d6efd/white?text=Mazda' },
-        'Subaru': { info: 'Subaru — японский автопроизводитель, известен полным приводом.', image: 'https://placehold.co/200x100/0d6efd/white?text=Subaru' },
-        'Mitsubishi': { info: 'Mitsubishi — японский автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Mitsubishi' },
-        'Suzuki': { info: 'Suzuki — японский производитель компактных автомобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=Suzuki' },
-        // Корейские
-        'Hyundai': { info: 'Hyundai — южнокорейский автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Hyundai' },
-        'Kia': { info: 'Kia — южнокорейский автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Kia' },
-        'Genesis': { info: 'Genesis — премиальный бренд Hyundai.', image: 'https://placehold.co/200x100/0d6efd/white?text=Genesis' },
-        // Немецкие
-        'BMW': { info: 'BMW — немецкий производитель премиальных автомобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=BMW' },
-        'Mercedes-Benz': { info: 'Mercedes-Benz — немецкий премиальный автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Mercedes' },
-        'Audi': { info: 'Audi — немецкий премиальный автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Audi' },
-        'Volkswagen': { info: 'Volkswagen — немецкий автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Volkswagen' },
-        'Porsche': { info: 'Porsche — немецкий производитель спортивных автомобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=Porsche' },
-        'Opel': { info: 'Opel — немецкий автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Opel' },
-        // Американские
-        'Ford': { info: 'Ford — американский автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Ford' },
-        'Chevrolet': { info: 'Chevrolet — американский бренд.', image: 'https://placehold.co/200x100/0d6efd/white?text=Chevrolet' },
-        'Dodge': { info: 'Dodge — американский производитель мощных автомобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=Dodge' },
-        'Jeep': { info: 'Jeep — американский бренд внедорожников.', image: 'https://placehold.co/200x100/0d6efd/white?text=Jeep' },
-        'Tesla': { info: 'Tesla — американский производитель электромобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=Tesla' },
-        // Британские
-        'Jaguar': { info: 'Jaguar — британский производитель премиальных автомобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=Jaguar' },
-        'Land Rover': { info: 'Land Rover — британский производитель внедорожников.', image: 'https://placehold.co/200x100/0d6efd/white?text=Land+Rover' },
-        'Mini': { info: 'Mini — британский производитель компактных автомобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=Mini' },
-        'Volvo': { info: 'Volvo — шведский автопроизводитель, известен безопасностью.', image: 'https://placehold.co/200x100/0d6efd/white?text=Volvo' },
-        // Итальянские
-        'Fiat': { info: 'Fiat — итальянский автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Fiat' },
-        'Ferrari': { info: 'Ferrari — итальянский производитель суперкаров.', image: 'https://placehold.co/200x100/0d6efd/white?text=Ferrari' },
-        'Lamborghini': { info: 'Lamborghini — итальянский производитель суперкаров.', image: 'https://placehold.co/200x100/0d6efd/white?text=Lamborghini' },
-        'Maserati': { info: 'Maserati — итальянский производитель люксовых автомобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=Maserati' },
-        'Alfa Romeo': { info: 'Alfa Romeo — итальянский автопроизводитель.', image: 'https://placehold.co/200x100/0d6efd/white?text=Alfa+Romeo' },
-        // Российские
-        'Lada (ВАЗ)': { info: 'LADA — российский автопроизводитель, крупнейший в стране.', image: 'https://placehold.co/200x100/0d6efd/white?text=Lada' },
-        'УАЗ': { info: 'УАЗ — российский производитель внедорожников.', image: 'https://placehold.co/200x100/0d6efd/white?text=UAZ' },
-        'ГАЗ': { info: 'ГАЗ — российский производитель грузовых и легковых автомобилей.', image: 'https://placehold.co/200x100/0d6efd/white?text=GAZ' },
-        'Иномарки': { info: 'Иномарки — автомобили зарубежного производства.', image: 'https://placehold.co/200x100/0d6efd/white?text=Import' },
+        'Toyota': { 
+            info: 'Toyota — японский автогигант, один из крупнейших в мире. Известен надёжностью и долговечностью. Модели: Camry, Corolla, RAV4, Land Cruiser.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/toyota-logo.svg'
+        },
+        'BMW': { 
+            info: 'BMW — немецкий производитель премиальных автомобилей. Легендарная баварская марка. Модели: 3 Series, 5 Series, X5, M系列.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/bmw-logo.svg'
+        },
+        'Mercedes-Benz': { 
+            info: 'Mercedes-Benz — немецкий премиальный автопроизводитель. Символ статуса и качества. Модели: C-Class, E-Class, S-Class, GLE.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mercedes-benz-logo.svg'
+        },
+        'Audi': { 
+            info: 'Audi — немецкий премиальный автопроизводитель. Технологии и полный привод Quattro. Модели: A4, A6, Q5, Q7.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/audi-logo.svg'
+        },
+        'Volkswagen': { 
+            info: 'Volkswagen — немецкий автопроизводитель, народный автомобиль. Модели: Golf, Passat, Tiguan, Polo.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/volkswagen-logo.svg'
+        },
+        'Ford': { 
+            info: 'Ford — американский автопроизводитель, основанный Генри Фордом. Модели: Focus, Mondeo, Kuga, Mustang.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/ford-logo.svg'
+        },
+        'Chevrolet': { 
+            info: 'Chevrolet — американский бренд, часть концерна General Motors. Модели: Cruze, Lacetti, Aveo, Camaro.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/chevrolet-logo.svg'
+        },
+        'Hyundai': { 
+            info: 'Hyundai — южнокорейский автопроизводитель, известен соотношением цены и качества. Модели: Solaris, Elantra, Tucson, Santa Fe.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/hyundai-logo.svg'
+        },
+        'Kia': { 
+            info: 'Kia — южнокорейский автопроизводитель, часть группы Hyundai. Модели: Rio, Cerato, Sportage, Sorento.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/kia-logo.svg'
+        },
+        'Honda': { 
+            info: 'Honda — японский автопроизводитель, известен надёжностью. Модели: Civic, Accord, CR-V, HR-V.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/honda-logo.svg'
+        },
+        'Nissan': { 
+            info: 'Nissan — японский автопроизводитель, создатель легендарного GT-R. Модели: Almera, Qashqai, X-Trail, Patrol.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/nissan-logo.svg'
+        },
+        'Mazda': { 
+            info: 'Mazda — японский автопроизводитель, известен технологиями роторных двигателей. Модели: 3, 6, CX-5, MX-5.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mazda-logo.svg'
+        },
+        'Subaru': { 
+            info: 'Subaru — японский автопроизводитель, известен полным приводом. Модели: Impreza, Outback, Forester, Legacy.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/subaru-logo.svg'
+        },
+        'Mitsubishi': { 
+            info: 'Mitsubishi — японский автопроизводитель, легендарный Lancer Evolution. Модели: Lancer, Outlander, Pajero.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mitsubishi-logo.svg'
+        },
+        'Lexus': { 
+            info: 'Lexus — премиальный бренд Toyota. Модели: ES, RX, LX, NX.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lexus-logo.svg'
+        },
+        'Lada (ВАЗ)': { 
+            info: 'LADA — российский автопроизводитель, крупнейший в стране. Модели: Vesta, Granta, Niva, Largus, Priora.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lada-logo.svg'
+        },
+        'Citroen': { 
+            info: 'Citroen — французский автопроизводитель, основанный в 1919 году. Модели: C3, C4, C5.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/citroen-logo.svg'
+        },
+        'Peugeot': { 
+            info: 'Peugeot — французский автопроизводитель, один из старейших в мире. Модели: 208, 308, 3008, 5008.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/peugeot-logo.svg'
+        },
+        'Renault': { 
+            info: 'Renault — французская автомобильная компания, основанная в 1899 году. Модели: Logan, Sandero, Duster, Megane.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/renault-logo.svg'
+        },
+        'Volvo': { 
+            info: 'Volvo — шведский автопроизводитель, известен безопасностью. Модели: XC60, XC90, S60, S90.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/volvo-logo.svg'
+        },
+        'Porsche': { 
+            info: 'Porsche — немецкий производитель спортивных автомобилей. Модели: 911, Cayenne, Macan, Panamera.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/porsche-logo.svg'
+        },
+        'Ferrari': { 
+            info: 'Ferrari — итальянский производитель суперкаров. Модели: F8 Tributo, SF90 Stradale.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/ferrari-logo.svg'
+        },
+        'Lamborghini': { 
+            info: 'Lamborghini — итальянский производитель суперкаров. Модели: Aventador, Huracan, Urus.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/lamborghini-logo.svg'
+        },
+        'Jeep': { 
+            info: 'Jeep — американский бренд внедорожников. Модели: Wrangler, Cherokee, Grand Cherokee, Compass.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/jeep-logo.svg'
+        },
+        'Tesla': { 
+            info: 'Tesla — американский производитель электромобилей. Модели: Model 3, Model Y, Model S, Model X, Cybertruck.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/tesla-logo.svg'
+        },
+        'BYD': { 
+            info: 'BYD — китайская компания, производитель электромобилей и аккумуляторов. Модели: Han, Tang, Song.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/byd-logo.svg'
+        },
+        'Geely': { 
+            info: 'Geely — китайский автопроизводитель, владелец Volvo. Модели: Atlas, Coolray, Tugella.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/geely-logo.svg'
+        },
+        'Chery': { 
+            info: 'Chery — китайский автопроизводитель, известен доступными кроссоверами. Модели: Tiggo, Arrizo, Exeed.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/chery-logo.svg'
+        },
+        'Acura': { 
+            info: 'Acura — премиальный бренд Honda. Модели: MDX, RDX, TLX.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/acura-logo.svg'
+        },
+        'Infiniti': { 
+            info: 'Infiniti — премиальный бренд Nissan. Модели: Q50, QX50, QX60.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/infiniti-logo.svg'
+        },
+        'Jaguar': { 
+            info: 'Jaguar — британский производитель премиальных автомобилей. Модели: F-Pace, XE, XF.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/jaguar-logo.svg'
+        },
+        'Land Rover': { 
+            info: 'Land Rover — британский производитель престижных внедорожников. Модели: Range Rover, Discovery, Defender.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/land-rover-logo.svg'
+        },
+        'Mini': { 
+            info: 'Mini — британский производитель компактных автомобилей, часть BMW. Модели: Cooper, Countryman, Clubman.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/mini-logo.svg'
+        },
+        'Suzuki': { 
+            info: 'Suzuki — японский производитель компактных автомобилей и мотоциклов. Модели: Swift, Vitara, Jimny.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/suzuki-logo.svg'
+        },
+        'Иномарки': { 
+            info: 'Иномарки — автомобили зарубежного производства. В нашем каталоге представлены запчасти для популярных иномарок.',
+            image: 'https://cdn.jsdelivr.net/gh/vehiclespecs/brand-logos@v1.0.0/import-logo.svg'
+        }
     };
 
     const allBrands = Object.keys(brandsData);
@@ -133,7 +221,7 @@
         if (data) {
             brandTitle.innerText = brand;
             brandInfo.innerHTML = `
-                <img src="${data.image}" class="img-fluid mb-3" alt="${brand}" style="max-height: 100px; object-fit: contain;">
+                <img src="${data.image}" class="img-fluid mb-3" alt="${brand}" style="max-height: 100px; object-fit: contain; background: white; padding: 10px; border-radius: 12px;">
                 <p class="mt-2">${data.info}</p>
                 <a href="{% url 'crm_app:catalog' %}?search=${encodeURIComponent(brand)}" class="btn btn-primary btn-sm mt-2">Смотреть запчасти для ${brand}</a>
             `;
