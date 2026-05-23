@@ -28,7 +28,7 @@
         .theme-btn:hover {
             color: #0d6efd;
         }
-        /* ========== ТЁМНАЯ ТЕМА (КАК НА СКРИНШОТЕ) ========== */
+        /* ========== ТЁМНАЯ ТЕМА ========== */
         body.dark-theme {
             background-color: #121212 !important;
         }
@@ -131,6 +131,37 @@
         }
         body.dark-theme .btn-outline-light:hover {
             background-color: #2a2a2a !important;
+            color: #ffffff !important;
+        }
+        /* Делаем заголовки яркими */
+        body.dark-theme h1, 
+        body.dark-theme h2, 
+        body.dark-theme h3, 
+        body.dark-theme h4, 
+        body.dark-theme .card-title,
+        body.dark-theme .navbar-brand,
+        body.dark-theme .display-4,
+        body.dark-theme .lead {
+            color: #ffffff !important;
+        }
+        body.dark-theme .card-text {
+            color: #e0e0e0 !important;
+        }
+        body.dark-theme .card-text strong {
+            color: #ffffff !important;
+        }
+        body.dark-theme .bg-primary.text-white {
+            background-color: #0d6efd !important;
+            color: #ffffff !important;
+        }
+        body.dark-theme .bg-secondary.text-white {
+            background-color: #2a2a2a !important;
+            color: #ffffff !important;
+        }
+        /* Слова "Каталог товаров" и другие заголовки */
+        body.dark-theme h1, 
+        body.dark-theme .h1,
+        body.dark-theme .catalog-title {
             color: #ffffff !important;
         }
     </style>
@@ -240,7 +271,6 @@
     <script>
         function setTheme(theme) {
             const body = document.body;
-            const mainMenu = document.getElementById('mainMenu');
             
             if (theme === 'dark') {
                 body.classList.add('dark-theme');
