@@ -10,23 +10,14 @@
             </div>
             <div class="card-body p-0">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><strong>Автохимия</strong></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Дефлекторы (ветровики, мухобойки, козырьки)</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Наборы автомобилиста</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Рамки номеров</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Утеплители аккумулятора</a></li>
-                    <li class="list-group-item"><strong>Ароматизаторы</strong></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Защитные сетки</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Накидки на сиденья</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Тонировка и шторки на стекла</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Брелоки и чехлы</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Ключи замка зажигания</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Наклейки</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Уход за ЛКП</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Буксировочные тросы</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Крепление АКБ</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Подушки, подголовники, подстаканники</a></li>
-                    <li class="list-group-item"><a href="#" class="text-decoration-none">Щетки стеклоочистителя</a></li>
+                    <li class="list-group-item"><strong>Популярные товары</strong></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">Новинки</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">Хиты продаж</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">Рекомендуемые</a></li>
+                    <li class="list-group-item"><strong>Фильтры</strong></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">По цене</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">По производителю</a></li>
+                    <li class="list-group-item"><a href="#" class="text-decoration-none">По стране</a></li>
                 </ul>
             </div>
         </div>
@@ -48,7 +39,7 @@
                         <input type="number" class="form-control form-control-sm" placeholder="до" id="priceTo">
                     </div>
                 </div>
-                <button class="btn btn-primary btn-sm w-100 mt-3">Применить</button>
+                <button class="btn btn-primary btn-sm w-100 mt-3" id="priceFilterBtn">Применить</button>
             </div>
         </div>
     </div>
@@ -71,7 +62,7 @@
             <div class="card-body">
                 <div class="row align-items-center">
                     <div class="col-md-4">
-                        <strong>Сначала популярные</strong>
+                        <strong>Сортировать:</strong>
                     </div>
                     <div class="col-md-8 text-end">
                         <a href="?sort=price" class="btn btn-sm btn-outline-secondary">По цене</a>
@@ -95,6 +86,9 @@
                         {% endif %}
                         <h5 class="card-title">{{ product.name|truncatechars:50 }}</h5>
                         <p class="card-text text-muted small">Артикул: {{ product.article }}</p>
+                        <p class="card-text text-muted small">Производитель: {{ product.manufacturer|default:"-" }}</p>
+                        <p class="card-text text-muted small">Страна: {{ product.country_of_origin|default:"-" }}</p>
+                        <p class="card-text text-muted small">Завод: {{ product.factory|truncatechars:30|default:"-" }}</p>
                         <p class="card-text text-primary h4 mt-3">{{ product.price }} ₽</p>
                     </div>
                     <div class="card-footer bg-white">
@@ -109,12 +103,35 @@
                             {% else %}
                             <button class="btn btn-secondary btn-sm" disabled>Нет в наличии</button>
                             {% endif %}
+                            <a href="{% url 'crm_app:wishlist_add' product.id %}" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-heart me-1"></i>В избранное
+                            </a>
                         </div>
                     </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info text-center py-5">
+                    <i class="bi bi-emoji-frown fs-1"></i>
+                    <h4 class="mt-3">Товары не найдены</h4>
+                    <p>В этой категории пока нет товаров</p>
+                    <a href="{% url 'crm_app:catalog' %}" class="btn btn-primary">Вернуться в каталог</a>
                 </div>
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('priceFilterBtn')?.addEventListener('click', function() {
+        let from = document.getElementById('priceFrom').value;
+        let to = document.getElementById('priceTo').value;
+        let url = new URL(window.location.href);
+        if (from) url.searchParams.set('price_from', from);
+        if (to) url.searchParams.set('price_to', to);
+        window.location.href = url.toString();
+    });
+</script>
 {% endblock %}

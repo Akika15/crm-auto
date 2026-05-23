@@ -76,7 +76,6 @@ class Category(models.Model):
 
 
 class Product(models.Model):
-    """Модель товара"""
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products', verbose_name='Категория', null=True, blank=True)
     article = models.CharField('Артикул', max_length=50, unique=True)
     name = models.CharField('Наименование', max_length=200)
@@ -90,6 +89,8 @@ class Product(models.Model):
     is_recommended = models.BooleanField('Рекомендуемый', default=False)
     stock_quantity = models.IntegerField('Остаток на складе', default=0)
     manufacturer = models.CharField('Производитель', max_length=100, blank=True, null=True)
+    country_of_origin = models.CharField('Страна производства', max_length=100, blank=True, null=True)  # НОВОЕ ПОЛЕ
+    factory = models.CharField('Завод-изготовитель', max_length=200, blank=True, null=True)  # НОВОЕ ПОЛЕ
     compatible_brands = models.TextField('Совместимые марки (через запятую)', blank=True, null=True)
     compatible_models = models.TextField('Совместимые модели (через запятую)', blank=True, null=True)
 
