@@ -108,6 +108,9 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %} text-dark" href="{% url 'crm_app:about' %}">О нас</a>
                     </li>
+                    <li class="nav-item">
+    <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %} text-dark" href="{% url 'crm_app:dashboard' %}">Главная</a>
+ </li>
                 </ul>
             </div>
         </div>
@@ -129,6 +132,9 @@ function setTheme(theme) {
             card.style.backgroundColor = '#2d2d2d';  // тёмно-серый
             card.style.color = '#e0e0e0';
             card.style.borderColor = '#444';
+        });
+        document.querySelectorAll('.text-muted').forEach(el => {
+            el.style.color = '#aaaaaa';
         });
         document.querySelectorAll('.card-header').forEach(header => {
             header.style.backgroundColor = '#3d3d3d';

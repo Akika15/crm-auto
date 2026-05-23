@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crm_app',
+    'django_extensions',  # ДОБАВЬТЕ ЭТУ СТРОКУ
 ]
 
 MIDDLEWARE = [
@@ -58,8 +59,15 @@ WSGI_APPLICATION = 'crm_project.wsgi.application'
 # Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'crm_auto_db_zuio',
+        'USER': 'crm_user',
+        'PASSWORD': 'vXTt0R8SoVJD0LPdd4ZGQkE5JAJKg5Pf',
+        'HOST': 'dpg-d8830du7r5hc73f7hc00-a.frankfurt-postgres.render.com',
+        'PORT': '5432',
+        'OPTIONS': {
+    'connect_timeout': 60,
+},
     }
 }
 

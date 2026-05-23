@@ -5,6 +5,7 @@ from django.contrib.auth import login
 from .models import Client, Vehicle, Order, Product, ServiceReminder, OrderItem, Category, Cart, CartItem, Wishlist
 from .forms import ClientForm, OrderForm, ReminderForm, VehicleForm
 from datetime import datetime
+from django.db import models
 
 def dashboard(request):
     if request.user.is_authenticated:
@@ -302,29 +303,41 @@ def vehicle_delete(request, pk):
 
 # ========== НОВЫЕ ФУНКЦИИ ДЛЯ ИНТЕРНЕТ-МАГАЗИНА ==========
 
-def catalog(request, slug=None):
-    """Страница каталога"""
+from django.db import models  # добавьте в начало файла, если нет
+
+def catalog(request):
     products = Product.objects.filter(is_available=True)
-    categories = Category.objects.filter(parent__isnull=True)
     
-    current_category = None
-    breadcrumbs = []
+    # Поиск по названию или артикулу
+    search_query = request.GET.get('search')
+    if search_query:
+        products = products.filter(
+            models.Q(name__icontains=search_query) |
+            models.Q(article__icontains=search_query)
+        )
     
-    if slug:
-        current_category = get_object_or_404(Category, slug=slug)
-        # Получаем все товары из этой категории и подкатегорий
-        products = products.filter(category__in=current_category.get_descendants(include_self=True))
-        # Строим хлебные крошки
-        parent = current_category.parent
-        while parent:
-            breadcrumbs.insert(0, parent)
-            parent = parent.parent
+    # Фильтр по цене
+    price_from = request.GET.get('price_from')
+    price_to = request.GET.get('price_to')
+    if price_from:
+        products = products.filter(price__gte=price_from)
+    if price_to:
+        products = products.filter(price__lte=price_to)
+    
+    # Сортировка
+    sort_by = request.GET.get('sort')
+    if sort_by == 'price':
+        products = products.order_by('price')
+    elif sort_by == 'name':
+        products = products.order_by('name')
+    elif sort_by == 'new':
+        products = products.order_by('-id')
+    
+    categories = Category.objects.all()
     
     context = {
         'products': products,
         'categories': categories,
-        'current_category': current_category,
-        'breadcrumbs': breadcrumbs,
     }
     return render(request, 'crm_app/catalog.html', context)
 
@@ -399,12 +412,8 @@ def wishlist_view(request):
 
 def guest_home(request):
     new_products = Product.objects.filter(is_new=True, is_available=True)[:8]
-    hit_products = Product.objects.filter(is_hit=True, is_available=True)[:8]
-    recommended_products = Product.objects.filter(is_recommended=True, is_available=True)[:8]
     context = {
         'new_products': new_products,
-        'hit_products': hit_products,
-        'recommended_products': recommended_products,
     }
     return render(request, 'crm_app/guest_home.html', context)
 
