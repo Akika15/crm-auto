@@ -9,22 +9,8 @@
 </head>
 <body style="background-color: #f0f2f5; min-height: 100vh; transition: all 0.3s ease;">
     <div style="min-height: 100vh;">
-        <!-- Верхняя строка с телефонами -->
-        <div class="bg-light border-bottom py-2">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <span class="me-3"><i class="bi bi-telephone text-primary me-1"></i>+7 (927) 018-52-87</span>
-                        <span><i class="bi bi-telephone text-primary me-1"></i>+7 (927) 002-73-02</span>
-                    </div>
-                    <div class="col-md-6 text-end">
-                        <span class="me-3"><i class="bi bi-envelope text-primary me-1"></i>info@komponentavto.ru</span>
-                        <span><i class="bi bi-geo-alt text-primary me-1"></i>г. Москва</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <!-- Верхняя строка с телефонами (УДАЛЕНА) -->
+        
         <!-- Главное меню -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
@@ -45,7 +31,7 @@
                             <a class="nav-link" href="#">Марки авто</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">О нас</a>
+                            <a class="nav-link" href="#">О магазине</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Доставка и оплата</a>
@@ -63,56 +49,45 @@
                             <a class="nav-link" href="#">Закупка оптом</a>
                         </li>
                     </ul>
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Поиск -->
-                        <li class="nav-item">
-                            <form class="d-flex" role="search" method="get" action="{% url 'crm_app:catalog' %}">
-                                <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Поиск..." aria-label="Search">
-                                <button class="btn btn-outline-light btn-sm" type="submit">Найти</button>
-                            </form>
-                        </li>
-                        {% if user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'crm_app:wishlist' %}">
-                                    <i class="bi bi-heart"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'crm_app:cart_view' %}">
-                                    <i class="bi bi-cart"></i>
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                    <i class="bi bi-person-circle"></i> {{ user.username }}
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                    {% if user.is_staff %}
-                                        <li><a class="dropdown-item" href="{% url 'crm_app:client_list' %}">Клиенты</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'crm_app:order_list' %}">Заказы</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'crm_app:reminder_list' %}">Напоминания</a></li>
+                    <div class="d-flex">
+                        <form class="d-flex me-3" role="search" method="get" action="{% url 'crm_app:catalog' %}">
+                            <input class="form-control form-control-sm me-2" type="search" name="search" placeholder="Найти" aria-label="Search" style="width: 150px;">
+                            <button class="btn btn-outline-light btn-sm" type="submit">Найти</button>
+                        </form>
+                        <ul class="navbar-nav">
+                            {% if user.is_authenticated %}
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                        <i class="bi bi-person-circle"></i> {{ user.username }}
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        {% if user.is_staff %}
+                                            <li><a class="dropdown-item" href="{% url 'crm_app:client_list' %}">Клиенты</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'crm_app:order_list' %}">Заказы</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'crm_app:reminder_list' %}">Напоминания</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="/admin/">Админ-панель</a></li>
+                                        {% else %}
+                                            <li><a class="dropdown-item" href="{% url 'crm_app:order_list' %}">Мои заказы</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'crm_app:profile' %}">Мой профиль</a></li>
+                                            <li><a class="dropdown-item" href="{% url 'crm_app:reminder_list' %}">Напоминания</a></li>
+                                        {% endif %}
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="/admin/">Админ-панель</a></li>
-                                    {% else %}
-                                        <li><a class="dropdown-item" href="{% url 'crm_app:order_list' %}">Мои заказы</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'crm_app:profile' %}">Мой профиль</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'crm_app:reminder_list' %}">Напоминания</a></li>
-                                    {% endif %}
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form action="{% url 'logout' %}" method="post" style="display: inline;">
-                                            {% csrf_token %}
-                                            <button type="submit" class="dropdown-item">Выход</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'login' %}">
-                                    <i class="bi bi-box-arrow-in-right me-1"></i>Войти
-                                </a>
-                            </li>
+                                        <li>
+                                            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="dropdown-item">Выход</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}">
+                                        <i class="bi bi-box-arrow-in-right me-1"></i>Войти
+                                    </a>
+                                </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'crm_app:wishlist' %}">
                                     <i class="bi bi-heart"></i>
@@ -123,17 +98,53 @@
                                     <i class="bi bi-cart"></i>
                                 </a>
                             </li>
-                        {% endif %}
-                        <!-- Кнопка переключения темы -->
-                        <li class="nav-item">
-                            <button onclick="toggleTheme()" class="btn btn-link nav-link" style="border: none; background: none; color: rgba(255,255,255,.55);">
-                                <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
-                            </button>
-                        </li>
-                    </ul>
+                            <!-- Кнопка переключения темы -->
+                            <li class="nav-item">
+                                <button onclick="toggleTheme()" class="btn btn-link nav-link" style="border: none; background: none; color: rgba(255,255,255,.55);">
+                                    <i class="bi bi-moon-stars-fill" id="theme-icon"></i>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </nav>
+
+        <!-- Второе меню (под шапкой) -->
+        <div class="bg-light border-bottom py-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav justify-content-start">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="{% url 'crm_app:catalog' %}">Каталог</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">Марки авто</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">О нас</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">Доставка и оплата</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">Гарантии</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">Контакты</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">Статьи</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">Закупка оптом</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="container mt-4">
             {% block content %}
