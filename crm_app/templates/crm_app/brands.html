@@ -4,59 +4,129 @@
 <h1 class="mb-4">Марки авто</h1>
 
 <div class="row">
-    <!-- Марки автомобилей (как на скриншоте) -->
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <!-- Левая колонка -->
+                    <!-- Левая колонка - список марок -->
                     <div class="col-md-4">
                         <ul class="list-unstyled brands-list">
-                            <li><strong>Citroen</strong></li>
-                            <li><strong>BYD</strong></li>
-                            <li><strong>Acura</strong></li>
-                            <li><strong>Lexus</strong></li>
-                            <li><strong>Иномарки</strong></li>
-                            <li class="mt-3"><strong>LADA (ВАЗ)</strong>
+                            <li data-brand="Citroen"><strong>Citroen</strong></li>
+                            <li data-brand="BYD"><strong>BYD</strong></li>
+                            <li data-brand="Acura"><strong>Acura</strong></li>
+                            <li data-brand="Lexus"><strong>Lexus</strong></li>
+                            <li data-brand="Иномарки"><strong>Иномарки</strong></li>
+                            <li class="mt-2" data-brand="Lada (ВАЗ)"><strong>LADA (ВАЗ)</strong>
                                 <ul class="list-unstyled ms-3">
-                                    <li>Lada Vesta</li>
-                                    <li>Lada Priora / Priora 2</li>
-                                    <li>Lada Largus / Largus FL</li>
-                                    <li>Lada Kalina / Kalina 2</li>
-                                    <li>Lada X-Ray</li>
-                                    <li>Lada Granta / Granta FL</li>
-                                    <li>Lada 4x4 / Niva Legend</li>
+                                    <li data-brand="Lada Vesta">Lada Vesta</li>
+                                    <li data-brand="Lada Priora">Lada Priora</li>
+                                    <li data-brand="Lada Largus">Lada Largus</li>
+                                    <li data-brand="Lada Kalina">Lada Kalina</li>
+                                    <li data-brand="Lada X-Ray">Lada X-Ray</li>
+                                    <li data-brand="Lada Granta">Lada Granta</li>
+                                    <li data-brand="Lada Niva">Lada 4x4 / Niva</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Chevrolet"><strong>Chevrolet</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Chevrolet Niva">Chevrolet Niva</li>
+                                    <li data-brand="Chevrolet Cruze">Chevrolet Cruze</li>
+                                    <li data-brand="Chevrolet Lacetti">Chevrolet Lacetti</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="ВАЗ (классика)"><strong>ВАЗ (классика)</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="ВАЗ 2101-2107">ВАЗ 2101-2107 (Жигули)</li>
+                                    <li data-brand="ВАЗ 2108-21099">ВАЗ 2108 / 2109 / 21099 (Спутник/Самара)</li>
+                                    <li data-brand="ВАЗ 2110-2112">ВАЗ 2110 / 2111 / 2112</li>
+                                    <li data-brand="ВАЗ 2113-2115">ВАЗ 2113 / 2114 / 2115</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Toyota"><strong>Toyota</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Toyota Camry">Toyota Camry</li>
+                                    <li data-brand="Toyota Corolla">Toyota Corolla</li>
+                                    <li data-brand="Toyota RAV4">Toyota RAV4</li>
+                                    <li data-brand="Toyota Land Cruiser">Toyota Land Cruiser</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Hyundai"><strong>Hyundai</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Hyundai Solaris">Hyundai Solaris</li>
+                                    <li data-brand="Hyundai Elantra">Hyundai Elantra</li>
+                                    <li data-brand="Hyundai Tucson">Hyundai Tucson</li>
+                                    <li data-brand="Hyundai Santa Fe">Hyundai Santa Fe</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Kia"><strong>Kia</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Kia Rio">Kia Rio</li>
+                                    <li data-brand="Kia Cerato">Kia Cerato</li>
+                                    <li data-brand="Kia Sportage">Kia Sportage</li>
+                                    <li data-brand="Kia Sorento">Kia Sorento</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="BMW"><strong>BMW</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="BMW 3 Series">BMW 3 Series</li>
+                                    <li data-brand="BMW 5 Series">BMW 5 Series</li>
+                                    <li data-brand="BMW X5">BMW X5</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Mercedes-Benz"><strong>Mercedes-Benz</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Mercedes C-Class">Mercedes C-Class</li>
+                                    <li data-brand="Mercedes E-Class">Mercedes E-Class</li>
+                                    <li data-brand="Mercedes GLE">Mercedes GLE</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Audi"><strong>Audi</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Audi A4">Audi A4</li>
+                                    <li data-brand="Audi A6">Audi A6</li>
+                                    <li data-brand="Audi Q5">Audi Q5</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Volkswagen"><strong>Volkswagen</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Volkswagen Polo">Volkswagen Polo</li>
+                                    <li data-brand="Volkswagen Passat">Volkswagen Passat</li>
+                                    <li data-brand="Volkswagen Tiguan">Volkswagen Tiguan</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Ford"><strong>Ford</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Ford Focus">Ford Focus</li>
+                                    <li data-brand="Ford Mondeo">Ford Mondeo</li>
+                                    <li data-brand="Ford Kuga">Ford Kuga</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Nissan"><strong>Nissan</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Nissan Almera">Nissan Almera</li>
+                                    <li data-brand="Nissan Qashqai">Nissan Qashqai</li>
+                                    <li data-brand="Nissan X-Trail">Nissan X-Trail</li>
+                                </ul>
+                            </li>
+                            <li class="mt-2" data-brand="Honda"><strong>Honda</strong>
+                                <ul class="list-unstyled ms-3">
+                                    <li data-brand="Honda Accord">Honda Accord</li>
+                                    <li data-brand="Honda Civic">Honda Civic</li>
+                                    <li data-brand="Honda CR-V">Honda CR-V</li>
                                 </ul>
                             </li>
                         </ul>
                     </div>
-                    <!-- Правая колонка -->
-                    <div class="col-md-4">
-                        <ul class="list-unstyled brands-list">
-                            <li><strong>Chevrolet</strong>
-                                <ul class="list-unstyled ms-3">
-                                    <li>Chevrolet Niva</li>
-                                </ul>
-                            </li>
-                            <li class="mt-3"><strong>ВАЗ (классика)</strong>
-                                <ul class="list-unstyled ms-3">
-                                    <li>ВАЗ 2101-2107</li>
-                                    <li>ВАЗ 2108 / 2109 / 21099</li>
-                                    <li>ВАЗ 2110 / 2111 / 2112</li>
-                                    <li>ВАЗ 2113 / 2114 / 2115</li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- Информация о выбранной марке -->
-                    <div class="col-md-4">
+                    
+                    <!-- Правая колонка - информация о марке -->
+                    <div class="col-md-8">
                         <div class="card brand-info-card">
                             <div class="card-header bg-primary text-white">
-                                <h5 class="mb-0" id="brandTitle">Выберите марку</h5>
+                                <h5 class="mb-0" id="brandTitle">Выберите марку автомобиля</h5>
                             </div>
-                            <div class="card-body" id="brandInfo">
-                                <p class="text-muted">Нажмите на любую марку слева, чтобы увидеть информацию</p>
-                                <img id="brandImage" src="" class="img-fluid mt-3" style="display: none;">
+                            <div class="card-body text-center" id="brandInfo">
+                                <i class="bi bi-car-front" style="font-size: 64px; color: #6c757d;"></i>
+                                <p class="mt-3 text-muted">Нажмите на любую марку или модель слева, чтобы увидеть информацию</p>
                             </div>
                         </div>
                     </div>
@@ -69,61 +139,109 @@
 <script>
     // Данные о марках
     const brandsData = {
-        'Citroen': {
-            info: 'Citroen — французский автопроизводитель, основанный в 1919 году. Известен инновационными технологиями и комфортными автомобилями.',
-            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Citroen_logo.svg/200px-Citroen_logo.svg.png'
-        },
-        'BYD': {
-            info: 'BYD — китайская компания, производитель электромобилей и аккумуляторов. Один из лидеров рынка электромобилей в мире.',
-            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/BYD_Auto_Logo.svg/200px-BYD_Auto_Logo.svg.png'
-        },
-        'Acura': {
-            info: 'Acura — премиальный бренд Honda, основанный в 1986 году. Производит автомобили бизнес-класса.',
-            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Acura_logo.svg/200px-Acura_logo.svg.png'
-        },
-        'Lexus': {
-            info: 'Lexus — премиальный бренд Toyota, основанный в 1989 году. Лидер по надёжности среди люксовых автомобилей.',
-            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Lexus_division_logo.svg/200px-Lexus_division_logo.svg.png'
-        },
-        'Иномарки': {
-            info: 'Иномарки — автомобили зарубежного производства. В нашем каталоге представлены запчасти для популярных иномарок.',
-            image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png'
-        },
-        'LADA (ВАЗ)': {
-            info: 'LADA — российский автопроизводитель, крупнейший в стране. Выпускает доступные и надёжные автомобили: Vesta, Granta, Niva и другие.',
-            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lada_logo_2002.svg/200px-Lada_logo_2002.svg.png'
-        },
-        'Chevrolet': {
-            info: 'Chevrolet — американский бренд, часть концерна General Motors. Популярные модели: Cruze, Lacetti, Aveo, Niva.',
-            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png'
-        },
-        'ВАЗ (классика)': {
-            info: 'ВАЗ (Волжский автомобильный завод) — классические модели: Жигули, Нива, Самара. Легендарные автомобили с большой историей.',
-            image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lada_logo_2002.svg/200px-Lada_logo_2002.svg.png'
-        }
+        // Иномарки
+        'Citroen': { info: 'Citroen — французский автопроизводитель, основанный в 1919 году. Известен инновационными технологиями и комфортными автомобилями.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Citroen_logo.svg/200px-Citroen_logo.svg.png' },
+        'BYD': { info: 'BYD — китайская компания, производитель электромобилей и аккумуляторов. Один из лидеров рынка электромобилей в мире.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/BYD_Auto_Logo.svg/200px-BYD_Auto_Logo.svg.png' },
+        'Acura': { info: 'Acura — премиальный бренд Honda, основанный в 1986 году. Производит автомобили бизнес-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Acura_logo.svg/200px-Acura_logo.svg.png' },
+        'Lexus': { info: 'Lexus — премиальный бренд Toyota, основанный в 1989 году. Лидер по надёжности среди люксовых автомобилей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Lexus_division_logo.svg/200px-Lexus_division_logo.svg.png' },
+        'Иномарки': { info: 'Иномарки — автомобили зарубежного производства. В нашем каталоге представлены запчасти для популярных иномарок.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        // LADA
+        'Lada (ВАЗ)': { info: 'LADA — российский автопроизводитель, крупнейший в стране. Выпускает доступные и надёжные автомобили.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lada_logo_2002.svg/200px-Lada_logo_2002.svg.png' },
+        'Lada Vesta': { info: 'Lada Vesta — современный седан и универсал, одна из самых популярных моделей LADA. Выпускается с 2015 года.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Lada Priora': { info: 'Lada Priora — семейство автомобилей ВАЗ, выпускавшееся с 2007 по 2018 год.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Lada Largus': { info: 'Lada Largus — универсал повышенной вместительности, созданный на платформе Renault Logan.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Lada Kalina': { info: 'Lada Kalina — семейство малолитражных автомобилей, выпускавшихся с 2004 по 2018 год.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Lada X-Ray': { info: 'Lada X-Ray — компактный хэтчбек, первый автомобиль LADA в сегменте SUV.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Lada Granta': { info: 'Lada Granta — современный бюджетный седан, одна из самых продаваемых моделей в России.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'Lada Niva': { info: 'Lada 4x4 (Niva) — легендарный внедорожник, выпускающийся с 1977 года.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        // Chevrolet
+        'Chevrolet': { info: 'Chevrolet — американский бренд, часть концерна General Motors.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png' },
+        'Chevrolet Niva': { info: 'Chevrolet Niva — совместная разработка GM и ВАЗ, популярный компактный внедорожник.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png' },
+        'Chevrolet Cruze': { info: 'Chevrolet Cruze — популярный компактный седан и хэтчбек, выпускался с 2009 по 2016 год.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png' },
+        'Chevrolet Lacetti': { info: 'Chevrolet Lacetti — семейство автомобилей C-класса, выпускалось с 2002 по 2013 год.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Chevrolet_logo.svg/200px-Chevrolet_logo.svg.png' },
+        // ВАЗ классика
+        'ВАЗ (классика)': { info: 'ВАЗ (Волжский автомобильный завод) — классические модели: Жигули, Нива, Самара. Легендарные автомобили с большой историей.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lada_logo_2002.svg/200px-Lada_logo_2002.svg.png' },
+        'ВАЗ 2101-2107': { info: 'ВАЗ 2101-2107 (Жигули) — легендарные заднеприводные седаны, выпускавшиеся с 1970 по 2012 год.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'ВАЗ 2108-21099': { info: 'ВАЗ 2108, 2109, 21099 (Спутник/Самара) — переднеприводные хэтчбеки и седаны, выпускавшиеся с 1984 года.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'ВАЗ 2110-2112': { info: 'ВАЗ 2110, 2111, 2112 — семейство переднеприводных автомобилей, выпускавшихся с 1995 по 2008 год.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        'ВАЗ 2113-2115': { info: 'ВАЗ 2113, 2114, 2115 — рестайлинговое семейство Самара-2, выпускавшееся с 1997 по 2013 год.', image: 'https://cdn-icons-png.flaticon.com/512/1042/1042379.png' },
+        // Новые марки
+        'Toyota': { info: 'Toyota — японский автогигант, один из крупнейших в мире. Известны надёжностью и долговечностью.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Toyota_EU_logo.svg/200px-Toyota_EU_logo.svg.png' },
+        'Toyota Camry': { info: 'Toyota Camry — популярный бизнес-седан, известный надёжностью и комфортом.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Toyota_EU_logo.svg/200px-Toyota_EU_logo.svg.png' },
+        'Toyota Corolla': { info: 'Toyota Corolla — самый продаваемый автомобиль в истории, выпускается с 1966 года.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Toyota_EU_logo.svg/200px-Toyota_EU_logo.svg.png' },
+        'Toyota RAV4': { info: 'Toyota RAV4 — популярный компактный кроссовер, один из пионеров сегмента.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Toyota_EU_logo.svg/200px-Toyota_EU_logo.svg.png' },
+        'Toyota Land Cruiser': { info: 'Toyota Land Cruiser — легендарный рамный внедорожник, символ надёжности.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Toyota_EU_logo.svg/200px-Toyota_EU_logo.svg.png' },
+        'Hyundai': { info: 'Hyundai — южнокорейский автопроизводитель, известен соотношением цены и качества.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png' },
+        'Hyundai Solaris': { info: 'Hyundai Solaris — популярный бюджетный седан и хэтчбек для российского рынка.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png' },
+        'Hyundai Elantra': { info: 'Hyundai Elantra — компактный седан, популярный во многих странах мира.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png' },
+        'Hyundai Tucson': { info: 'Hyundai Tucson — компактный кроссовер, популярный в России и Европе.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png' },
+        'Hyundai Santa Fe': { info: 'Hyundai Santa Fe — среднеразмерный кроссовер с 7-местной версией.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png' },
+        'Kia': { info: 'Kia — южнокорейский автопроизводитель, часть группы Hyundai.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Kia_Motors_logo.svg/200px-Kia_Motors_logo.svg.png' },
+        'Kia Rio': { info: 'Kia Rio — популярный бюджетный автомобиль, конкурент Hyundai Solaris.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Kia_Motors_logo.svg/200px-Kia_Motors_logo.svg.png' },
+        'Kia Cerato': { info: 'Kia Cerato — компактный седан, популярный в России.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Kia_Motors_logo.svg/200px-Kia_Motors_logo.svg.png' },
+        'Kia Sportage': { info: 'Kia Sportage — популярный компактный кроссовер.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Kia_Motors_logo.svg/200px-Kia_Motors_logo.svg.png' },
+        'Kia Sorento': { info: 'Kia Sorento — среднеразмерный кроссовер с 7-местной версией.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Kia_Motors_logo.svg/200px-Kia_Motors_logo.svg.png' },
+        'BMW': { info: 'BMW — немецкий автопроизводитель, специализирующийся на премиальных автомобилях.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/200px-BMW.svg.png' },
+        'BMW 3 Series': { info: 'BMW 3 Series — легендарный спортивный седан D-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/200px-BMW.svg.png' },
+        'BMW 5 Series': { info: 'BMW 5 Series — бизнес-седан E-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/200px-BMW.svg.png' },
+        'BMW X5': { info: 'BMW X5 — премиальный среднеразмерный кроссовер.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/200px-BMW.svg.png' },
+        'Mercedes-Benz': { info: 'Mercedes-Benz — немецкий премиальный автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Mercedes-Benz_logo_2010.svg/200px-Mercedes-Benz_logo_2010.svg.png' },
+        'Mercedes C-Class': { info: 'Mercedes C-Class — компактный бизнес-седан.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Mercedes-Benz_logo_2010.svg/200px-Mercedes-Benz_logo_2010.svg.png' },
+        'Mercedes E-Class': { info: 'Mercedes E-Class — бизнес-седан E-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Mercedes-Benz_logo_2010.svg/200px-Mercedes-Benz_logo_2010.svg.png' },
+        'Mercedes GLE': { info: 'Mercedes GLE — премиальный среднеразмерный кроссовер.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Mercedes-Benz_logo_2010.svg/200px-Mercedes-Benz_logo_2010.svg.png' },
+        'Audi': { info: 'Audi — немецкий премиальный автопроизводитель, часть концерна VAG.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Audi-Logo_2016.svg/200px-Audi-Logo_2016.svg.png' },
+        'Audi A4': { info: 'Audi A4 — компактный бизнес-седан.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Audi-Logo_2016.svg/200px-Audi-Logo_2016.svg.png' },
+        'Audi A6': { info: 'Audi A6 — бизнес-седан E-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Audi-Logo_2016.svg/200px-Audi-Logo_2016.svg.png' },
+        'Audi Q5': { info: 'Audi Q5 — компактный премиальный кроссовер.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Audi-Logo_2016.svg/200px-Audi-Logo_2016.svg.png' },
+        'Volkswagen': { info: 'Volkswagen — немецкий автопроизводитель, один из крупнейших в мире.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Volkswagen_logo.svg/200px-Volkswagen_logo.svg.png' },
+        'Volkswagen Polo': { info: 'Volkswagen Polo — популярный компактный автомобиль B-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Volkswagen_logo.svg/200px-Volkswagen_logo.svg.png' },
+        'Volkswagen Passat': { info: 'Volkswagen Passat — бизнес-седан D-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Volkswagen_logo.svg/200px-Volkswagen_logo.svg.png' },
+        'Volkswagen Tiguan': { info: 'Volkswagen Tiguan — популярный компактный кроссовер.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Volkswagen_logo.svg/200px-Volkswagen_logo.svg.png' },
+        'Ford': { info: 'Ford — американский автопроизводитель, один из старейших в мире.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png' },
+        'Ford Focus': { info: 'Ford Focus — популярный компактный автомобиль C-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png' },
+        'Ford Mondeo': { info: 'Ford Mondeo — бизнес-седан D-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png' },
+        'Ford Kuga': { info: 'Ford Kuga — компактный кроссовер.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png' },
+        'Nissan': { info: 'Nissan — японский автопроизводитель.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Nissan_logo_2020.svg/200px-Nissan_logo_2020.svg.png' },
+        'Nissan Almera': { info: 'Nissan Almera — бюджетный седан B-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Nissan_logo_2020.svg/200px-Nissan_logo_2020.svg.png' },
+        'Nissan Qashqai': { info: 'Nissan Qashqai — популярный компактный кроссовер.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Nissan_logo_2020.svg/200px-Nissan_logo_2020.svg.png' },
+        'Nissan X-Trail': { info: 'Nissan X-Trail — среднеразмерный кроссовер.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Nissan_logo_2020.svg/200px-Nissan_logo_2020.svg.png' },
+        'Honda': { info: 'Honda — японский автопроизводитель, известен надёжностью.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Honda.svg/200px-Honda.svg.png' },
+        'Honda Accord': { info: 'Honda Accord — бизнес-седан D-класса.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Honda.svg/200px-Honda.svg.png' },
+        'Honda Civic': { info: 'Honda Civic — популярный компактный автомобиль.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Honda.svg/200px-Honda.svg.png' },
+        'Honda CR-V': { info: 'Honda CR-V — популярный компактный кроссовер.', image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Honda.svg/200px-Honda.svg.png' },
     };
 
     // Функция для отображения информации о марке
-    function showBrandInfo(brand) {
+    window.showBrandInfo = function(brand) {
         const data = brandsData[brand];
+        const brandTitle = document.getElementById('brandTitle');
+        const brandInfo = document.getElementById('brandInfo');
+        
         if (data) {
-            document.getElementById('brandTitle').innerText = brand;
-            document.getElementById('brandInfo').innerHTML = `
-                <p>${data.info}</p>
-                <img src="${data.image}" class="img-fluid mt-3" alt="${brand}" style="max-height: 100px;">
-                <br>
-                <a href="{% url 'crm_app:catalog' %}?brand=${brand.toLowerCase().split(' ')[0]}" class="btn btn-primary btn-sm mt-3">Смотреть запчасти для ${brand}</a>
+            brandTitle.innerText = brand;
+            brandInfo.innerHTML = `
+                <img src="${data.image}" class="img-fluid mb-3" alt="${brand}" style="max-height: 120px; object-fit: contain;">
+                <p class="mt-2">${data.info}</p>
+                <a href="{% url 'crm_app:catalog' %}?search=${encodeURIComponent(brand)}" class="btn btn-primary btn-sm mt-2">Смотреть запчасти для ${brand}</a>
+            `;
+        } else {
+            brandTitle.innerText = brand;
+            brandInfo.innerHTML = `
+                <i class="bi bi-car-front" style="font-size: 64px; color: #6c757d;"></i>
+                <p class="mt-3">Информация о марке "${brand}" будет добавлена позже.</p>
+                <a href="{% url 'crm_app:catalog' %}?search=${encodeURIComponent(brand)}" class="btn btn-primary btn-sm mt-2">Смотреть запчасти для ${brand}</a>
             `;
         }
-    }
+    };
 
-    // Добавляем обработчики на все элементы с марками
-    document.querySelectorAll('.brands-list li').forEach(item => {
-        const text = item.innerText.trim();
-        if (brandsData[text]) {
-            item.style.cursor = 'pointer';
-            item.addEventListener('click', () => showBrandInfo(text));
-        }
+    // Добавляем обработчики на все элементы с атрибутом data-brand
+    document.querySelectorAll('[data-brand]').forEach(item => {
+        const brand = item.getAttribute('data-brand');
+        item.style.cursor = 'pointer';
+        item.addEventListener('click', (e) => {
+            e.stopPropagation();
+            showBrandInfo(brand);
+        });
     });
 </script>
 
@@ -137,10 +255,10 @@
         color: #0d6efd;
     }
     .brands-list ul li {
-        cursor: default;
+        cursor: pointer;
     }
     .brands-list ul li:hover {
-        color: inherit;
+        color: #0d6efd;
     }
     .brand-info-card {
         position: sticky;
